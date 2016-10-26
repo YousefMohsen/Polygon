@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class DomainFacade {
 
     public DomainFacade() {
-         demoBuildings();
+         demoToDelete();
     }
     
     
@@ -35,12 +35,15 @@ public class DomainFacade {
     }   
     
     
- private void demoBuildings(){//to delete
+ private void demoToDelete(){//to delete
 
+     
+     
   Zipcode zip1 = new Zipcode("2800", "Kongens Lyngby") ;
    Adress adr1 = new Adress(1, "Lyngby Hovedgade 1", zip1) ;
 
-     
+ users.add(new User("Leo","Messi","0987656789","messi@cat.com",adr1));
+
      
    buildings.add(new Building(1,1,adr1,"rapoort",2));
    buildings.add(new Building(2,4,adr1,"rapoort2",2));

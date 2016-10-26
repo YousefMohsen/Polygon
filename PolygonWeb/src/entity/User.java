@@ -15,18 +15,18 @@ public class User {
    private String lastname;
    private String phone;
    private String email;
-   private int adressID;
+   private Adress adress;
 
     public User() {
     }
 
-    public User(int id, String firstname, String lastname, String phone, String email, int adressID) {
-        this.id = id;
+    public User( String firstname, String lastname, String phone, String email, Adress adress) {
+       // this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
         this.email = email;
-        this.adressID = adressID;
+        this.adress = adress;
     }
 
    
@@ -72,12 +72,12 @@ public class User {
         this.email = email;
     }
 
-    public int getAdressID() {
-        return adressID;
+    public Adress getAdress() {
+        return adress;
     }
 
-    public void setAdressID(int adressID) {
-        this.adressID = adressID;
+    public void setAdress(Adress adress) {
+        this.adress = adress;
     }
 
 
