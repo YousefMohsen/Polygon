@@ -11,26 +11,26 @@ package entity;
  */
 public class Building {
     
-    
+
     private int id;
     private int hidden;
-    private int adressID;
+    private Adress adress;
     private String rapoort;
     private int user;
 
     public Building() {
     }
 
-    public Building(int id, int hidden, int adressID, String rapoort, int user) {
+    public Building(int id, int hidden, Adress adress, String rapoort, int user) {
         this.id = id;
         this.hidden = hidden;
-        this.adressID = adressID;
+        this.adress = adress;
         this.rapoort = rapoort;
         this.user = user;
     }
 
-    public Building(int adressID, String rapoort, int user) {
-        this.adressID = adressID;
+    public Building(Adress adress, String rapoort, int user) {
+        this.adress = adress;
         this.rapoort = rapoort;
         this.user = user;
     }
@@ -52,12 +52,12 @@ public class Building {
         this.hidden = hidden;
     }
 
-    public int getAdressID() {
-        return adressID;
+    public Adress getAdressID() {
+        return adress;
     }
 
-    public void setAdressID(int adressID) {
-        this.adressID = adressID;
+    public void setAdressID(Adress adress) {
+        this.adress = adress;
     }
 
     public String getRapoort() {

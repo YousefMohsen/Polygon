@@ -5,8 +5,10 @@
  */
 package Domain;
 
+import entity.Adress;
 import entity.Building;
 import entity.User;
+import entity.Zipcode;
 import java.util.ArrayList;
 
 /**
@@ -35,9 +37,14 @@ public class DomainFacade {
     
  private void demoBuildings(){//to delete
 
-   buildings.add(new Building(1,1,1,"rapoort",2));
-   buildings.add(new Building(2,4,2,"rapoort2",2));
-   buildings.add(new Building(3,5,3,"rapoort3",1));
+  Zipcode zip1 = new Zipcode(1,"2800", "Kongens Lyngby") ;
+   Adress adr1 = new Adress(1, "Lyngby Hovedgade 1", zip1) ;
+
+     
+     
+   buildings.add(new Building(1,1,adr1,"rapoort",2));
+   buildings.add(new Building(2,4,adr1,"rapoort2",2));
+   buildings.add(new Building(3,5,adr1,"rapoort3",1));
 
 
     }

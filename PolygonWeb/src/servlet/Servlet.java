@@ -48,7 +48,7 @@ DomainFacade df = new DomainFacade();
             String report = request.getParameter("report");
             int adress = Integer.parseInt(request.getParameter("adress"));
             out.println(report+" "+ user+" "+adress);
-            df.addBuilding(new Building(adress, report,user));
+          //  df.addBuilding(new Building(new, report,user));
             response.sendRedirect("seeBuildings.jsp");
           break;
   

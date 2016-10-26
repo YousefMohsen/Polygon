@@ -30,9 +30,10 @@
       <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Owner</th>
+        <th>Contact</th>
         <th>Adress</th>
-        <th>Report</th>
+        <th>Zip/City</th>
+        <th>Phone</th>  
       </tr>
     </thead>
   
@@ -44,8 +45,8 @@
 
             out.println("<tr>");
         out.println("<td>" + b.getUser()+"</td>");
-        out.println("<td>" + b.getAdressID()+"</td>");
-        out.println("<td>" + b.getRapoort()+"</td>");
+        out.println("<td>" + b.getAdressID().getAdressline()+"</td>");
+        out.println("<td>" + b.getAdressID().getZipCode().getZip() + " - "+b.getAdressID().getZipCode().getCity()+"</td>");
          out.println("<tr>");       }
         
 
@@ -61,13 +62,15 @@
             <td> <input type="text" name="report" value="" /> </td>  
         </tr> 
          <tr>
+             
 <td> <input type="submit" class="btn btn-success" value="Add Building" name="add"/> </td>   
-         
+
+
         </tr>
       
       
     </tbody>
-    
+        
   </table>
 
 

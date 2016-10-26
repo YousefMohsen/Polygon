@@ -13,12 +13,12 @@ public class Adress {
     
     private int adressID;
     private String adressline;
-    private int zipCode;
+    private Zipcode zipCode;
 
     public Adress() {
     }
 
-    public Adress(int adressID, String adressline, int zipCode) {
+    public Adress(int adressID, String adressline, Zipcode zipCode) {
         this.adressID = adressID;
         this.adressline = adressline;
         this.zipCode = zipCode;
@@ -40,11 +40,11 @@ public class Adress {
         this.adressline = adressline;
     }
 
-    public int getZipCode() {
+    public Zipcode getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Zipcode zipCode) {
         this.zipCode = zipCode;
     }
     
