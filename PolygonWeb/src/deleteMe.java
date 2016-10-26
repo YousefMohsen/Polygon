@@ -21,7 +21,10 @@ public class deleteMe {
                 System.out.println("User: "+b.getUser()+"Adress: "+b.getAdressID()+"Rapport: "+b.getRapoort());
          }
 
-       
+         df.addBuilding(new Building(4,4,4,"rapoort4",4));
+                 
+               
+             
      
            for (Building b : df.getBuildings()) {
                 System.out.println("User: "+b.getUser()+"Adress: "+b.getAdressID()+"Rapport: "+b.getRapoort());

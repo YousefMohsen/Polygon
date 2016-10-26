@@ -6,6 +6,7 @@
 package Domain;
 
 import entity.Building;
+import entity.User;
 import java.util.ArrayList;
 
 /**
@@ -21,8 +22,9 @@ public class DomainFacade {
     
     
   private ArrayList<Building> buildings = new ArrayList();
-    
-   
+  private ArrayList<User> users = new ArrayList();
+ 
+
   
     public ArrayList<Building> getBuildings(){
  

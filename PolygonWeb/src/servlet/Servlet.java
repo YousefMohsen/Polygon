@@ -40,10 +40,12 @@ DomainFacade df = new DomainFacade();
         
              HttpSession session = request.getSession();    
                  String origin = request.getParameter("origin");
-         
-                System.out.println(origin);
-            if(origin.equals("addBuilding")){
-                System.out.println("if " +origin );  
+               System.out.println("hej");
+                //System.out.println(origin);
+                
+                
+//            if(origin.equals("addBuilding")){
+//                System.out.println("if " +origin );  
             //   response.sendRedirect("index.html");
                 //System.out.println("addBuilding");
 //            int user = Integer.parseInt(request.getParameter("owner"));
@@ -55,7 +57,7 @@ DomainFacade df = new DomainFacade();
 //            df.addBuilding(new Building(adress, report,user));
 //            
 //        response.sendRedirect("seeBuildings.jsp");
-     } 
+   //  } 
 
             
           

@@ -11,6 +11,7 @@ package entity;
  */
 public class Building {
     
+    
     private int id;
     private int hidden;
     private int adressID;
