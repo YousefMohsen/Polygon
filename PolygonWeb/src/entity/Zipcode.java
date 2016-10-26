@@ -10,15 +10,15 @@ package entity;
  * @author Yousinho
  */
 public class Zipcode {
-   private int adressId;
+   private int adressId;//delete this
    private String zip;
    private String city;
 
     public Zipcode() {
     }
 
-    public Zipcode(int adressId, String zip, String city) {
-        this.adressId = adressId;
+    public Zipcode( String zip, String city) {
+   
         this.zip = zip;
         this.city = city;
     }

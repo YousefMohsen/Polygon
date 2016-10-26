@@ -37,7 +37,7 @@ public class DomainFacade {
     
  private void demoBuildings(){//to delete
 
-  Zipcode zip1 = new Zipcode(1,"2800", "Kongens Lyngby") ;
+  Zipcode zip1 = new Zipcode("2800", "Kongens Lyngby") ;
    Adress adr1 = new Adress(1, "Lyngby Hovedgade 1", zip1) ;
 
      
@@ -49,10 +49,17 @@ public class DomainFacade {
 
     }
     
-    public void addBuilding(Building b){
+    public void addBuilding(String contact,String adress,String zip,String city,String phone){
     //db.addBuilding(b);
-    buildings.add(b);//to delete
+    
+  Zipcode newZip = new Zipcode(zip, city);// zip id or building id? db.addZip(newZip)
+  Adress newAdress = new Adress(adress, newZip) ; // db.addAdress(newAdress)
+  //db.addBuilding(b);
 
+ Building newBuilding =  new Building(newAdress,"rapoort3",1);
+
+  buildings.add(newBuilding); //db.adBuilding(newBuilding)
+  
     }
 
  

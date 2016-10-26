@@ -52,11 +52,11 @@ public class Building {
         this.hidden = hidden;
     }
 
-    public Adress getAdressID() {
+    public Adress getAdress() {
         return adress;
     }
 
-    public void setAdressID(Adress adress) {
+    public void setAdress(Adress adress) {
         this.adress = adress;
     }
 

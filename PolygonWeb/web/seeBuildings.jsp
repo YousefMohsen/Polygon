@@ -32,7 +32,8 @@
       <tr>
         <th>Contact</th>
         <th>Adress</th>
-        <th>Zip/City</th>
+        <th>Zip</th>
+        <th>City</th>
         <th>Phone</th>  
       </tr>
     </thead>
@@ -45,8 +46,10 @@
 
             out.println("<tr>");
         out.println("<td>" + b.getUser()+"</td>");
-        out.println("<td>" + b.getAdressID().getAdressline()+"</td>");
-        out.println("<td>" + b.getAdressID().getZipCode().getZip() + " - "+b.getAdressID().getZipCode().getCity()+"</td>");
+        out.println("<td>" + b.getAdress().getAdressline()+"</td>");
+        out.println("<td>" + b.getAdress().getZipCode().getZip()+"</td>");
+        out.println("<td>" + b.getAdress().getZipCode().getCity()+"</td>");
+        out.println("<td>"+"phone number"+ "</td>");
          out.println("<tr>");       }
         
 
@@ -57,9 +60,11 @@
 
 
         <tr>
-            <td> <input type="text" name="owner" value="" /> </td>   
+            <td> <input type="text" name="contact" value="" /> </td>   
             <td> <input type="text" name="adress" value="" /> </td>  
-            <td> <input type="text" name="report" value="" /> </td>  
+            <td> <input type="text" name="zip" value="" /> </td>
+             <td> <input type="text" name="city" value="" /> </td>
+           <td> <input type="text" name="phone" value="" /> </td>
         </tr> 
          <tr>
              

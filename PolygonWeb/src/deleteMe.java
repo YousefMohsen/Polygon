@@ -18,17 +18,20 @@ public class deleteMe {
    DomainFacade df = new DomainFacade();  
       
          for (Building b : df.getBuildings()) {
-                System.out.println("User: "+b.getUser()+"Adress: "+b.getAdressID()+"Rapport: "+b.getRapoort());
+System.out.println(b.getAdress().getAdressline()+" "+b.getAdress().getZipCode().getZip()+" "+b.getAdress().getZipCode().getCity());
          }
 
   //       df.addBuilding(new Building(4,4,4,"rapoort4",4));
                  
                
-             
+ df.addBuilding("Messi","Camp nou street","09771","Barcelona","009182739");
+
+
      
            for (Building b : df.getBuildings()) {
-                System.out.println("User: "+b.getUser()+"Adress: "+b.getAdressID()+"Rapport: "+b.getRapoort());
+System.out.println(b.getAdress().getAdressline()+" "+b.getAdress().getZipCode().getZip()+" "+b.getAdress().getZipCode().getCity());
          }
+ 
 
      
      }

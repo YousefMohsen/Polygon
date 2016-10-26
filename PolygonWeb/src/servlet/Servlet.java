@@ -44,21 +44,22 @@ DomainFacade df = new DomainFacade();
   switch(origin){
   
       case "addBuilding":
-            int user = Integer.parseInt(request.getParameter("owner"));
-            String report = request.getParameter("report");
-            int adress = Integer.parseInt(request.getParameter("adress"));
-            out.println(report+" "+ user+" "+adress);
-          //  df.addBuilding(new Building(new, report,user));
-            response.sendRedirect("seeBuildings.jsp");
+          
+          
+          
+            String contact = request.getParameter("contact");
+            String adress = request.getParameter("adress");
+            String zip = request.getParameter("zip");
+            String city = request.getParameter("city");
+            String phone = request.getParameter("phone");
+
+            df.addBuilding(contact,adress,zip,city,phone);
+       response.sendRedirect("seeBuildings.jsp");
           break;
-  
-  
-  
-  
+
   
   }
-            
-               
+
           
    
 

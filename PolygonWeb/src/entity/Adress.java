@@ -23,6 +23,10 @@ public class Adress {
         this.adressline = adressline;
         this.zipCode = zipCode;
     }
+        public Adress(String adressline, Zipcode zipCode) {
+        this.adressline = adressline;
+        this.zipCode = zipCode;
+    }
 
     public int getAdressID() {
         return adressID;
