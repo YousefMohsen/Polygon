@@ -28,6 +28,12 @@ public class Building {
         this.user = user;
     }
 
+    public Building(int adressID, String rapoort, int user) {
+        this.adressID = adressID;
+        this.rapoort = rapoort;
+        this.user = user;
+    }
+
     
     public int getId() {
         return id;

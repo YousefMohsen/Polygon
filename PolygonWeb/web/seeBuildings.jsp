@@ -19,18 +19,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-           <%   //get data from servlet
+           <%   //get data from DomainFacade
         DomainFacade df = new DomainFacade();
        List<Building> buildings = (List) df.getBuildings(); 
            %>
 
-           
-                 <table class="table table-bordered">
+        <form action="Servlet" method="POST"> 
+                 
+  <input type="hidden" name="origin" value="addBuilding">
+      <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Adress</th>
         <th>Owner</th>
+        <th>Adress</th>
         <th>Report</th>
       </tr>
     </thead>
@@ -39,28 +40,13 @@
         <% 
             
         for (Building b : buildings) {
-    %>  
-        
-        
-        
-        <% 
+  
 
             out.println("<tr>");
-        out.println("<td>" +"</td>");    
-        out.println("<td>" + b.getAdressID()+"</td>");
         out.println("<td>" + b.getUser()+"</td>");
+        out.println("<td>" + b.getAdressID()+"</td>");
         out.println("<td>" + b.getRapoort()+"</td>");
-        
-        
-        
-  
-          %>     
-</tr>
-
-
-    </form>
-        <%
-        }
+         out.println("<tr>");       }
         
 
         
@@ -68,12 +54,26 @@
         %>
   
 
+
+        <tr>
+            <td> <input type="text" name="owner" value="" /> </td>   
+            <td> <input type="text" name="adress" value="" /> </td>  
+            <td> <input type="text" name="report" value="" /> </td>  
+        </tr> 
+         <tr>
+<td> <input type="submit" class="btn btn-success" value="Add Building" name="add"/> </td>   
+         
+        </tr>
       
       
     </tbody>
     
   </table>
-           
+
+
+          </form>
+
+   
            
     </body>
 </html>
