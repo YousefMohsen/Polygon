@@ -51,6 +51,11 @@ public class Adress {
     public void setZipCode(Zipcode zipCode) {
         this.zipCode = zipCode;
     }
+
+    @Override
+    public String toString() {//delete
+        return "Adress{" + "adressID=" + adressID + ", adressline=" + adressline + ", zipCode=" + zipCode.getZip() + ", City=" +zipCode.getCity()+ '}';
+    }
     
     
 }

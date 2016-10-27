@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DButil {
+public class DB {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
    static final String DB_URL = "jdbc:mysql://vetterlain.dk/Polygon";
@@ -14,7 +14,7 @@ public class DButil {
    private Connection conn = null;
    
 
-   public Connection conn(){           
+   public Connection getConnection(){           
    try{
       //STEP 1: Register JDBC driver
       Class.forName("com.mysql.jdbc.Driver");

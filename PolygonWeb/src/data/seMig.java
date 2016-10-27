@@ -9,10 +9,15 @@ import java.sql.Statement;
  * @author joaci
  */
 public class seMig {
-    DButil j = new DButil();
+    DBConnection j = new DBConnection();
     public static void main(String[] args) {
         seMig m = new seMig();
         m.getDataFromSql();
+    
+    
+     DatabaseFacade dbf = new DatabaseFacade();
+   
+        // System.out.println(dbf.loadZip(0).getCity());
     }
     
     // Eksempel på at hente data, og endelig afslutte forbindelsen.
@@ -42,4 +47,7 @@ public class seMig {
         try { j.close(); } catch (Exception e) { /* ignored */ }
 }
     }
+
+
+
 }

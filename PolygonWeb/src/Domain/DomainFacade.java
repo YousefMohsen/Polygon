@@ -5,6 +5,7 @@
  */
 package Domain;
 
+import data.DatabaseFacade;
 import entity.Adress;
 import entity.Building;
 import entity.User;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  * @author Yousinho
  */
 public class DomainFacade {
-
+DatabaseFacade dbf = new DatabaseFacade();
     public DomainFacade() {
          demoToDelete();
     }
@@ -30,8 +31,8 @@ public class DomainFacade {
   
     public ArrayList<Building> getBuildings(){
  
-    return buildings;
-    //return db.getBuildings;
+    //return buildings;
+    return (ArrayList<Building>) dbf.getBuildings();
     }   
     
     
