@@ -9,7 +9,7 @@ import java.sql.Statement;
  * @author joaci
  */
 public class seMig {
-    DBConnection j = new DBConnection();
+   DB j = new DB();
     public static void main(String[] args) {
         seMig m = new seMig();
         m.getDataFromSql();
@@ -27,7 +27,7 @@ public class seMig {
         try {
             //STEP 1: Execute a query
             System.out.println("Creating statement...");
-            stmt = j.conn().createStatement();
+            stmt = j.getConnection().createStatement();
             String sql;
             sql = "SELECT * FROM Zipcode";
             rs = stmt.executeQuery(sql);
