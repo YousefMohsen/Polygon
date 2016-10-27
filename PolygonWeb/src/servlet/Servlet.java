@@ -22,7 +22,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
-DomainFacade df = new DomainFacade();
+
+    DomainFacade df = new DomainFacade();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,45 +39,26 @@ DomainFacade df = new DomainFacade();
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-        
-             HttpSession session = request.getSession();    
-             String origin = request.getParameter("origin");
- 
-  switch(origin){
-  
-      case "addBuilding":
-          
-          
-          
-            String contact = request.getParameter("contact");
-            String adress = request.getParameter("adress");
-            String zip = request.getParameter("zip");
-            String city = request.getParameter("city");
-            String phone = request.getParameter("phone");
 
-            df.addBuilding(contact,adress,zip,city,phone);
-       response.sendRedirect("seeBuildings.jsp");
-          break;
+            HttpSession session = request.getSession();
+            String origin = request.getParameter("origin");
 
-  
-  }
+            switch (origin) {
 
-          
-   
+                case "addBuilding":
 
-            
-          
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+                    String contact = request.getParameter("contact");
+                    String adress = request.getParameter("adress");
+                    String zip = request.getParameter("zip");
+                    String city = request.getParameter("city");
+                    String phone = request.getParameter("phone");
+
+                    df.addBuilding(contact, adress, zip, city, phone);
+                    response.sendRedirect("seeBuildings.jsp");
+                    break;
+                    
+            }
+
         }
     }
 
