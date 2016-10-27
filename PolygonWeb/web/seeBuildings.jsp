@@ -21,7 +21,11 @@
     <body>
         <%   //get data from DomainFacade
             DomainFacade df = new DomainFacade();
-            List<Building> buildings = (List) df.getBuildings();
+          List<Building> buildings = (List<Building>)session.getAttribute("buildings");
+          // List<Building> buildings = (List) df.getBuildings();
+      
+           
+
         %>
 
         <form action="Servlet" method="POST"> 
@@ -62,10 +66,11 @@
                         <td> <input type="text" name="zip" value="" /> </td>
                         <td> <input type="text" name="city" value="" /> </td>
                         <td> <input type="text" name="phone" value="" /> </td>
+                   <td>   
+
                     </tr> 
                     <tr>
 
-                        <td> <input type="submit" class="btn btn-success" value="Add Building" name="add"/> </td>   
 
 
                     </tr>
@@ -73,15 +78,13 @@
                 </tbody>
 
             </table>
+                     
             <div>
+               <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
                 Click the tables to edit them, and save with "enter" or go back with "escape".
             </div>
-
-
-        </form>
-
-
-        <script>
+       </form>
+    <script>
             //script der gør det muligt at clicke tabellen og edite
             $(function () {
                 $("td").click(function (event) {
@@ -115,5 +118,10 @@
                 });
             });
         </script>
+
+
+
+    
     </body>
+    
 </html>

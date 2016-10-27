@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
 
-    DomainFacade df = new DomainFacade();
+   DomainFacade df = new DomainFacade();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,22 +42,39 @@ public class Servlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");
-
+  
             switch (origin) {
-
+                    
                 case "addBuilding":
-
+                        
                     String contact = request.getParameter("contact");
                     String adress = request.getParameter("adress");
                     String zip = request.getParameter("zip");
                     String city = request.getParameter("city");
                     String phone = request.getParameter("phone");
 
-                    df.addBuilding(contact, adress, zip, city, phone);
-                    response.sendRedirect("seeBuildings.jsp");
-                    break;
                     
+                df.addBuilding(contact, adress, zip, city, phone);
+                        session.setAttribute("buildings", df.getBuildings());
+
+                   response.sendRedirect("seeBuildings.jsp");
+                    break;
+           case "index":
+                       
+           // request.setAttribute("buildings", df.getBuildings());
+            
+            
+        session.setAttribute("buildings", df.getBuildings());
+            //set attributes on request
+        //    request.setAttribute("password", password);
+
+            //request.getRequestDispatcher("seeBuildings.jsp").forward(request, response);
+       // processRequest(request, response);
+            response.sendRedirect("seeBuildings.jsp");
+
+              break;
             }
+       
 
         }
     }
@@ -74,7 +91,9 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+
     }
 
     /**

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Yousinho
  */
-public class DomainFacade {
+public final class DomainFacade {
 DatabaseFacade dbf = new DatabaseFacade();
     public DomainFacade() {
          demoToDelete();
@@ -31,8 +31,8 @@ DatabaseFacade dbf = new DatabaseFacade();
   
     public ArrayList<Building> getBuildings(){
  
-    //return buildings;
-    return (ArrayList<Building>) dbf.getBuildings();
+ return buildings;
+    //return (ArrayList<Building>) dbf.getBuildings();
     }   
     
     
@@ -44,7 +44,7 @@ DatabaseFacade dbf = new DatabaseFacade();
    Adress adr1 = new Adress(1, "Lyngby Hovedgade 1", zip1) ;
 
  users.add(new User("Leo","Messi","0987656789","messi@cat.com",adr1));
-
+ 
      
    buildings.add(new Building(1,1,adr1,"rapoort",2));
    buildings.add(new Building(2,4,adr1,"rapoort2",2));
@@ -55,7 +55,7 @@ DatabaseFacade dbf = new DatabaseFacade();
     
     public void addBuilding(String contact,String adress,String zip,String city,String phone){
     //db.addBuilding(b);
-    
+           System.out.println("add building"+city);
   Zipcode newZip = new Zipcode(zip, city);// zip id or building id? db.addZip(newZip)
   Adress newAdress = new Adress(adress, newZip) ; // db.addAdress(newAdress)
   //db.addBuilding(b);
