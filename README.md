@@ -1,3 +1,7 @@
 # Polygon
 Ready to be worked on:
 [![Stories in Ready](https://badge.waffle.io/you7inho/Polygon.png?label=ready&title=Ready)](http://waffle.io/you7inho/Polygon)
+
+Graphs: 
+
+[![Throughput Graph](https://graphs.waffle.io/you7inho/Polygon/throughput.svg)](https://waffle.io/you7inho/Polygon/metrics/throughput) 
