@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Rapport</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/rapportCss.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div id="container">
+            <img src="images/PolygonLogo.jpg" alt="polygon logo" id="polygologo"> 
+            <img src="images/SundeBygningerLogo.jpg" alt="sundebygninger logo" id="sundebygningerlogo">
+            <div class="clear"></div>
+            
+            <div class="rapportNr">
+                <form action="#" method="GET">
+                    <span>Rapport nr.:</span>
+                    <input type="text" name="rapportnr"> 
+                </form>    
+            </div>
+            <h1 align="center">Bygningsgennemgang</h1>
+            
+            <div id="addressform">
+                <form action="#" method="GET">
+                    <div class="left">
+                        <input type="text" name="nameOnBuilding">
+                        <div class="border-bot"></div>
+                        <p>Navn på bygning</p>
+                        <input type="text" name="address"> 
+                        <div class="border-bot"></div>
+                        <p>Adresse</p>
+                        <input type="text" name="zipCity">
+                        <div class="border-bot"></div>
+                        <p>Postnr./By</p>
+                    </div>
+                    <div class="left">
+                        <input type="text" name="date">
+                        <div class="border-bot"></div>
+                        <p>Dato</p>
+                    </div>
+                    <img class="left" src="images/PolygonKontaktInfo.jpg" alt="kontakt info">
+                    <div class="clear"></div>
+                </form>
+                
+                <div id="upload-picture">
+                    <p>(Indsæt billede af bygning udefra)</p>
+                    <form action="#" method="post">
+                        <input type="file" name="pictureOfBuilding" id="pictureOfBuilding">
+                        <input type="submit" name="submit" value="Upload Image">
+                    </form>
+                </div>
+            </div>
+        </div><!--Container end-->
+    </body>
+</html>

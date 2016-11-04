@@ -1,0 +1,87 @@
+* {
+    padding:0px;
+    margin:0px;
+}
+h1 {
+    font-size: 22px;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+}
+/* IDs */
+#container {
+    width: 850px;
+    height: auto;
+    border: 1px solid #000;
+    margin: 0 auto;
+}
+#polygologo {
+    margin: 50px 0 0 75px;
+    float: left;
+}
+#sundebygningerlogo {
+    margin: 50px 75px 0 0;
+    float: right;
+}
+#addressform p {
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 5px 0 20px 5px;
+}
+#addressform form {
+    margin-left: 75px;
+}
+#addressform input[type=text] {
+    border: none;
+    height: 25px;
+    width: 300px;
+    font-size: 18px;
+    outline: none;
+    padding-left: 5px;
+}
+#addressform .left:nth-child(2) {
+    margin-left: 75px;
+}
+#addressform .left:nth-child(3) {
+    margin-left: 185px;
+}
+#upload-picture {
+    margin: 15px 0 0 75px;
+    width: 680px;
+    height: 220px;
+    border: 1px solid #000;
+}
+#upload-picture p {
+    font-size: 14px;
+    font-weight: normal;
+}
+#upload-picture form {
+    margin-left: 5px;
+}
+/* Classes */
+.clear {
+    clear: both;
+}
+.right {
+    float:right;
+}
+.left {
+    float:left;
+}
+.border-bot {
+    border-bottom: 1px solid #000;
+    width: 300px;
+}
+.rapportNr {
+    border: 1px solid #000;
+    width: 150px;
+    height: 30px;
+    margin: -30px 0 50px 80px;
+}
+.rapportNr input[type=text] {
+    width:50px;
+    margin-top: 7px;
+    border:none;
+}
+.rapportNr span {
+    margin-left: 10px;
+}
