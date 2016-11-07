@@ -12,13 +12,32 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">Sundebygninger</a>                    
+                </div>               
+            </div>
+        </nav>
+        <div class="navbar navbar-inverse navbar-fixed-left">        
+            <ul class="nav navbar-nav">               
+                <li><a href="seeBuildings.jsp"><center><span style="font-size:5em;" class="glyphicon glyphicon-tent" aria-hidden="true"></span>Buildings</center></a></li>    
+                <li><a href="#"><center><span style="font-size:5em;" class="glyphicon glyphicon-signal" aria-hidden="true"></span>Something</center></a></li>    
+            </ul>
+        </div>
+        
         <%   //get data from DomainFacade
             DomainFacade df = new DomainFacade();
           List<Building> buildings = (List<Building>)session.getAttribute("buildings");
@@ -27,7 +46,8 @@
            
 
         %>
-
+        
+        <div class="container">
         <form action="Servlet" method="POST"> 
 
             <input type="hidden" name="origin" value="addBuilding">
@@ -84,6 +104,7 @@
                 Click the tables to edit them, and save with "enter" or go back with "escape".
             </div>
        </form>
+                    </div>
     <script>
             //script der gør det muligt at clicke tabellen og edite
             $(function () {
