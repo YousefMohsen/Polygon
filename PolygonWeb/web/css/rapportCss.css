@@ -11,6 +11,9 @@ h2 {
     font-size: 18px;
     font-family: sans-serif;
 }
+textarea {
+    overflow: hidden;
+}
 /* IDs */
 #container {
     width: 850px;
@@ -128,11 +131,19 @@ h2 {
 #room-info-checkbox input[type=checkbox]:nth-last-child(2)  {
     margin-left: 20px;
 }
-#examination-building-outside {
+#examination-building-outside, #examination-of {
     margin: 40px 75px 0 75px;
 }
-#examination-building-outside table {
+#examination-building-outside table, #examination-of table {
     width: 700px;
+}
+#examination-of table tr:nth-child(even) th:first-child {
+    width: 320px;
+    height: 25px;
+    background-color: #cccccc;
+    text-align: left;
+    vertical-align: text-top;
+    padding: 5px;
 }
 #examination-building-outside table tr:first-child th:first-child {
     width: 320px;
@@ -142,12 +153,29 @@ h2 {
     vertical-align: text-top;
     padding: 5px;
 }
-#examination-building-outside table tr:last-child th:first-child textArea {
+#examination-of table tr:nth-child(odd) th:first-child textarea {
+    height: 50px;
+    width: 700px;
+    resize: none;
+    outline: none;
+    border: none;
+    padding: 5px;
+}
+#examination-building-outside table tr:last-child th:first-child textarea {
     height: 75px;
     width: 700px;
     resize: none;
     outline: none;
     border: none;
+    padding: 5px;
+}
+#examination-of table input[type=text] {
+    border:none;
+    outline:none;
+    background-color: #cccccc;
+    font-weight: bold;
+    font-family:serif;
+    font-size: 16px;
 }
 #examination-building-outside table {
     border-top: 1px solid #000;
@@ -160,6 +188,19 @@ h2 {
 }
 #examination-building-outside th:last-child {
     border-right: none;
+}
+#examination-of th {
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+}
+#examination-of th:last-child {
+    border-right: 1px solid #000;
+}
+#examination-of tr:first-child th:nth-child(n+2) {
+    border-top: 1px solid #000;
+}
+#examination-of tr:first-child th:first-child {
+    border-left:none;    
 }
 #examination-building-outside div {
     margin-top: 10px;
@@ -213,6 +254,9 @@ h2 {
     border:none;
     outline:none;
 }
+#damage-repair table tr:last-child input[type=text] {
+    width: 310px;
+}
 #damage-repair table textarea {
     width: 220px;
     height: 50px;
@@ -220,6 +264,152 @@ h2 {
     border: none;
     outline:none;
     margin: 0 -20px -20px 0;
+}
+#humidity-scan {
+    margin: 40px 75px 0 75px;
+}
+#humidity-scan table {
+    width: 700px;
+    margin-top: 10px;
+}
+#humidity-scan table th {
+    text-align: left;
+    vertical-align: text-top;
+    padding: 5px;
+}
+#humidity-scan table tr:first-child th:first-child, #humidity-scan table tr:nth-child(2) th:nth-child(odd) {
+    background-color: #cccccc;
+}
+#humidity-scan table tr:first-child th:last-child {
+    width: 305px;
+}
+#humidity-scan table tr:first-child th:last-child div {
+    display:inline;
+    margin-left: 5px;
+}
+#humidity-scan table tr:first-child th:last-child div:last-child {
+    margin-left: 150px;
+}
+#humidity-scan table tr:first-child th:last-child div input {
+    margin-right: 4px;
+}
+#humidity-scan table th input[type=text] {
+    border:none;
+    outline: none;
+}
+#humidity-scan table th textarea {
+    width: 680px;
+    height: 35px;
+    outline: none;
+    border:none;
+    resize:none;
+}
+#humidity-scan table th {
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+}
+#humidity-scan table tr:first-child th {
+    border-top: 1px solid #000;
+}
+#humidity-scan table tr th:last-child {
+    border-right: 1px solid #000;
+}
+#conclusion {
+    margin: -25px 75px 0 75px;
+}
+#conclusion table {
+    width: 700px;
+    margin-top: 10px;
+}
+#conclusion table th {
+    text-align: left;
+    vertical-align: text-top;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+#conclusion table th:first-child {
+    width: 120px;
+    height: 20px;
+    border-left: 1px solid #000;
+}
+#conclusion table tr:first-child th {
+    border-top: 1px solid #000;
+    background-color: #cccccc;
+}
+#conclusion table th input[type=text] {
+    width: 120px;
+    height: 30px;
+    position: absolute;
+    border: none;
+    outline: none;
+}
+#conclusion table th textarea {
+    width: 550px;
+    border: none;
+    outline: none;
+    resize: none;
+}
+#rapport-writer {
+    margin: 40px 75px 0 75px;
+}
+#rapport-writer p {
+    font-family: sans-serif;
+    line-height: 32px;
+}
+#rapport-writer input[type=text] {
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    width: 350px;
+    padding-left: 2px;
+    font-size: 16px;
+}
+#rapport-writer input[type=text]:last-child {
+    width: 417px;
+}
+#categorize {
+    margin: 40px 75px 0 75px;
+}
+#categorize table {
+    width: 700px;
+    margin-top: 10px;
+}
+#categorize table th {
+    background-color: #cccccc;
+    text-align: left;
+    vertical-align: text-top;
+    padding: 5px;
+    line-height: 25px;
+    border: 1px solid #000;
+}
+#categorize table tr:nth-child(n+2) th:nth-child(2) {
+    font-weight: normal;
+    font-size: 17px;
+}
+#categorize table th span {
+    text-decoration: underline;
+}
+#categorize table th:first-child {
+    width: 110px;
+}
+#categorize table tr:nth-child(n+2) th:last-child {
+    background-color: #ffffff;
+}
+#categorize table th input[type=checkbox] {
+    margin-left: 40px;
+}
+#bot-text {
+    margin: 40px 75px 0 75px;
+}
+#bot-text p {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+#bot-text p:last-child {
+    margin: 0;
 }
 /* Classes */
 .clear {
@@ -255,19 +445,26 @@ h2 {
     width:50px;
     margin-top: 7px;
     border:none;
+    outline: none;
 }
 .rapportNr span {
     margin-left: 10px;
 }
-.pageNr{
+.pageNr {
     float: right;
     margin: 60px 75px 50px 0;
+}
+.pageNr p {
+    font-weight: bold;
 }
 .pages {
     min-height: 600px;
     height: auto;
     border:1px solid #000;
     margin-top: 50px; 
+}
+.pages:last-child {
+    margin-bottom: 10px;
 }
 .polygologo {
     margin: 50px 0 0 75px;
