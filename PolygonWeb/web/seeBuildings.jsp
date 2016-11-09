@@ -54,11 +54,11 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Contact</th>
+                        <th>Index</th>
                         <th>Adress</th>
                         <th>Zip</th>
                         <th>City</th>
-                        <th>Phone</th>  
+                   
                     </tr>
                 </thead>
 
@@ -67,11 +67,10 @@
                         for (Building b : buildings) {
 
                             out.println("<tr>");
-                            out.println("<td>" + b.getUser() + "</td>");
+                            out.println("<td>" + b.getId()+ "</td>");
                             out.println("<td>" + b.getAdress().getAdressline() + "</td>");
                             out.println("<td>" + b.getAdress().getZipCode().getZip() + "</td>");
                             out.println("<td>" + b.getAdress().getZipCode().getCity() + "</td>");
-                            out.println("<td>" + "phone number" + "</td>");
                             out.println("<tr>");
                         }
 
@@ -81,11 +80,10 @@
 
 
                     <tr>
-                        <td> <input type="text" name="contact" value="" /> </td>   
+                        <td>  </td>   
                         <td> <input type="text" name="adress" value="" /> </td>  
                         <td> <input type="text" name="zip" value="" /> </td>
                         <td> <input type="text" name="city" value="" /> </td>
-                        <td> <input type="text" name="phone" value="" /> </td>
                    <td>   
 
                     </tr> 
@@ -105,41 +103,7 @@
             </div>
        </form>
                     </div>
-    <script>
-            //script der gør det muligt at clicke tabellen og edite
-            $(function () {
-                $("td").click(function (event) {
-                    if ($(this).children("input").length > 0)
-                        return false;
-                    var tdObj = $(this);
-                    var preText = tdObj.html();
-                    var inputObj = $("<input type='text' />");
-                    tdObj.html("");
-                    inputObj.width(tdObj.width())
-                            .height(tdObj.height())
-                            .css({border: "0px", fontSize: "17px"})
-                            .val(preText)
-                            .appendTo(tdObj)
-                            .trigger("focus")
-                            .trigger("select");
-                    //hvis man trykker enter erstatter den texten
-                    inputObj.keyup(function (event) {
-                        if (13 == event.which) { // press ENTER-key
-                            var text = $(this).val();
-                            tdObj.html(text);
-                        }
-                        // hvis man trykker escape går den tilbage til den gamle værdi
-                        else if (27 == event.which) {  // press ESC-key
-                            tdObj.html(preText);
-                        }
-                    });
-                    inputObj.click(function () {
-                        return false;
-                    });
-                });
-            });
-        </script>
-
+  
 
 
     

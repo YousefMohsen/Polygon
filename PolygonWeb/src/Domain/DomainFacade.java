@@ -31,8 +31,8 @@ DatabaseFacade dbf = new DatabaseFacade();
   
     public ArrayList<Building> getBuildings(){
  
- return buildings;
-    //return (ArrayList<Building>) dbf.getBuildings();
+// return buildings;
+   return (ArrayList<Building>) dbf.getBuildings();
     }   
     
     
@@ -40,7 +40,7 @@ DatabaseFacade dbf = new DatabaseFacade();
 
      
      
-  Zipcode zip1 = new Zipcode("2800", "Kongens Lyngby") ;
+  Zipcode zip1 = new Zipcode(2800, "Kongens Lyngby") ;
    Adress adr1 = new Adress(1, "Lyngby Hovedgade 1", zip1) ;
 
  users.add(new User("Leo","Messi","0987656789","messi@cat.com",adr1));
@@ -53,7 +53,7 @@ DatabaseFacade dbf = new DatabaseFacade();
 
     }
     
-    public void addBuilding(String contact,String adress,String zip,String city,String phone){
+    public void addBuilding(String contact,String adress,int zip,String city,String phone){
     //db.addBuilding(b);
            System.out.println("add building"+city);
   Zipcode newZip = new Zipcode(zip, city);// zip id or building id? db.addZip(newZip)

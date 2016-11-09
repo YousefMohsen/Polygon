@@ -11,13 +11,13 @@ package entity;
  */
 public class Zipcode {
    private int adressId;//delete this
-   private String zip;
+   private int zip;
    private String city;
 
     public Zipcode() {
     }
 
-    public Zipcode( String zip, String city) {
+    public Zipcode( int zip, String city) {
    
         this.zip = zip;
         this.city = city;
@@ -31,11 +31,11 @@ public class Zipcode {
         this.adressId = adressId;
     }
 
-    public String getZip() {
+    public int getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(int zip) {
         this.zip = zip;
     }
 

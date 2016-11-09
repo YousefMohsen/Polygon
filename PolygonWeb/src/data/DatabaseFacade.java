@@ -54,17 +54,17 @@ public class DatabaseFacade {
     }
 
     
-  private Zipcode loadZip(int id){ //afleverer et Zipcode objekt med data fra det tilhørende zipID
+  public Zipcode loadZip(int id){ //afleverer et Zipcode objekt med data fra det tilhørende zipID
   String sql = "SELECT zip,city "
                 + "FROM Zipcode "
-                + "WHERE addressId=?;";
+                + "WHERE zipId=?;";
   Zipcode loadedZip = new Zipcode();
        try ( Connection con = db.getConnection();
                 PreparedStatement stmt = con.prepareStatement( sql ) ) {
             stmt.setInt( 1, id);
             ResultSet res = stmt.executeQuery();
             if ( res.next() ) {
-                String zip = res.getString( "zip" );
+                int zip = res.getInt( "zip" );
                 String city = res.getString( "city" );
       
                 loadedZip.setCity(city);
@@ -84,7 +84,7 @@ return loadedZip;
   
   
     
-  private Adress loadAdress(int id){ //afleverer et Adress objekt med data fra det tilhørende adressID
+  public Adress loadAdress(int id){ //afleverer et Adress objekt med data fra det tilhørende adressID
   String sql = "SELECT addressline,zipcode_addressId "
                 + "FROM Address "
                 + "WHERE addressId=?;";

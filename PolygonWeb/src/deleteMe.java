@@ -3,6 +3,7 @@ import Domain.DomainFacade;
 import data.DatabaseFacade;
 import entity.Adress;
 import entity.Building;
+import entity.Zipcode;
 import java.sql.SQLException;
 
 /*
@@ -20,11 +21,15 @@ public class deleteMe {
    DomainFacade df = new DomainFacade();  
   DatabaseFacade dbf = new DatabaseFacade();
   
-  
-  
+//  
+//  for(int i = 1; i<3; i++){
+//  Adress adr = dbf.loadAdress(i);
+//      System.out.println("////+\n"+adr.toString());
+//  
+//  }
   
   //loadBuilding
-  System.out.println( dbf.getBuildings().get(0).getAdress().getZipCode().getCity());
+  //System.out.println( dbf.getBuildings().get(0).getAdress().getZipCode().getCity());
   
   //Load adress
 // Adress adr = dbf.loadAdress(1);
@@ -49,9 +54,9 @@ public class deleteMe {
 //
 //
 //     
-//           for (Building b : df.getBuildings()) {
-//System.out.println(b.getAdress().getAdressline()+" "+b.getAdress().getZipCode().getZip()+" "+b.getAdress().getZipCode().getCity());
-//         }
+           for (Building b : df.getBuildings()) {
+System.out.println(b.getAdress().getAdressline()+" "+b.getAdress().getZipCode().getZip()+" "+b.getAdress().getZipCode().getCity());
+         }
  
 
      

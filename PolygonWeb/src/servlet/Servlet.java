@@ -49,7 +49,7 @@ public class Servlet extends HttpServlet {
                         
                     String contact = request.getParameter("contact");
                     String adress = request.getParameter("adress");
-                    String zip = request.getParameter("zip");
+                    int zip = Integer.parseInt(request.getParameter("zip"));
                     String city = request.getParameter("city");
                     String phone = request.getParameter("phone");
 
