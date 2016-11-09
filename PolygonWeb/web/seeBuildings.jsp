@@ -48,9 +48,9 @@
         %>
         
         <div class="container">
-        <form action="Servlet" method="POST"> 
 
-            <input type="hidden" name="origin" value="addBuilding">
+
+       <form action="Servlet" method="POST">  
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -63,30 +63,35 @@
                 </thead>
 
                 <tbody>
-                    <%
-                        for (Building b : buildings) {
-
+                    <% 
+                        for (Building b : buildings) { 
+%>       <% 
                             out.println("<tr>");
+                            out.println("<td>"); %>
+                <div>
+                
+                    <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" />
+   
+                    </div>
+                            <%out.println("</td>"); 
+                            
+                            
                             out.println("<td>" + b.getId()+ "</td>");
                             out.println("<td>" + b.getAdress().getAdressline() + "</td>");
                             out.println("<td>" + b.getAdress().getZipCode().getZip() + "</td>");
                             out.println("<td>" + b.getAdress().getZipCode().getCity() + "</td>");
-                            out.println("<tr>");
-                        }
+                            out.println("<tr>");%>
+                            
+                
+                            
+                       <%   }
 
 
                     %>
 
 
 
-                    <tr>
-                        <td>  </td>   
-                        <td> <input type="text" name="adress" value="" /> </td>  
-                        <td> <input type="text" name="zip" value="" /> </td>
-                        <td> <input type="text" name="city" value="" /> </td>
-                   <td>   
-
-                    </tr> 
+   
                     <tr>
 
 
@@ -96,12 +101,14 @@
                 </tbody>
 
             </table>
-                     
+            <input type="hidden" name="origin" value="addBuilding">
+
+            <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
+                       </form>   
             <div>
-               <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
-                Click the tables to edit them, and save with "enter" or go back with "escape".
+          
             </div>
-       </form>
+
                     </div>
   
 

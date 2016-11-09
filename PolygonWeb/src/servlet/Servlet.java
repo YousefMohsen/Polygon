@@ -42,22 +42,24 @@ public class Servlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");
-  
             switch (origin) {
                     
                 case "addBuilding":
                         
-                    String contact = request.getParameter("contact");
-                    String adress = request.getParameter("adress");
-                    int zip = Integer.parseInt(request.getParameter("zip"));
-                    String city = request.getParameter("city");
-                    String phone = request.getParameter("phone");
+//                    String contact = request.getParameter("contact");
+//                    String adress = request.getParameter("adress");
+//                    int zip = Integer.parseInt(request.getParameter("zip"));
+//                    String city = request.getParameter("city");
+//                    String phone = request.getParameter("phone");
+         String buildingID = request.getParameter("buildingID");
+    
 
-                    
-                df.addBuilding(contact, adress, zip, city, phone);
-                        session.setAttribute("buildings", df.getBuildings());
 
-                   response.sendRedirect("seeBuildings.jsp");
+                  out.println("ID"+buildingID);
+                //df.addBuilding(contact, adress, zip, city, phone);
+                        //session.setAttribute("buildings", df.getBuildings());
+
+                   //response.sendRedirect("seeBuildings.jsp");
                     break;
            case "index":
                        
@@ -107,7 +109,12 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+       processRequest(request, response);
+    
+    
+    
     }
 
     /**
@@ -121,3 +128,13 @@ public class Servlet extends HttpServlet {
     }// </editor-fold>
 
 }
+/*
+
+      <form action="Servlet" method="POST"> 
+
+             <input type="hidden" name="BuildingId" value="<%b.getId();%>">
+            <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
+
+        </form>
+
+*/
