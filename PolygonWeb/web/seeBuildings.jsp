@@ -1,9 +1,3 @@
-<%-- 
-    Document   : seeBuildings
-    Created on : 25-10-2016, 14:05:17
-    Author     : Yousinho
---%>
-
 <%@page import="java.util.List"%>
 <%@page import="entity.Building"%>
 <%@page import="Domain.DomainFacade"%>
@@ -37,76 +31,74 @@
                 <li><a href="#"><center><span style="font-size:5em;" class="glyphicon glyphicon-signal" aria-hidden="true"></span>Something</center></a></li>    
             </ul>
         </div>
-        
+
         <%   //get data from DomainFacade
             DomainFacade df = new DomainFacade();
-          List<Building> buildings = (List<Building>)session.getAttribute("buildings");
-          // List<Building> buildings = (List) df.getBuildings();
-      
-           
+            List<Building> buildings = (List<Building>) session.getAttribute("buildings");
+            // List<Building> buildings = (List) df.getBuildings();
+
 
         %>
-        
+
         <div class="container">
-        <form action="Servlet" method="POST"> 
+            <form action="Servlet" method="POST"> 
 
-            <input type="hidden" name="origin" value="addBuilding">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Index</th>
-                        <th>Adress</th>
-                        <th>Zip</th>
-                        <th>City</th>
-                   
-                    </tr>
-                </thead>
+                <input type="hidden" name="origin" value="addBuilding">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Address</th>
+                            <th>Zip</th>
+                            <th>City</th>
 
-                <tbody>
-                    <%
-                        for (Building b : buildings) {
+                        </tr>
+                    </thead>
 
-                            out.println("<tr>");
-                            out.println("<td>" + b.getId()+ "</td>");
-                            out.println("<td>" + b.getAdress().getAdressline() + "</td>");
-                            out.println("<td>" + b.getAdress().getZipCode().getZip() + "</td>");
-                            out.println("<td>" + b.getAdress().getZipCode().getCity() + "</td>");
-                            out.println("<tr>");
-                        }
+                    <tbody>
+                        <%                        for (Building b : buildings) {
 
-
-                    %>
+                                out.println("<tr>");
+                                out.println("<td>" + b.getId() + "</td>");
+                                out.println("<td>" + b.getAddress().getAddressline() + "</td>");
+                                out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
+                                out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
+                                out.println("<tr>");
+                            }
 
 
-
-                    <tr>
-                        <td>  </td>   
-                        <td> <input type="text" name="adress" value="" /> </td>  
-                        <td> <input type="text" name="zip" value="" /> </td>
-                        <td> <input type="text" name="city" value="" /> </td>
-                   <td>   
-
-                    </tr> 
-                    <tr>
+                        %>
 
 
 
-                    </tr>
+                        <tr>
+                            <td>  </td>   
+                            <td> <input type="text" name="address" value="" /> </td>  
+                            <td> <input type="text" name="zip" value="" /> </td>
+                            <td> <input type="text" name="city" value="" /> </td>
+                            <td>   
 
-                </tbody>
-
-            </table>
-                     
-            <div>
-               <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
-                Click the tables to edit them, and save with "enter" or go back with "escape".
-            </div>
-       </form>
-                    </div>
-  
+                        </tr> 
+                        <tr>
 
 
-    
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <div>
+                    <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
+                    Click the tables to edit them, and save with "enter" or go back with "escape".
+                </div>
+            </form>
+        </div>
+
+
+
+
     </body>
-    
+
 </html>

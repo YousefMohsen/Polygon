@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import Domain.DomainFacade;
@@ -16,14 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Yousinho
- */
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
 
-   DomainFacade df = new DomainFacade();
+    DomainFacade df = new DomainFacade();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,39 +33,35 @@ public class Servlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");
-  
+
             switch (origin) {
-                    
+
                 case "addBuilding":
-                        
+
                     String contact = request.getParameter("contact");
-                    String adress = request.getParameter("adress");
+                    String address = request.getParameter("address");
                     int zip = Integer.parseInt(request.getParameter("zip"));
                     String city = request.getParameter("city");
                     String phone = request.getParameter("phone");
 
-                    
-                df.addBuilding(contact, adress, zip, city, phone);
-                        session.setAttribute("buildings", df.getBuildings());
+                    df.addBuilding(contact, address, zip, city, phone);
+                    session.setAttribute("buildings", df.getBuildings());
 
-                   response.sendRedirect("seeBuildings.jsp");
+                    response.sendRedirect("seeBuildings.jsp");
                     break;
-           case "index":
-                       
-           // request.setAttribute("buildings", df.getBuildings());
-            
-            
-        session.setAttribute("buildings", df.getBuildings());
-            //set attributes on request
-        //    request.setAttribute("password", password);
+                case "index":
 
-            //request.getRequestDispatcher("seeBuildings.jsp").forward(request, response);
-       // processRequest(request, response);
-            response.sendRedirect("seeBuildings.jsp");
+                    // request.setAttribute("buildings", df.getBuildings());
+                    session.setAttribute("buildings", df.getBuildings());
+                    //set attributes on request
+                    //    request.setAttribute("password", password);
 
-              break;
+                    //request.getRequestDispatcher("seeBuildings.jsp").forward(request, response);
+                    // processRequest(request, response);
+                    response.sendRedirect("seeBuildings.jsp");
+
+                    break;
             }
-       
 
         }
     }
@@ -91,8 +78,6 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
 
     }
 
