@@ -43,6 +43,7 @@ public class DatabaseFacade {
         return buildings;
     }
 
+    //Henter info om en bygning fra DB ud fra et givet bygningsID
     public static Building getBuilding(int buildingID) {
         String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
@@ -67,6 +68,7 @@ public class DatabaseFacade {
         return null;
     }
 
+    //Henter info om en bruger fra DB ud fra et givet brugerID
     public static User getUser(int userID) {
         String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM User "
@@ -93,7 +95,27 @@ public class DatabaseFacade {
         }
         return null;
     }
-    
+
+    //Henter info om et dokument fra DB ud fra et givet dokumentID
+    public static Document getDocument(int documentID) {
+        String sql = "SELECT fileURL, note "
+                + "FROM Document "
+                + "WHERE documentId=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, documentID);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String fileURL = res.getString("fileURL");
+                String note = res.getString("note");
+                return new Document(documentID, fileURL, note);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return null;
+    }
+
     public ZipCode loadZip(int id) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "

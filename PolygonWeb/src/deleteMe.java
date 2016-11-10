@@ -41,8 +41,5 @@ public class deleteMe {
         for (Building b : df.getBuildings()) {
             System.out.println(b.getAddress().getAddressline() + " " + b.getAddress().getZipCode().getZip() + " " + b.getAddress().getZipCode().getCity());
         }
-
-        System.out.println(DomainFacade.getUser(1));
-        
     }
 }

@@ -1,6 +1,7 @@
 package Domain;
 
 import data.DatabaseFacade;
+import data.Document;
 import entity.Address;
 import entity.Building;
 import entity.User;
@@ -56,6 +57,10 @@ public class DomainFacade {
     
     public static User getUser(int id) {
         return DatabaseFacade.getUser(id);
+    }
+    
+    public static Document getDocument(int id) {
+        return DatabaseFacade.getDocument(id);
     }
 
 }
