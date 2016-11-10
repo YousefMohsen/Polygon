@@ -45,33 +45,18 @@ public class Servlet extends HttpServlet {
             switch (origin) {
                     
                 case "addBuilding":
-                        
-//                    String contact = request.getParameter("contact");
-//                    String adress = request.getParameter("adress");
-//                    int zip = Integer.parseInt(request.getParameter("zip"));
-//                    String city = request.getParameter("city");
-//                    String phone = request.getParameter("phone");
+ 
          String buildingID = request.getParameter("buildingID");
     
 
 
                   out.println("ID"+buildingID);
-                //df.addBuilding(contact, adress, zip, city, phone);
-                        //session.setAttribute("buildings", df.getBuildings());
-
-                   //response.sendRedirect("seeBuildings.jsp");
+             
                     break;
            case "index":
-                       
-           // request.setAttribute("buildings", df.getBuildings());
-            
-            
+      
         session.setAttribute("buildings", df.getBuildings());
-            //set attributes on request
-        //    request.setAttribute("password", password);
-
-            //request.getRequestDispatcher("seeBuildings.jsp").forward(request, response);
-       // processRequest(request, response);
+  
             response.sendRedirect("seeBuildings.jsp");
 
               break;

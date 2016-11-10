@@ -67,16 +67,18 @@
                         for (Building b : buildings) { 
 %>       <% 
                             out.println("<tr>");
-                            out.println("<td>"); %>
-                <div>
-                
-                    <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" />
+                            out.println("<td>");        
+                            out.println(b.getId());%>
+ 
+                    <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />
    
-                    </div>
-                            <%out.println("</td>"); 
+             
+                            <%
+                                  
+                                  out.println("</td>"); 
                             
                             
-                            out.println("<td>" + b.getId()+ "</td>");
+                          
                             out.println("<td>" + b.getAdress().getAdressline() + "</td>");
                             out.println("<td>" + b.getAdress().getZipCode().getZip() + "</td>");
                             out.println("<td>" + b.getAdress().getZipCode().getCity() + "</td>");
@@ -105,6 +107,7 @@
 
             <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
                        </form>   
+               
             <div>
           
             </div>
