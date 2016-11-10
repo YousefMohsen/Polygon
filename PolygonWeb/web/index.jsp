@@ -21,7 +21,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">Sundebygninger</a>                    
+                    <a class="navbar-brand" href="indexdelete.html">Sundebygninger</a>                    
                 </div>               
             </div>
         </nav>
@@ -32,19 +32,12 @@
             </ul>
         </div>
 
-        <%   //get data from DomainFacade
+        <%
             DomainFacade df = new DomainFacade();
-            List<Building> buildings = (List<Building>) session.getAttribute("buildings");
-            // List<Building> buildings = (List) df.getBuildings();
-
-
+            List<Building> buildings = df.getBuildings();
         %>
-
         <div class="container">
-
             <form action="Servlet" method="POST"> 
-
-      
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -52,68 +45,34 @@
                             <th>Address</th>
                             <th>Zip</th>
                             <th>City</th>
-
                         </tr>
                     </thead>
-
                     <tbody>
-                        <% 
-
-
-                   
-                        for (Building b : buildings) { 
-
+                        <%                           
+                            for (Building b : buildings) { 
                             out.println("<tr>");
                             out.println("<td>");        
                             out.println(b.getId());%>
- 
-                    <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />
-   
-             
-                            <%
-                                  
-                                  out.println("</td>"); 
-                            
-                            
-                          
-                            out.println("<td>" + b.getAddress().getAddressline()+ "</td>");
-                            out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
-                            out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                            out.println("<tr>");%>
-                            
-                
+   <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />
+                            <%                                  
+                                out.println("</td>"); 
+                                out.println("<td>" + b.getAddress().getAddressline()+ "</td>");
+                                out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
+                                out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
+                                out.println("<tr>");
+                            %>
                             
                        <%   }
 
                         %>
+                        <tr>  </tr>
 
-
-
-                     
-                        <tr>
-
-
-
-                        </tr>
-
-                    </tbody>
-
+                        </tbody>
                 </table>
-
-                       
-          <input type="hidden" name="origin" value="addBuilding">
-            <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
-                   
-        
+                <input type="hidden" name="origin" value="addBuilding">
+                <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
             </form>
-        
-                        <div> </div>
-
-</div>
-
-
-
-
+            <div> </div>
+        </div>
     </body>
-
 </html>
