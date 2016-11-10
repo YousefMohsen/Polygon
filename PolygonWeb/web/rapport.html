@@ -1,0 +1,201 @@
+<html>
+    <head>
+        <title>Rapport</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/rapportCss.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div id="container">
+            <div class="pages">
+                <img src="images/PolygonLogo.jpg" alt="polygon logo" class="polygologo"> 
+                <img src="images/SundeBygningerLogo.jpg" alt="sundebygninger logo" class="sundebygningerlogo">
+                <div class="clear"></div>
+
+                <div class="rapportNr" id="firstRapportNR">
+                    <form action="#" method="GET">
+                        <span>Rapport nr.:</span>
+                        <input type="text" name="rapportnr"> 
+                    </form>    
+                </div>
+                <h1 align="center">Bygningsgennemgang</h1>
+
+                <div id="addressform">
+                    <form action="#" method="GET">
+                        <div class="left">
+                            <input type="text" name="nameOnBuilding">
+                            <div class="border-bot"></div>
+                            <p>Navn på bygning</p>
+                            <input type="text" name="address"> 
+                            <div class="border-bot"></div>
+                            <p>Adresse</p>
+                            <input type="text" name="zipCity">
+                            <div class="border-bot"></div>
+                            <p>Postnr./By</p>
+                        </div>
+                        <div class="left">
+                            <input type="text" name="date">
+                            <div class="border-bot"></div>
+                            <p>Dato</p>
+                        </div>
+                        <img class="left" src="images/PolygonKontaktInfo.jpg" alt="kontakt info">
+                        <div class="clear"></div>
+                    </form>
+                </div>
+                <div id="upload-picture">
+                    <p>(Indsæt billede af bygningen udefra)</p>
+                    <form action="#" method="post">
+                        <input type="file" name="pictureOfBuilding" id="pictureOfBuilding">
+                        <input type="submit" name="submit" value="Upload Image">
+                    </form>
+                </div>
+                <div id="general-building-info">
+                    <h2>General information om bygningen</h2>
+                    <form action="#" method="get">
+                        <div>
+                            <p>Byggeår</p>
+                            <input type="text" name="buildYear">
+                            <div class="border-bot"></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div>
+                            <p>Bygningsareal i &#x33a1; (hver etage tælles separat)</p>
+                            <input type="text" name="buildingArea">
+                            <div class="border-bot"></div>
+                            <div class="clear"></div>                            
+                        </div>
+                        <div>
+                            <p>Hvad bruges bygningen til / Hvad har bygningen været brugt til?</p>
+                            <input type="text" name="buildingUse">
+                            <div class="border-bot"></div>
+                            <div class="clear"></div>
+                        </div>
+                    </form>
+                </div>
+                <div id="examination-building-outside">
+                    <h2>Gennemgang af bygningen udvendig</h2>
+                    <div>
+                        <form action="#" method="post">
+                            <table cellspacing="0">
+                                <tr>
+                                    <th rowspan="2">Tag</th>
+                                    <th>Bemærkninger</th>
+                                    <th>Ingen bemærkninger</th>
+                                    <th>Billede</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="checkbox" name="comments"></th>
+                                    <th><input type="checkbox" name="noComments"></th>
+                                    <th><input type="checkbox" name="picture"></th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4"><textarea name="roofDescription"></textarea></th>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div>
+                        <form action="#" method="post">
+                            <table cellspacing="0">
+                                <tr>
+                                    <th rowspan="2">Ydervægge</th>
+                                    <th>Bemærkninger</th>
+                                    <th>Ingen bemærkninger</th>
+                                    <th>Billede</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="checkbox" name="comments"></th>
+                                    <th><input type="checkbox" name="noComments"></th>
+                                    <th><input type="checkbox" name="picture"></th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4"><textarea name="wallDescription"></textarea></th>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class="pageNr">
+                    <p>1</p>
+                </div>
+                <div class="clear"></div>
+            </div><!--pageOne end-->
+            
+            <div class="pages">
+                <img src="images/PolygonLogo.jpg" alt="polygon logo" class="polygologo">
+                <div class="clear"></div>
+
+                <div class="rapportNr">
+                    <form action="#" method="GET">
+                        <span>Rapport nr.:</span>
+                        <input type="text" name="rapportnr"> 
+                    </form>    
+                </div>
+                
+                <div id="room-info">
+                    <form action="#" method="get">
+                        <div>
+                            <p>Lokale</p>
+                            <input type="text" name="room">
+                            <div id="room-info-checkbox">
+                                <div class="border-left">
+                                    <input type="checkbox" name="comment">
+                                    <p>Bemærkninger</p>
+                                </div>
+                                <div class="border-left">
+                                    <input type="checkbox" name="noComment">
+                                    <p>Ingen bemærkninger</p>
+                                </div>
+                            </div>
+                            <div class="border-bot"></div>
+                            <div class="clear"></div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div id="damage-repair">
+                    <h2>Skade og reparation</h2>
+                    <form action="#" method="post">
+                        <table cellspacing="0">
+                            <tr>
+                                <th>Har der været skade i lokalet?</th>
+                                <th colspan="3">
+                                    <div><input type="checkbox" name="yes"> Ja</div>
+                                    <div><input type="checkbox" name="no"> Nej</div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Hvornår</th>
+                                <th><input type="text" name="when"></th>
+                                <th>Hvor</th>
+                                <th><input type="text" name="where"></th>
+                            </tr>
+                            <tr>
+                                <th>Hvad er der sket</th>
+                                <th><textarea name="whatHappend"></textarea></th>
+                                <th>Hvad er repareret</th>
+                                <th><textarea name="whatRepaired"></textarea></th>
+                            </tr>
+                            <tr>
+                                <th>Skade</th>
+                                <th colspan="3">
+                                    <div><input type="checkbox" name="humidity"> Fugt</div>
+                                    <div><input type="checkbox" name="rot"> Råd og swamp</div>
+                                    <div><input type="checkbox" name="mold"> Skimmel</div>
+                                    <div><input type="checkbox" name="fire"> Brand</div>
+                                    <div>
+                                        <input type="checkbox" name="other"> Anden skade 
+                                        <input type="text" name="otherText">
+                                        <div class="border-bot"></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                
+            </div><!--pageTwo end-->
+        </div><!--container end-->
+    </body>
+</html>

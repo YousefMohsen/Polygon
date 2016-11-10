@@ -1,0 +1,279 @@
+* {
+    padding:0px;
+    margin:0px;
+}
+h1 {
+    font-size: 22px;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+}
+h2 {
+    font-size: 18px;
+    font-family: sans-serif;
+}
+/* IDs */
+#container {
+    width: 850px;
+    height: auto;
+    margin: 0 auto;
+}
+#firstRapportNR {
+    margin-top: -30px;
+}
+#addressform p {
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 5px 0 20px 5px;
+}
+#addressform form {
+    margin-left: 75px;
+}
+#addressform input[type=text] {
+    border: none;
+    height: 25px;
+    width: 300px;
+    font-size: 18px;
+    outline: none;
+    padding-left: 5px;
+}
+#addressform .left:nth-child(2) {
+    margin-left: 75px;
+}
+#addressform .left:nth-child(3) {
+    margin-left: 185px;
+}
+#upload-picture {
+    margin: 15px 0 0 75px;
+    width: 680px;
+    height: 220px;
+    border: 1px solid #000;
+}
+#upload-picture p {
+    font-size: 14px;
+    font-weight: normal;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+#upload-picture form {
+    margin-left: 5px;
+}
+#room-info {
+    margin: -50px 75px 0 85px;
+}
+#general-building-info{
+    margin: 40px 75px 0 75px;
+}
+#general-building-info p, #room-info p {
+    font-family: sans-serif;
+    font-weight: bold;
+    float: left;
+    margin-top: 20px;
+}
+#general-building-info .border-bot, #room-info .border-bot {
+    float: left;
+}
+#general-building-info div:nth-child(1) .border-bot {
+    width: 630px;
+}
+#general-building-info div:nth-child(2) .border-bot {
+    width: 350px;
+}
+#general-building-info div:nth-child(3) .border-bot, #room-info div .border-bot {
+    width: 200px;
+}
+#general-building-info div:nth-child(1) input[type=text] {
+    border: none;
+    height: 25px;
+    width: 630px;
+    font-size: 18px;
+    outline: none;
+    padding-left: 5px;
+    margin-top: 10px;
+}
+#general-building-info div:nth-child(2) input[type=text] {
+    border: none;
+    height: 25px;
+    width: 350px;
+    font-size: 18px;
+    outline: none;
+    padding-left: 5px;
+    margin-top: 14px;
+}
+#general-building-info div:nth-child(3) input[type=text], #room-info input[type=text] {
+    border:none;
+    height: 25px;
+    width: 200px;
+    font-size: 18px;
+    outline: none;
+    padding-left: 5px;
+    margin-top: 10px;
+}
+#room-info input[type=text] {
+    margin-right: 430px;
+}
+#room-info-checkbox {
+    float: left;
+    border:1px solid #000;
+    width: 400px;
+    margin-left: 290px;
+    margin-top: -35px;
+}
+#room-info-checkbox p, #room-info-checkbox input[type=checkbox]{
+    float:left;
+    margin: 0;
+    padding:0 5px 0 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+#room-info-checkbox input[type=checkbox]:nth-last-child(2)  {
+    margin-left: 20px;
+}
+#examination-building-outside {
+    margin: 40px 75px 0 75px;
+}
+#examination-building-outside table {
+    width: 700px;
+}
+#examination-building-outside table tr:first-child th:first-child {
+    width: 320px;
+    height: 50px;
+    background-color: #cccccc;
+    text-align: left;
+    vertical-align: text-top;
+    padding: 5px;
+}
+#examination-building-outside table tr:last-child th:first-child textArea {
+    height: 75px;
+    width: 700px;
+    resize: none;
+    outline: none;
+    border: none;
+}
+#examination-building-outside table {
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+}
+#examination-building-outside th {
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+#examination-building-outside th:last-child {
+    border-right: none;
+}
+#examination-building-outside div {
+    margin-top: 10px;
+}
+#examination-building-outside div:last-child {
+    margin-top: 30px;
+}
+#damage-repair {
+    margin: 40px 75px 0 75px;
+}
+#damage-repair table {
+    width: 710px;
+}
+#damage-repair table tr th {
+    width: 320px;
+    text-align: left;
+    vertical-align: text-top;
+}
+#damage-repair table tr:not(:last-child) th, #damage-repair table tr:last-child th:first-child {
+    padding: 5px;
+}
+#damage-repair table tr th:nth-child(odd) {
+    background-color: #cccccc;
+}
+#damage-repair table {
+    border:1px solid #000;
+    margin-top: 10px;
+}
+#damage-repair th {
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+#damage-repair th:last-child {
+    border-right: none;
+}
+#damage-repair tr:last-child th {
+    border-bottom: none;
+}
+#damage-repair table tr:last-child th div {
+    border-bottom: 1px solid #000;
+    padding: 5px;
+}
+#damage-repair table tr th div:last-child {
+    border-bottom: none;
+    height: 20px;
+}
+#damage-repair table .border-bot {
+    margin: -10px 0 0 110px;
+}
+#damage-repair table input[type=text] {
+    border:none;
+    outline:none;
+}
+#damage-repair table textarea {
+    width: 220px;
+    height: 50px;
+    resize:none;
+    border: none;
+    outline:none;
+    margin: 0 -20px -20px 0;
+}
+/* Classes */
+.clear {
+    clear: both;
+}
+.right {
+    float:right;
+}
+.left {
+    float:left;
+}
+.border-bot {
+    border-bottom: 1px solid #000;
+    width: 300px;
+}
+.border-left {
+    border-left: 1px solid #000;
+    height: 23px;
+    float: left;
+    padding: 8px 8px 0 0;
+}
+.border-left:first-child {
+    border: none;
+    margin-right: 50px;
+}
+.rapportNr {
+    border: 1px solid #000;
+    width: 150px;
+    height: 30px;
+    margin: 5px 0 50px 80px;
+}
+.rapportNr input[type=text] {
+    width:50px;
+    margin-top: 7px;
+    border:none;
+}
+.rapportNr span {
+    margin-left: 10px;
+}
+.pageNr{
+    float: right;
+    margin: 60px 75px 50px 0;
+}
+.pages {
+    min-height: 600px;
+    height: auto;
+    border:1px solid #000;
+    margin-top: 50px; 
+}
+.polygologo {
+    margin: 50px 0 0 75px;
+    float: left;
+}
+.sundebygningerlogo {
+    margin: 50px 75px 0 0;
+    float: right;
+}
