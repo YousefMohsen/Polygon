@@ -50,4 +50,12 @@ public class DomainFacade {
 
     }
 
+    public static Building getBuilding(int id) {
+        return DatabaseFacade.getBuilding(id);
+    }
+    
+    public static User getUser(int id) {
+        return DatabaseFacade.getUser(id);
+    }
+
 }

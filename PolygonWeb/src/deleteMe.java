@@ -1,4 +1,3 @@
-
 import Domain.DomainFacade;
 import data.DatabaseFacade;
 import entity.Address;
@@ -43,5 +42,7 @@ public class deleteMe {
             System.out.println(b.getAddress().getAddressline() + " " + b.getAddress().getZipCode().getZip() + " " + b.getAddress().getZipCode().getCity());
         }
 
+        System.out.println(DomainFacade.getUser(1));
+        
     }
 }

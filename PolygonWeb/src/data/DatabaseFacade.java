@@ -2,6 +2,7 @@ package data;
 
 import entity.Address;
 import entity.Building;
+import entity.User;
 import entity.ZipCode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,6 +43,57 @@ public class DatabaseFacade {
         return buildings;
     }
 
+    public static Building getBuilding(int buildingID) {
+        String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
+                + "FROM Building "
+                + "JOIN Address "
+                + "ON Building.Address_addressId=Address.addressId "
+                + "JOIN Zipcode "
+                + "ON Address.zipcode_addressId=Zipcode.zipId "
+                + "WHERE buildingId=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, buildingID);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String rapportURL = res.getString("rapportURL");
+                ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
+                Address address = new Address(res.getString("addressline"), zip);
+                return new Building(buildingID, address, rapportURL);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return null;
+    }
+
+    public static User getUser(int userID) {
+        String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
+                + "FROM User "
+                + "JOIN Address "
+                + "ON User.Address_addressId=Address.addressId "
+                + "JOIN Zipcode "
+                + "ON Address.zipcode_addressId=Zipcode.zipId "
+                + "WHERE userId=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, userID);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String firstname = res.getString("firstname");
+                String lastname = res.getString("lastname");
+                String phone = res.getString("phone");
+                String email = res.getString("email");
+                ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
+                Address address = new Address(res.getString("addressline"), zip);
+                return new User(userID, firstname, lastname, phone, email, address);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return null;
+    }
+    
     public ZipCode loadZip(int id) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "

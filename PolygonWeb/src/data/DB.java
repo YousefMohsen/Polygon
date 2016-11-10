@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DB {
+public final class DB {
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -12,9 +12,9 @@ public class DB {
     //  Database credentials
     static final String USER = "polygon";
     static final String PASS = "Polygon16sundbygning!";
-    private Connection conn = null;
+    private static Connection conn = null;
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             //STEP 1: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
