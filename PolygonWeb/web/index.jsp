@@ -21,13 +21,13 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="indexdelete.html">Sundebygninger</a>                    
+                    <a class="navbar-brand" href="index.jsp">Sundebygninger</a>                    
                 </div>               
             </div>
         </nav>
         <div class="navbar navbar-inverse navbar-fixed-left">        
             <ul class="nav navbar-nav">               
-                <li><a href="seeBuildings.jsp"><center><span style="font-size:5em;" class="glyphicon glyphicon-tent" aria-hidden="true"></span>Buildings</center></a></li>    
+                <li><a href="index.jsp"><center><span style="font-size:5em;" class="glyphicon glyphicon-tent" aria-hidden="true"></span>Buildings</center></a></li>    
                 <li><a href="#"><center><span style="font-size:5em;" class="glyphicon glyphicon-signal" aria-hidden="true"></span>Something</center></a></li>    
             </ul>
         </div>
