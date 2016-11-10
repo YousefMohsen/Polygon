@@ -41,9 +41,10 @@
         %>
 
         <div class="container">
+
             <form action="Servlet" method="POST"> 
 
-                <input type="hidden" name="origin" value="addBuilding">
+      
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -56,29 +57,39 @@
                     </thead>
 
                     <tbody>
-                        <%                        for (Building b : buildings) {
+                        <% 
 
-                                out.println("<tr>");
-                                out.println("<td>" + b.getId() + "</td>");
-                                out.println("<td>" + b.getAddress().getAddressline() + "</td>");
-                                out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
-                                out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                                out.println("<tr>");
-                            }
 
+                   
+                        for (Building b : buildings) { 
+
+                            out.println("<tr>");
+                            out.println("<td>");        
+                            out.println(b.getId());%>
+ 
+                    <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />
+   
+             
+                            <%
+                                  
+                                  out.println("</td>"); 
+                            
+                            
+                          
+                            out.println("<td>" + b.getAddress().getAddressline()+ "</td>");
+                            out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
+                            out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
+                            out.println("<tr>");%>
+                            
+                
+                            
+                       <%   }
 
                         %>
 
 
 
-                        <tr>
-                            <td>  </td>   
-                            <td> <input type="text" name="address" value="" /> </td>  
-                            <td> <input type="text" name="zip" value="" /> </td>
-                            <td> <input type="text" name="city" value="" /> </td>
-                            <td>   
-
-                        </tr> 
+                     
                         <tr>
 
 
@@ -89,12 +100,16 @@
 
                 </table>
 
-                <div>
-                    <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
-                    Click the tables to edit them, and save with "enter" or go back with "escape".
-                </div>
+                       
+          <input type="hidden" name="origin" value="addBuilding">
+            <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
+                   
+        
             </form>
-        </div>
+        
+                        <div> </div>
+
+</div>
 
 
 

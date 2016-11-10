@@ -37,30 +37,20 @@ public class Servlet extends HttpServlet {
             switch (origin) {
 
                 case "addBuilding":
-
-                    String contact = request.getParameter("contact");
-                    String address = request.getParameter("address");
-                    int zip = Integer.parseInt(request.getParameter("zip"));
-                    String city = request.getParameter("city");
-                    String phone = request.getParameter("phone");
-
-                    df.addBuilding(contact, address, zip, city, phone);
-                    session.setAttribute("buildings", df.getBuildings());
-
-                    response.sendRedirect("seeBuildings.jsp");
+         String buildingID = request.getParameter("buildingID");
+    
+                  out.println("ID"+buildingID);
+             
                     break;
+           
                 case "index":
+      
+        session.setAttribute("buildings", df.getBuildings());
+  
+            response.sendRedirect("seeBuildings.jsp");
 
-                    // request.setAttribute("buildings", df.getBuildings());
-                    session.setAttribute("buildings", df.getBuildings());
-                    //set attributes on request
-                    //    request.setAttribute("password", password);
+              break;
 
-                    //request.getRequestDispatcher("seeBuildings.jsp").forward(request, response);
-                    // processRequest(request, response);
-                    response.sendRedirect("seeBuildings.jsp");
-
-                    break;
             }
 
         }
@@ -92,7 +82,12 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+       processRequest(request, response);
+    
+    
+    
     }
 
     /**
@@ -106,3 +101,13 @@ public class Servlet extends HttpServlet {
     }// </editor-fold>
 
 }
+/*
+
+      <form action="Servlet" method="POST"> 
+
+             <input type="hidden" name="BuildingId" value="<%b.getId();%>">
+            <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
+
+        </form>
+
+*/
