@@ -1,4 +1,4 @@
-<%@page import="data.Document"%>
+<%@page import="entity.Document"%>
 <%@page import="entity.User"%>
 <%@page import="entity.Building"%>
 <%@page import="Domain.DomainFacade"%>

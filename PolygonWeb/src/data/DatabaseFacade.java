@@ -1,5 +1,6 @@
 package data;
 
+import entity.Document;
 import entity.Address;
 import entity.Building;
 import entity.User;
@@ -66,6 +67,37 @@ public class DatabaseFacade {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
         return null;
+    }
+
+    public static void updateBuilding(Building b) {
+        /* UPDATE Building JOIN Address ON Building.Address_addressId=Address.addressId JOIN Zipcode ON Address.zipcode_addressId=Zipcode.zipId SET Building.rapportURL='opdateretRapportURL', Address.addressline='OpdateretAdresseVej 123', Zipcode.zip=2600, Zipcode.city='Glostrup' WHERE BuildingId=1
+         */
+        String sql = "UPDATE Building "
+                + "JOIN Address "
+                + "ON Building.Address_addressId=Address.addressId "
+                + "JOIN Zipcode "
+                + "ON Address.zipcode_addressId=Zipcode.zipId "
+                + "SET Building.rapportURL=?, "
+                + "Address.addressline=?, "
+                + "Zipcode.zip=?, "
+                + "Zipcode.city=? "                
+                + "WHERE BuildingId=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, b.getReport());
+            stmt.setString(2, b.getAddress().getAddressline());
+            stmt.setInt(3, b.getAddress().getZipCode().getZip());
+            stmt.setString(4, b.getAddress().getZipCode().getCity());
+            stmt.setInt(5, b.getId());
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not inserted: " + ex.getMessage());
+        }
     }
 
     //Henter info om en bruger fra DB ud fra et givet brugerID

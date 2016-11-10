@@ -10,7 +10,7 @@ public class deleteMe {
     public static void main(String[] args) throws SQLException {
         DomainFacade df = new DomainFacade();
         DatabaseFacade dbf = new DatabaseFacade();
-
+        
 //  
 //  for(int i = 1; i<3; i++){
 //  Address adr = dbf.loadAddress(i);
