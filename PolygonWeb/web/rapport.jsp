@@ -1,3 +1,11 @@
+<%-- 
+    Document   : rapport
+    Created on : Nov 10, 2016, 4:27:45 PM
+    Author     : Asger
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Rapport</title>
@@ -412,6 +420,9 @@ bygningsgennemgang.
                 </div>
                 <div class="clear"></div>
             </div><!--pageThree end-->
+            <form action="rapportServlet" method="post">
+                <input type="submit" name="createRapport" value="Gem">
+            </form>
         </div><!--container end-->
     </body>
 </html>
