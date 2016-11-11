@@ -75,9 +75,7 @@
             <div> </div>
         </div>
     </body>
-<<<<<<< HEAD:PolygonWeb/web/seeBuildings.jsp
 
 </html> 
-=======
-</html>
->>>>>>> 1e1892594120fe6d9b3164745b8d4fd07bcb7eb0:PolygonWeb/web/index.jsp
+
+

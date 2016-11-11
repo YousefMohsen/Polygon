@@ -29,16 +29,35 @@ public class Servlet extends HttpServlet {
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");
               System.out.println(origin);
-            switch (origin) {
+                             String buildingID = request.getParameter("buildingID");                        
+
+              switch (origin) {
                 case "addBuilding":
-                    String buildingID = request.getParameter("buildingID");                        
                     session.setAttribute("ID", buildingID);                    
                     request.setAttribute("ID", buildingID);                    
                     response.sendRedirect("editBuilding.jsp");
                     break;
+                
+                case "editBuilding":
+    
+                              
+                    
+            String street = request.getParameter("street");  
+            String zip = request.getParameter("zip");  
+            String city = request.getParameter("city");  
+            String note = request.getParameter("note");  
+      
+               
+                    
+              
+              response.sendRedirect("index.jsp");
+
+                    
+                    break;
                 case "Cancel":                    
                     response.sendRedirect("index.jsp");
                     break;
+                    
             }
         }
     }

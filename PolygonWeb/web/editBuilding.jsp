@@ -66,9 +66,9 @@
                 <tr><td>Evt. note</td><td><input type="text" name="note" value="<%=d.getNote()%>"></td></tr>
             </table>
             <a href="rapport.jsp">Create rapport!</a>
-            <input type="submit" name="origin" value="Submit">
-            <input type="submit" name="origin" value="Submit">
-            <input type="submit" name="origin" value="Cancel">
+            <input type="hidden" name="origin" value="submitEditB">
+            <input type="submit" name="submit" value="Submit">
+            <input type="submit" name="cancel" value="Cancel">
         </form>
         </div>
     </body>
