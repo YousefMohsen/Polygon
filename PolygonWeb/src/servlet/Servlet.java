@@ -1,7 +1,6 @@
 package servlet;
 
 import Domain.DomainFacade;
-import entity.Building;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,9 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
-
     DomainFacade df = new DomainFacade();
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,31 +25,36 @@ public class Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-
+        try (PrintWriter out = response.getWriter()) {           
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");
+              System.out.println(origin);
+                             String buildingID = request.getParameter("buildingID");                        
 
-            switch (origin) {
-
-                case "addBuilding":
-         String buildingID = request.getParameter("buildingID");
-    
-                  out.println("ID"+buildingID);
-             
+              switch (origin) {
+                case "editBuilding":
+                    session.setAttribute("ID", buildingID);                    
+                    request.setAttribute("ID", buildingID);                    
+                    response.sendRedirect("editBuilding.jsp");
                     break;
-           
-                case "index":
+                
+                case "Submit":
+    
+                              
+                    
+            String street = request.getParameter("street");  
+            String zip = request.getParameter("zip");  
+            String city = request.getParameter("city");  
+            String note = request.getParameter("note");  
       
-        session.setAttribute("buildings", df.getBuildings());
-  
-            response.sendRedirect("seeBuildings.jsp");
-
-              break;
-
+           response.sendRedirect("index.jsp");
+                break;
+                    
+                case "Cancel":                    
+                    response.sendRedirect("index.jsp");
+                    break;
+                    
             }
-
         }
     }
 
@@ -101,13 +103,3 @@ public class Servlet extends HttpServlet {
     }// </editor-fold>
 
 }
-/*
-
-      <form action="Servlet" method="POST"> 
-
-             <input type="hidden" name="BuildingId" value="<%b.getId();%>">
-            <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
-
-        </form>
-
-*/

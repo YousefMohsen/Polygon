@@ -6,20 +6,46 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit building</title>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="css/custom.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h1>Edit building </h1>
-        <%
-            //int buildingID = Integer.parseInt(request.getParameter("buildingid"));
-            //Building b = DomainFacade.getBuilding(buildingID);
-            Building b = DomainFacade.getBuilding(1); //to delete
-            User u = DomainFacade.getUser(1); //to delete
-            Document d = DomainFacade.getDocument(1); //to delete
 
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.jsp">Sundebygninger</a>                    
+                </div>               
+            </div>
+        </nav>
+        <div class="navbar navbar-inverse navbar-fixed-left">        
+            <ul class="nav navbar-nav">               
+                <li><a href="editBuilding.jsp"><center><span style="font-size:5em;" class="glyphicon glyphicon-tent" aria-hidden="true"></span>Buildings</center></a></li>    
+                <li><a href="#"><center><span style="font-size:5em;" class="glyphicon glyphicon-signal" aria-hidden="true"></span>Something</center></a></li>    
+            </ul>
+        </div>
+
+
+        <div class="container"> 
+        <h1>Edit building </h1>
+        <%    
+            String temp = session.getAttribute("ID").toString().substring(0,1);                       
+            int buildingID = Integer.parseInt(temp);
+            Building b = DomainFacade.getBuilding(buildingID);         
+            User u = DomainFacade.getUser(1); 
+            Document d = DomainFacade.getDocument(1);
         %>
-        <form action="updateBuilding" method="POST">
+        <form action="Servlet" method="POST">
             <h5>Info om ejer af bygning:</h5>
             <table>
                 <tr><td>Fornavn</td><td><input type="text" name="firstname" value="<%=u.getFirstname()%>"></td></tr>
@@ -39,9 +65,10 @@
                 <tr><td>Fil URL</td><td><input type="text" name="fileURL" value="<%=d.getFileURL()%>"></td></tr>
                 <tr><td>Evt. note</td><td><input type="text" name="note" value="<%=d.getNote()%>"></td></tr>
             </table>
-            <!--<input type="hidden" name="id" value="<//%=buildingID%>">-->
-            <input type="submit" name="action" value="Submit">
-            <input type="submit" name="action" value="Cancel">
+            <a href="rapport.jsp">Create rapport!</a>
+            <input type="submit" name="origin" value="Submit">
+            <input type="submit" name="origin" value="Cancel">
         </form>
+        </div>
     </body>
 </html>
