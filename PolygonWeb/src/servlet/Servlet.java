@@ -32,13 +32,13 @@ public class Servlet extends HttpServlet {
                              String buildingID = request.getParameter("buildingID");                        
 
               switch (origin) {
-                case "addBuilding":
+                case "editBuilding":
                     session.setAttribute("ID", buildingID);                    
                     request.setAttribute("ID", buildingID);                    
                     response.sendRedirect("editBuilding.jsp");
                     break;
                 
-                case "editBuilding":
+                case "Submit":
     
                               
                     
@@ -47,13 +47,9 @@ public class Servlet extends HttpServlet {
             String city = request.getParameter("city");  
             String note = request.getParameter("note");  
       
-               
+           response.sendRedirect("index.jsp");
+                break;
                     
-              
-              response.sendRedirect("index.jsp");
-
-                    
-                    break;
                 case "Cancel":                    
                     response.sendRedirect("index.jsp");
                     break;

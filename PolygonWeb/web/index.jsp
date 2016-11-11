@@ -69,7 +69,7 @@
 
                         </tbody>
                 </table>
-                <input type="hidden" name="origin" value="addBuilding">
+                <input type="hidden" name="origin" value="editBuilding">
                 <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
             </form>
             <div> </div>
