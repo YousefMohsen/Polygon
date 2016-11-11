@@ -25,6 +25,7 @@ public class DomainFacade {
 
        
         return (ArrayList<Building>) DatabaseFacade.getBuildings();
+
     }
 
     public void addBuilding(String contact, String address, int zip, String city, String phone) {
@@ -33,11 +34,8 @@ public class DomainFacade {
         ZipCode newZip = new ZipCode(zip, city);// zip id or building id? db.addZip(newZip)
         Address newAddress = new Address(address, newZip); // db.addAddress(newAddress)
         //db.addBuilding(b);
-
         Building newBuilding = new Building(newAddress, "rapoort3", 1);
-
         buildings.add(newBuilding); //db.adBuilding(newBuilding)
-
     }
 
     public static Building getBuilding(int id) {

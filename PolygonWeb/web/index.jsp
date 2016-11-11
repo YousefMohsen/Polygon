@@ -21,30 +21,23 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">Sundebygninger</a>                    
+                    <a class="navbar-brand" href="index.jsp">Sundebygninger</a>                    
                 </div>               
             </div>
         </nav>
         <div class="navbar navbar-inverse navbar-fixed-left">        
             <ul class="nav navbar-nav">               
-                <li><a href="seeBuildings.jsp"><center><span style="font-size:5em;" class="glyphicon glyphicon-tent" aria-hidden="true"></span>Buildings</center></a></li>    
+                <li><a href="index.jsp"><center><span style="font-size:5em;" class="glyphicon glyphicon-tent" aria-hidden="true"></span>Buildings</center></a></li>    
                 <li><a href="#"><center><span style="font-size:5em;" class="glyphicon glyphicon-signal" aria-hidden="true"></span>Something</center></a></li>    
             </ul>
         </div>
 
-        <%   //get data from DomainFacade
+        <%
             DomainFacade df = new DomainFacade();
-            List<Building> buildings = (List<Building>) session.getAttribute("buildings");
-            // List<Building> buildings = (List) df.getBuildings();
-
-
+            List<Building> buildings = df.getBuildings();
         %>
-
         <div class="container">
-
             <form action="Servlet" method="POST"> 
-
-      
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -52,68 +45,39 @@
                             <th>Address</th>
                             <th>Zip</th>
                             <th>City</th>
-
                         </tr>
                     </thead>
-
                     <tbody>
-                        <% 
-
-
-                   
-                        for (Building b : buildings) { 
-
+                        <%                           
+                            for (Building b : buildings) { 
                             out.println("<tr>");
                             out.println("<td>");        
                             out.println(b.getId());%>
- 
-                    <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />
-   
-             
-                            <%
-                                  
-                                  out.println("</td>"); 
-                            
-                            
-                          
-                            out.println("<td>" + b.getAddress().getAddressline()+ "</td>");
-                            out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
-                            out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                            out.println("<tr>");%>
-                            
-                
+   <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />
+                            <%                                  
+                                out.println("</td>"); 
+                                out.println("<td>" + b.getAddress().getAddressline()+ "</td>");
+                                out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
+                                out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
+                                out.println("<tr>");
+                            %>
                             
                        <%   }
 
                         %>
+                        <tr>  </tr>
 
-
-
-                     
-                        <tr>
-
-
-
-                        </tr>
-
-                    </tbody>
-
+                        </tbody>
                 </table>
-
-                       
-          <input type="hidden" name="origin" value="addBuilding">
-            <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
-                   
-        
+                <input type="hidden" name="origin" value="addBuilding">
+                <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
             </form>
-        
-                        <div> </div>
-
-</div>
-
-
-
-
+            <div> </div>
+        </div>
     </body>
+<<<<<<< HEAD:PolygonWeb/web/seeBuildings.jsp
 
 </html> 
+=======
+</html>
+>>>>>>> 1e1892594120fe6d9b3164745b8d4fd07bcb7eb0:PolygonWeb/web/index.jsp
