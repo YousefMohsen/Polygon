@@ -17,13 +17,13 @@ public class DatabaseFacade {
 
     DB db = new DB();
 
-    public List<Building> getBuildings() {
+    public static List<Building> getBuildings() {
 
         String sql = "SELECT buildingId,Address_addressId,User_userId "
                 + "FROM Building; ";
 
         List<Building> buildings = new ArrayList<>();
-        try (Connection con = db.getConnection();
+        try (Connection con = DB.getConnection();
                 Statement stmt = con.createStatement()) {
             ResultSet res = stmt.executeQuery(sql);
             while (res.next()) {
@@ -148,12 +148,12 @@ public class DatabaseFacade {
         return null;
     }
 
-    public ZipCode loadZip(int id) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
+    public static ZipCode loadZip(int id) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "
                 + "WHERE zipId=?;";
         ZipCode loadedZip = new ZipCode();
-        try (Connection con = db.getConnection();
+        try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
@@ -173,13 +173,13 @@ public class DatabaseFacade {
         return loadedZip;
     }
 
-    public Address loadAddress(int id) { //afleverer et Address objekt med data fra det tilhørende addressID
+    public static Address loadAddress(int id) { //afleverer et Address objekt med data fra det tilhørende addressID
         String sql = "SELECT addressline,zipcode_addressId "
                 + "FROM Address "
                 + "WHERE addressId=?;";
         Address loadedAddress = new Address();
 
-        try (Connection con = db.getConnection();
+        try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
