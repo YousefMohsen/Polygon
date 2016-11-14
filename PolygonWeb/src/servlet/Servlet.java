@@ -1,6 +1,10 @@
 package servlet;
 
 import Domain.DomainFacade;
+import entity.Address;
+import entity.Building;
+import entity.User;
+import entity.ZipCode;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -39,13 +43,25 @@ public class Servlet extends HttpServlet {
                     break;
                 
                 case "Submit":
-    
-                              
-                    
-            String street = request.getParameter("street");  
-            String zip = request.getParameter("zip");  
-            String city = request.getParameter("city");  
-            String note = request.getParameter("note");  
+
+            int id = Integer.parseInt(request.getParameter("buildingID"));
+            String firstname = request.getParameter("firstname");
+            String lastname = request.getParameter("lastname");
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            String CustomerStreet = request.getParameter("CustomerStreet");  
+            int CustomerZip = Integer.parseInt(request.getParameter("CustomerZip"));  
+            String CustomerCity = request.getParameter("CustomerCity");
+            ZipCode z = new ZipCode(CustomerZip, CustomerCity);
+            Address a = new Address(CustomerStreet, z);
+            User u = new User(firstname, lastname, phone, email, a);
+            String buildingStreet = request.getParameter("buildingStreet");  
+            String buildingZip = request.getParameter("buildingZip");  
+            String buildingCity = request.getParameter("buildingCity"); 
+            String reportURL = request.getParameter("reportURL");
+            Building b = new Building();
+            String fileURL = request.getParameter("fileURL");  
+            String note = request.getParameter("note");   
       
            response.sendRedirect("index.jsp");
                 break;

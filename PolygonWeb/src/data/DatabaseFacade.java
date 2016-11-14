@@ -69,9 +69,8 @@ public class DatabaseFacade {
         return null;
     }
 
+    //Opdaterer info om en bygning i DB
     public static void updateBuilding(Building b) {
-        /* UPDATE Building JOIN Address ON Building.Address_addressId=Address.addressId JOIN Zipcode ON Address.zipcode_addressId=Zipcode.zipId SET Building.rapportURL='opdateretRapportURL', Address.addressline='OpdateretAdresseVej 123', Zipcode.zip=2600, Zipcode.city='Glostrup' WHERE BuildingId=1
-         */
         String sql = "UPDATE Building "
                 + "JOIN Address "
                 + "ON Building.Address_addressId=Address.addressId "
@@ -127,6 +126,41 @@ public class DatabaseFacade {
         }
         return null;
     }
+    //Opdaterer info om en bruger i DB
+    public static void updateUser(User u) {
+        String sql = "UPDATE User "
+                + "JOIN Address "
+                + "ON User.Address_addressId=Address.addressId "
+                + "JOIN Zipcode "
+                + "ON Address.zipcode_addressId=Zipcode.zipId "
+                + "SET User.firstname=?, "
+                + "User.lastname=?, "
+                + "User.phone=?, "
+                + "User.email=?, "
+                + "Address.addressline=?, "
+                + "Zipcode.zip=?, "
+                + "Zipcode.city=? "                
+                + "WHERE userId=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, u.getFirstname());
+            stmt.setString(2, u.getLastname());
+            stmt.setString(3, u.getPhone());
+            stmt.setString(4, u.getEmail());
+            stmt.setString(5, u.getAddress().getAddressline());
+            stmt.setInt(6, u.getAddress().getZipCode().getZip());
+            stmt.setString(7, u.getAddress().getZipCode().getCity());
+            stmt.setInt(8, u.getId());
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not inserted: " + ex.getMessage());
+        }
+    }
 
     //Henter info om et dokument fra DB ud fra et givet dokumentID
     public static Document getDocument(int documentID) {
@@ -148,6 +182,28 @@ public class DatabaseFacade {
         return null;
     }
 
+    //Opdaterer info om et dokument i DB
+    public static void updateDocument(Document d) {
+        String sql = "UPDATE Document "
+                + "SET fileURL=?, "
+                + "note=?, "                
+                + "WHERE documentId=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, d.getFileURL());
+            stmt.setString(2, d.getNote());
+            stmt.setInt(3, d.getId());
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not inserted: " + ex.getMessage());
+        }
+    }
+    
     public static ZipCode loadZip(int id) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "

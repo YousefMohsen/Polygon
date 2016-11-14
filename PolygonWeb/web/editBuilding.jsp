@@ -52,16 +52,16 @@
                 <tr><td>Efternavn</td><td><input type="text" name="lastname" value="<%=u.getLastname()%>"></td></tr>
                 <tr><td>Tlf. nr.</td><td><input type="text" name="phone" value="<%=u.getPhone()%>"></td></tr>
                 <tr><td>E-mail</td><td><input type="text" name="email" value="<%=u.getEmail()%>"></td></tr>
-                <tr><td>Adresse</td><td><input type="text" name="street" value="<%=u.getAddress().getAddressline()%>"></td></tr>
-                <tr><td>Post nr.</td><td><input type="text" name="zip" value="<%=u.getAddress().getZipCode().getZip()%>"></td></tr>
-                <tr><td>By</td><td><input type="text" name="city" value="<%=u.getAddress().getZipCode().getCity()%>"></td></tr>
+                <tr><td>Adresse</td><td><input type="text" name="buildingStreet" value="<%=u.getAddress().getAddressline()%>"></td></tr>
+                <tr><td>Post nr.</td><td><input type="text" name="buildingZip" value="<%=u.getAddress().getZipCode().getZip()%>"></td></tr>
+                <tr><td>By</td><td><input type="text" name="buildingCity" value="<%=u.getAddress().getZipCode().getCity()%>"></td></tr>
             </table>
             <h5>Info om bygning:</h5>
             <table>
-                <tr><td>Adresse</td><td><input type="text" name="street" value="<%=b.getAddress().getAddressline()%>"></td></tr>
-                <tr><td>Post nr.</td><td><input type="text" name="zip" value="<%=b.getAddress().getZipCode().getZip()%>"></td></tr>
-                <tr><td>By</td><td><input type="text" name="city" value="<%=b.getAddress().getZipCode().getCity()%>"></td></tr>
-                <tr><td>Rapport URL</td><td><input type="text" name="report" value="<%=b.getReport()%>"></td></tr>
+                <tr><td>Adresse</td><td><input type="text" name="CustomerStreet" value="<%=b.getAddress().getAddressline()%>"></td></tr>
+                <tr><td>Post nr.</td><td><input type="text" name="CustomerZip" value="<%=b.getAddress().getZipCode().getZip()%>"></td></tr>
+                <tr><td>By</td><td><input type="text" name="CustomerCity" value="<%=b.getAddress().getZipCode().getCity()%>"></td></tr>
+                <tr><td>Rapport URL</td><td><input type="text" name="reportURL" value="<%=b.getReport()%>"></td></tr>
                 <tr><td>Fil URL</td><td><input type="text" name="fileURL" value="<%=d.getFileURL()%>"></td></tr>
                 <tr><td>Evt. note</td><td><input type="text" name="note" value="<%=d.getNote()%>"></td></tr>
             </table>
