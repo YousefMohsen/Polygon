@@ -23,15 +23,7 @@ public class DomainFacade {
 
     }
 
-    public void addBuilding(String contact, String address, int zip, String city, String phone) {
-        //db.addBuilding(b);
-        System.out.println("add building" + city);
-        ZipCode newZip = new ZipCode(zip, city);// zip id or building id? db.addZip(newZip)
-        Address newAddress = new Address(address, newZip); // db.addAddress(newAddress)
-        //db.addBuilding(b);
-        Building newBuilding = new Building(newAddress, "rapoort3", 1);
-        buildings.add(newBuilding); //db.adBuilding(newBuilding)
-    }
+
 
     public static Building getBuilding(int id) {
         return DatabaseFacade.getBuilding(id);
@@ -56,4 +48,13 @@ public class DomainFacade {
     public static void updateDocument(Document d) {
         DatabaseFacade.updateDocument(d);
     }
+    
+    public static void createBuilding(int zip,String address){
+    
+    DatabaseFacade.createBuilding(zip,address);
+    
+    
+    }
+    
+    
 }

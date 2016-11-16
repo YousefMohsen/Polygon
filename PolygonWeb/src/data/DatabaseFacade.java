@@ -253,4 +253,105 @@ public class DatabaseFacade {
 
         return loadedAddress;
     }
+    
+public static int findZipID(int zip){
+          String sql = "select zipId from Zipcode where zip = ?;";
+        int zipID = 0 ;
+
+        try (Connection con = DB.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, zip);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+               zipID = res.getInt("zipId");
+              
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+
+        }
+    return zipID;
+    }
+
+
+public static int insertAddress(int zip,String address){
+
+    String sql = " insert into Address "
+            + "(addressline,zipcode_addressId) "
+            + "values (?,?);";
+    String sqlGetAdrID = "SELECT MAX(addressId) FROM Address;";
+    
+   int adressID = 0;
+    Connection con = DB.getConnection();
+       try (
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, address);
+            stmt.setInt(2, findZipID(zip));
+                int rowsAffected = stmt.executeUpdate();
+            if ( rowsAffected > 0 ) {
+                System.out.println( "Element inserted" );
+            } else {
+                System.out.println( "No change" );
+            }
+           
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+
+        }
+    //get adressId of recent inserted adress 
+    try (PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
+     ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+               adressID = res.getInt("MAX(addressId)");
+              
+
+            }
+    }
+    catch(SQLException ex) {}
+    
+    
+    
+    
+    
+    return adressID;
+}
+    
+public static void createBuilding(int zip,String address){
+      
+    
+    String sql = "insert into Building "
+            + "(Address_addressId,rapportURL,User_userId) "
+            + "values(?,?,?);";
+       
+
+        try (Connection con = DB.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, insertAddress(zip, address));
+            stmt.setString(2, "testURL");// fix rapport url!
+            stmt.setInt(3, 1); //fix user ID
+            
+           int rowsAffected = stmt.executeUpdate();
+            if ( rowsAffected > 0 ) {
+                System.out.println( "Element inserted" );
+            } else {
+                System.out.println( "No change" );
+            }
+           
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+
+        }
+    
+    
+    
+    
+
+    
+    
+    
+
+}
+    
+    
 }

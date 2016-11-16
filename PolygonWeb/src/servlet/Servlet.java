@@ -41,7 +41,15 @@ public class Servlet extends HttpServlet {
                     request.setAttribute("ID", buildingID);                    
                     response.sendRedirect("editBuilding.jsp");
                     break;
-                
+                case "Create Building": 
+            String address = request.getParameter("address");
+            int zip = Integer.parseInt(request.getParameter("zip"));
+            String city = request.getParameter("city");
+   
+            DomainFacade.createBuilding(zip, address);
+            
+            
+                    break;
                 case "Submit":
 
             int id = Integer.parseInt(request.getParameter("buildingID"));
