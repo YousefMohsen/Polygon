@@ -2,10 +2,8 @@ package Domain;
 
 import data.DatabaseFacade;
 import entity.Document;
-import entity.Address;
 import entity.Building;
 import entity.User;
-import entity.ZipCode;
 import java.util.ArrayList;
 
 public class DomainFacade {
@@ -18,9 +16,7 @@ public class DomainFacade {
     private ArrayList<User> users = new ArrayList();
 
     public static ArrayList<Building> getBuildings() {
-
         return (ArrayList<Building>) DatabaseFacade.getBuildings();
-
     }
 
     public static Building getBuilding(int id) {
