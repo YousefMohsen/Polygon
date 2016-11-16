@@ -65,7 +65,7 @@
                 <tr><td>Fil URL</td><td><input type="text" name="fileURL" value="<%=d.getFileURL()%>"></td></tr>
                 <tr><td>Evt. note</td><td><input type="text" name="note" value="<%=d.getNote()%>"></td></tr>
             </table>
-            <a href="rapport.jsp">Create rapport!</a>
+            <a href="rapport.jsp">Opret rapport!</a>
             <input type="submit" name="origin" value="Submit">
             <input type="submit" name="origin" value="Cancel">
         </form>

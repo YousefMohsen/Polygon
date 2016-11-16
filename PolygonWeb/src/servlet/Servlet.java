@@ -3,6 +3,7 @@ package servlet;
 import Domain.DomainFacade;
 import entity.Address;
 import entity.Building;
+import entity.Document;
 import entity.User;
 import entity.ZipCode;
 import java.io.IOException;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
+
     DomainFacade df = new DomainFacade();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,47 +32,53 @@ public class Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {           
+        try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");
-              System.out.println(origin);
-                             String buildingID = request.getParameter("buildingID");                        
+            System.out.println(origin);
+            String buildingID = request.getParameter("buildingID");
 
-              switch (origin) {
+            switch (origin) {
                 case "editBuilding":
-                    session.setAttribute("ID", buildingID);                    
-                    request.setAttribute("ID", buildingID);                    
+                    session.setAttribute("ID", buildingID);
+                    request.setAttribute("ID", buildingID);
                     response.sendRedirect("editBuilding.jsp");
                     break;
-                
-                case "Submit":
 
-            int id = Integer.parseInt(request.getParameter("buildingID"));
-            String firstname = request.getParameter("firstname");
-            String lastname = request.getParameter("lastname");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String CustomerStreet = request.getParameter("CustomerStreet");  
-            int CustomerZip = Integer.parseInt(request.getParameter("CustomerZip"));  
-            String CustomerCity = request.getParameter("CustomerCity");
-            ZipCode z = new ZipCode(CustomerZip, CustomerCity);
-            Address a = new Address(CustomerStreet, z);
-            User u = new User(firstname, lastname, phone, email, a);
-            String buildingStreet = request.getParameter("buildingStreet");  
-            String buildingZip = request.getParameter("buildingZip");  
-            String buildingCity = request.getParameter("buildingCity"); 
-            String reportURL = request.getParameter("reportURL");
-            Building b = new Building();
-            String fileURL = request.getParameter("fileURL");  
-            String note = request.getParameter("note");   
-      
-           response.sendRedirect("index.jsp");
-                break;
-                    
-                case "Cancel":                    
+                case "Submit":
+                    int id = (Integer) session.getAttribute("ID");
+                    String firstname = request.getParameter("firstname");
+                    String lastname = request.getParameter("lastname");
+                    String phone = request.getParameter("phone");
+                    String email = request.getParameter("email");
+                    String CustomerStreet = request.getParameter("CustomerStreet");
+                    int CustomerZip = Integer.parseInt(request.getParameter("CustomerZip"));
+                    String CustomerCity = request.getParameter("CustomerCity");
+                    ZipCode userZ = new ZipCode(CustomerZip, CustomerCity);
+                    Address userA = new Address(CustomerStreet, userZ);
+                    User u = new User(1, firstname, lastname, phone, email, userA);
+                    String buildingStreet = request.getParameter("buildingStreet");
+                    int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));
+                    String buildingCity = request.getParameter("buildingCity");
+                    String reportURL = request.getParameter("reportURL");
+                    ZipCode buildingZ = new ZipCode(buildingZip, buildingCity);
+                    Address buildingA = new Address(buildingStreet, buildingZ);
+                    Building b = new Building(id, buildingA, reportURL);
+                    String fileURL = request.getParameter("fileURL");
+                    String note = request.getParameter("note");
+                    Document d = new Document(1, fileURL, note);
+
+                    DomainFacade.updateUser(u);
+                    DomainFacade.updateBuilding(b);
+                    DomainFacade.updateDocument(d);
+
                     response.sendRedirect("index.jsp");
                     break;
-                    
+
+                case "Cancel":
+                    response.sendRedirect("index.jsp");
+                    break;
+
             }
         }
     }
@@ -86,7 +95,7 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
@@ -100,12 +109,7 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-       processRequest(request, response);
-    
-    
-    
+        processRequest(request, response);
     }
 
     /**

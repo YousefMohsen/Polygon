@@ -12,6 +12,11 @@ public class Document {
         this.note = note;
     }
 
+    public Document(String fileURL, String note) {
+        this.fileURL = fileURL;
+        this.note = note;
+    }
+
     public int getId() {
         return id;
     }

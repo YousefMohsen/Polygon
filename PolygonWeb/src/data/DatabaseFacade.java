@@ -186,7 +186,7 @@ public class DatabaseFacade {
     public static void updateDocument(Document d) {
         String sql = "UPDATE Document "
                 + "SET fileURL=?, "
-                + "note=?, "                
+                + "note=? "                
                 + "WHERE documentId=?";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
