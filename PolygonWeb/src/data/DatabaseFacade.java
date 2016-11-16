@@ -18,12 +18,12 @@ public class DatabaseFacade {
     DB db = new DB();
 
     public static List<Building> getBuildings() {
-
+Connection con = DB.getConnection();
         String sql = "SELECT buildingId,Address_addressId,User_userId "
                 + "FROM Building; ";
 
         List<Building> buildings = new ArrayList<>();
-        try (Connection con = DB.getConnection();
+        try (
                 Statement stmt = con.createStatement()) {
             ResultSet res = stmt.executeQuery(sql);
             while (res.next()) {
@@ -33,7 +33,7 @@ public class DatabaseFacade {
                 int userId = res.getInt("User_userId");
 
                 newBuilding.setId(id);
-                newBuilding.setAddress(loadAddress(addressId));
+                newBuilding.setAddress(loadAddress(addressId,con));
                 newBuilding.setUser(userId);
                 System.out.println(id);
                 buildings.add(newBuilding);
@@ -204,13 +204,12 @@ public class DatabaseFacade {
         }
     }
     
-    public static ZipCode loadZip(int id) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
+    public static ZipCode loadZip(int id,Connection con) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "
                 + "WHERE zipId=?;";
         ZipCode loadedZip = new ZipCode();
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
+        try ( PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
@@ -229,20 +228,19 @@ public class DatabaseFacade {
         return loadedZip;
     }
 
-    public static Address loadAddress(int id) { //afleverer et Address objekt med data fra det tilhørende addressID
+    public static Address loadAddress(int id,Connection con) { //afleverer et Address objekt med data fra det tilhørende addressID
         String sql = "SELECT addressline,zipcode_addressId "
                 + "FROM Address "
                 + "WHERE addressId=?;";
         Address loadedAddress = new Address();
 
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 int zip = res.getInt("zipcode_addressId");
                 String addressLine = res.getString("addressline");
-                loadedAddress.setZipCode(loadZip(zip));
+                loadedAddress.setZipCode(loadZip(zip,con));
                 loadedAddress.setAddressline(addressLine);
 
             }
@@ -254,12 +252,11 @@ public class DatabaseFacade {
         return loadedAddress;
     }
     
-public static int findZipID(int zip){
+public static int findZipID(int zip,Connection con){
           String sql = "select zipId from Zipcode where zip = ?;";
         int zipID = 0 ;
 
-        try (Connection con = DB.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, zip);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
@@ -275,7 +272,7 @@ public static int findZipID(int zip){
     }
 
 
-public static int insertAddress(int zip,String address){
+public static int insertAddress(int zip,String address,Connection con){
 
     String sql = " insert into Address "
             + "(addressline,zipcode_addressId) "
@@ -283,11 +280,10 @@ public static int insertAddress(int zip,String address){
     String sqlGetAdrID = "SELECT MAX(addressId) FROM Address;";
     
    int adressID = 0;
-    Connection con = DB.getConnection();
-       try (
-            PreparedStatement stmt = con.prepareStatement(sql)) {
+
+       try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, address);
-            stmt.setInt(2, findZipID(zip));
+            stmt.setInt(2, findZipID(zip,con));
                 int rowsAffected = stmt.executeUpdate();
             if ( rowsAffected > 0 ) {
                 System.out.println( "Element inserted" );
@@ -327,7 +323,7 @@ public static void createBuilding(int zip,String address){
 
         try (Connection con = DB.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, insertAddress(zip, address));
+            stmt.setInt(1, insertAddress(zip, address,con));
             stmt.setString(2, "testURL");// fix rapport url!
             stmt.setInt(3, 1); //fix user ID
             

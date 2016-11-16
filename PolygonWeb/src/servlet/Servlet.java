@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
@@ -47,7 +48,8 @@ public class Servlet extends HttpServlet {
             String city = request.getParameter("city");
    
             DomainFacade.createBuilding(zip, address);
-            
+            response.sendRedirect("index.jsp");
+
             
                     break;
                 case "Submit":
