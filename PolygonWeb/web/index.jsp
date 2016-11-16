@@ -36,8 +36,13 @@
             DomainFacade df = new DomainFacade();
             List<Building> buildings = df.getBuildings();
         %>
-        <div class="container">
-            <form action="Servlet" method="POST"> 
+        <div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+      <div class="container-fluid">
+
+            <form action="Servlet" method="POST">
+                        <div class="row top-buffer"> </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -72,8 +77,41 @@
                 <input type="hidden" name="origin" value="editBuilding">
                 <input type="submit" class="btn btn-success" value="Edit" name="add"/> 
             </form>
-            <div> </div>
-        </div>
+                        
+                        <br>
+                        
+      <form action="Servlet" method="POST">  
+                   <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Address</th>
+                            <th>Zip</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+        <td> </td>   
+        <td> <input type="text" name="address" value="" /> </td>  
+        <td> <input type="text" name="zip" value="" />  </td>  
+        <td> <input type="text" name="city" value="" />  </td>  
+                        </tr>
+                        
+                        
+              <tr>  </tr>
+
+                        </tbody>
+                </table>
+ <input type="submit" class="btn btn-success" value="Create Building" name="origin"/>
+   </form> 
+
+      </div>
+  <div class="col-sm-3"></div>
+
+</div>
+</div>
+
     </body>
 
 </html> 

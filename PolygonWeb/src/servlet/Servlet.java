@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
@@ -44,7 +45,14 @@ public class Servlet extends HttpServlet {
                     request.setAttribute("ID", buildingID);
                     response.sendRedirect("editBuilding.jsp");
                     break;
+                case "Create Building":
+                    String address = request.getParameter("address");
+                    int zip = Integer.parseInt(request.getParameter("zip"));
+                    String city = request.getParameter("city");
 
+                    DomainFacade.createBuilding(zip, address);
+                    response.sendRedirect("index.jsp");
+                    break;
                 case "Submit":
                     int id = (Integer) session.getAttribute("ID");
                     String firstname = request.getParameter("firstname");
