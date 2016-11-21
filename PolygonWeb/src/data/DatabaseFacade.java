@@ -26,20 +26,20 @@ public class DatabaseFacade {
         BuildingMapper.updateBuilding(b);
     }
     
-    public static User getUser(int userID) {
-        return UserMapper.getUser(userID);
+    public static User getUser(int buildingID) {
+        return UserMapper.getUser(buildingID);
     }
     
-    public static void updateUser(User u) {
-        UserMapper.updateUser(u);
+    public static void updateUser(User u, int buildingID) {
+        UserMapper.updateUser(u, buildingID);
     }
     
-    public static Document getDocument(int documentID) {
-        return DocumentMapper.getDocument(documentID);
+    public static Document getDocument(int buildingID) {
+        return DocumentMapper.getDocument(buildingID);
     }
     
-    public static void updateDocument(Document d) {
-        DocumentMapper.updateDocument(d);
+    public static void updateDocument(Document d, int buildingID) {
+        DocumentMapper.updateDocument(d, buildingID);
     }
     
     public static int insertAddress(int zip, String address, Connection con) {

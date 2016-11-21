@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import entity.Document;
@@ -11,42 +6,43 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author joaci
- */
 public class DocumentMapper {
-    //Henter info om et dokument fra DB ud fra et givet dokumentID
-    public static Document getDocument(int documentID) {
+    
+    //Henter info om et dokument fra DB ud fra et givet bygningsID
+    public static Document getDocument(int buildingID) {
         String sql = "SELECT fileURL, note "
                 + "FROM Document "
-                + "WHERE documentId=?";
+                + "JOIN Building "
+                + "ON buildingId = Building_buildingId "
+                + "WHERE buildingId=?";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, documentID);
+            stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 String fileURL = res.getString("fileURL");
                 String note = res.getString("note");
-                return new Document(documentID, fileURL, note);
+                return new Document(buildingID, fileURL, note);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
         return null;
     }
-
-    //Opdaterer info om et dokument i DB
-    public static void updateDocument(Document d) {
+    
+    //Opdaterer info om et dokument i DB ud fra et givet bygningsID
+    public static void updateDocument(Document d, int buildingID) {
         String sql = "UPDATE Document "
+                + "JOIN Building "
+                + "ON buildingId = Building_buildingId "
                 + "SET fileURL=?, "
                 + "note=? "
-                + "WHERE documentId=?";
+                + "WHERE buildingId=?";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, d.getFileURL());
             stmt.setString(2, d.getNote());
-            stmt.setInt(3, d.getId());
+            stmt.setInt(3, buildingID);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");

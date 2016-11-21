@@ -35,18 +35,16 @@ public class DomainFacade {
         DatabaseFacade.updateBuilding(b);
     }
 
-    public static void updateUser(User u) {
-        DatabaseFacade.updateUser(u);
+    public static void updateUser(User u, int buildingID) {
+        DatabaseFacade.updateUser(u, buildingID);
     }
-
-    public static void updateDocument(Document d) {
-        DatabaseFacade.updateDocument(d);
+    
+    public static void updateDocument(Document d, int buildingID) {
+        DatabaseFacade.updateDocument(d, buildingID);
     }
 
     public static void createBuilding(int zip, String address) {
-
         DatabaseFacade.createBuilding(zip, address);
-
     }
 
 }

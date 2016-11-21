@@ -54,17 +54,19 @@ public class Servlet extends HttpServlet {
                     response.sendRedirect("index.jsp");
                     break;
                 case "Submit":
-                    int id = (Integer) session.getAttribute("ID");
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    
                     String firstname = request.getParameter("firstname");
                     String lastname = request.getParameter("lastname");
                     String phone = request.getParameter("phone");
                     String email = request.getParameter("email");
-                    String CustomerStreet = request.getParameter("CustomerStreet");
-                    int CustomerZip = Integer.parseInt(request.getParameter("CustomerZip"));
-                    String CustomerCity = request.getParameter("CustomerCity");
-                    ZipCode userZ = new ZipCode(CustomerZip, CustomerCity);
-                    Address userA = new Address(CustomerStreet, userZ);
-                    User u = new User(1, firstname, lastname, phone, email, userA);
+                    String userStreet = request.getParameter("userStreet");
+                    int userZip = Integer.parseInt(request.getParameter("userZip"));
+                    String userCity = request.getParameter("userCity");
+                    ZipCode userZ = new ZipCode(userZip, userCity);
+                    Address userA = new Address(userStreet, userZ);
+                    User u = new User(id, firstname, lastname, phone, email, userA);
+                    
                     String buildingStreet = request.getParameter("buildingStreet");
                     int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));
                     String buildingCity = request.getParameter("buildingCity");
@@ -72,14 +74,15 @@ public class Servlet extends HttpServlet {
                     ZipCode buildingZ = new ZipCode(buildingZip, buildingCity);
                     Address buildingA = new Address(buildingStreet, buildingZ);
                     Building b = new Building(id, buildingA, reportURL);
+                    
+                    DomainFacade.updateUser(u, b.getId());
+                    DomainFacade.updateBuilding(b);
+                    
                     String fileURL = request.getParameter("fileURL");
                     String note = request.getParameter("note");
-                    Document d = new Document(1, fileURL, note);
-
-                    DomainFacade.updateUser(u);
-                    DomainFacade.updateBuilding(b);
-                    DomainFacade.updateDocument(d);
-
+                    Document d = new Document(id, fileURL, note);
+                    DomainFacade.updateDocument(d, b.getId());
+                    
                     response.sendRedirect("index.jsp");
                     break;
 
