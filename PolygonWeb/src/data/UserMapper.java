@@ -39,7 +39,7 @@ public class UserMapper {
         }
         return null;
     }
-    
+
     //Opdaterer info om en bruger i DB ud fra et givet bygningsID
     public static void updateUser(User u, int buildingID) {
         String sql = "UPDATE User "
@@ -65,7 +65,7 @@ public class UserMapper {
             stmt.setString(4, u.getEmail());
             stmt.setString(5, u.getAddress().getAddressline());
             stmt.setInt(6, u.getAddress().getZipCode().getZip());
-            stmt.setString(7, u.getAddress().getZipCode().getCity());
+            stmt.setString(7, findCity(u.getAddress().getZipCode().getZip()));
             stmt.setInt(8, buildingID);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -76,5 +76,24 @@ public class UserMapper {
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
         }
+    }
+
+    //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
+    public static String findCity(int zip) {
+        String sql = "SELECT city "
+                + "FROM Zipcode "
+                + "WHERE zip=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, zip);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String city = res.getString("city");
+                return city;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return null;
     }
 }

@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuildingMapper {
-    private DB db = new DB();  
-    
+
+    private DB db = new DB();
+
     public static void createBuilding(int zip, String address) {
 
         String sql = "insert into Building "
@@ -39,7 +40,7 @@ public class BuildingMapper {
         }
 
     }
-    
+
     public static List<Building> getBuildings() {
         Connection con = DB.getConnection();
         String sql = "SELECT buildingId,Address_addressId,User_userId "
@@ -66,7 +67,7 @@ public class BuildingMapper {
         }
         return buildings;
     }
-    
+
     //Henter info om en bygning fra DB ud fra et givet bygningsID
     public static Building getBuilding(int buildingID) {
         String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
@@ -91,6 +92,7 @@ public class BuildingMapper {
         }
         return null;
     }
+
     //Opdaterer info om en bygning i DB
     public static void updateBuilding(Building b) {
         String sql = "UPDATE Building "
@@ -108,7 +110,7 @@ public class BuildingMapper {
             stmt.setString(1, b.getReport());
             stmt.setString(2, b.getAddress().getAddressline());
             stmt.setInt(3, b.getAddress().getZipCode().getZip());
-            stmt.setString(4, b.getAddress().getZipCode().getCity());
+            stmt.setString(4, findCity(b.getAddress().getZipCode().getZip()));
             stmt.setInt(5, b.getId());
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -120,7 +122,7 @@ public class BuildingMapper {
             System.out.println("Element not inserted: " + ex.getMessage());
         }
     }
-    
+
     public static ZipCode loadZip(int id, Connection con) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "
@@ -167,6 +169,26 @@ public class BuildingMapper {
         }
 
         return loadedAddress;
+    }
+
+    //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
+    public static String findCity(int zip) {
+        String sql = "SELECT city "
+                + "FROM Zipcode "
+                + "WHERE zip=?";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, zip);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String city = res.getString("city");
+                return city;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return null;
+
     }
 
     public static int findZipID(int zip, Connection con) {
