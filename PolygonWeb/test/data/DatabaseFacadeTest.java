@@ -8,7 +8,6 @@ package data;
 import static data.DatabaseFacade.getBuildings;
 import entity.Address;
 import entity.Building;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;

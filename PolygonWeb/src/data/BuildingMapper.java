@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuildingMapper {
-
-    private DB db = new DB();
-
+        
     public static void createBuilding(int zip, String address) {
 
         String sql = "insert into Building "
@@ -33,7 +31,6 @@ public class BuildingMapper {
             } else {
                 System.out.println("No change");
             }
-
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
 
@@ -45,7 +42,6 @@ public class BuildingMapper {
         Connection con = DB.getConnection();
         String sql = "SELECT buildingId,Address_addressId,User_userId "
                 + "FROM Building; ";
-
         List<Building> buildings = new ArrayList<>();
         try (
                 Statement stmt = con.createStatement()) {
@@ -58,8 +54,7 @@ public class BuildingMapper {
 
                 newBuilding.setId(id);
                 newBuilding.setAddress(loadAddress(addressId, con));
-                newBuilding.setUser(userId);
-                System.out.println(id);
+                newBuilding.setUser(userId);              
                 buildings.add(newBuilding);
             }
         } catch (SQLException ex) {

@@ -28,7 +28,7 @@
                     out.println("<tr>");   
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                    out.println("<td>"+"<a href=\"Servlet?origin=editBuilding&buildingID=" + b.getId() + "\">" + b.getAddress().getAddressline() + "</a></td>");
+                    out.println("<td>"+"<a href=\"Servlet?origin=editBuilding&buildingID=" + b.getId() + "\">"+ b.getAddress().getAddressline() + "</a></td>");
                 }                 
             %>
         </tbody>
