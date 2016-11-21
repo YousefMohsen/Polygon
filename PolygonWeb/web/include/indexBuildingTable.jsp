@@ -38,24 +38,18 @@
 <form action="Servlet" method="POST">  
     <table class="table table-bordered">
         <thead>
-            <tr>
-              
+            <tr>              
                 <th>Address</th>
                 <th>Zip</th>
                 <th>City</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                
+            <tr>                
                 <td> <input type="text" name="address" value="" /> </td>  
                 <td> <input type="text" name="zip" value="" />  </td>  
                 <td> <input type="text" name="city" value="" />  </td>  
             </tr>
-
-
-        
-
         </tbody>
     </table>
     <input type="submit" class="btn btn-success" value="Create Building" name="origin"/>

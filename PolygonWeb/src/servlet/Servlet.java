@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
@@ -38,6 +37,7 @@ public class Servlet extends HttpServlet {
             String origin = request.getParameter("origin");
             System.out.println(origin);
             String buildingID = request.getParameter("buildingID");
+            System.out.println(buildingID);
 
             switch (origin) {
                 case "editBuilding":
@@ -85,11 +85,6 @@ public class Servlet extends HttpServlet {
                     
                     response.sendRedirect("index.jsp");
                     break;
-
-                case "Cancel":
-                    response.sendRedirect("index.jsp");
-                    break;
-
             }
         }
     }
