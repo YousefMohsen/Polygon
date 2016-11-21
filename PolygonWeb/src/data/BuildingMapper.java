@@ -1,7 +1,5 @@
 package data;
 
-import static data.DatabaseFacade.insertAddress;
-import static data.DatabaseFacade.loadAddress;
 import entity.Address;
 import entity.Building;
 import entity.ZipCode;
