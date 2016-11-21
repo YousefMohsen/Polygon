@@ -28,16 +28,17 @@
                 for (Building b : buildings) {
                     out.println("<tr>");
                     out.println("<td>");
-                        out.println(b.getId());%>
-        <input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />
-        <%
+                    out.println("<a href=\"Servlet\">test</a>");
+//                    out.println(b.getId());%>
+        <!--<input type="radio" name="buildingID" value="<%out.println(b.getId());%>" checked="checked" />-->
+        <% //
                 out.println("</td>");
-                out.println("<td>" + b.getAddress().getAddressline() + "</td>");
-                out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
-                out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                out.println("<tr>");
+//                out.println("<td>" + b.getAddress().getAddressline() + "</td>");
+//                out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
+//                out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
+//                out.println("<tr>");
             }
-        %>
+//        %>
         </tbody>
     </table>
     <input type="hidden" name="origin" value="editBuilding">
