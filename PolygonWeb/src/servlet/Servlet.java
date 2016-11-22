@@ -34,10 +34,8 @@ public class Servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            String origin = request.getParameter("origin");
-            System.out.println(origin);
-            String buildingID = request.getParameter("buildingID");
-            System.out.println(buildingID);
+            String origin = request.getParameter("origin");         
+            String buildingID = request.getParameter("buildingID");           
 
             switch (origin) {
                 case "editBuilding":
