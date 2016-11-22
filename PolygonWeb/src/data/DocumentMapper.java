@@ -23,7 +23,8 @@ public class DocumentMapper {
                 String fileURL = res.getString("fileURL");
                 String note = res.getString("note");
                 return new Document(buildingID, fileURL, note);
-            }
+            } else{     //if building has no file or note
+                return new Document(buildingID, "", "");}
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }

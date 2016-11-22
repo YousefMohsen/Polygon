@@ -16,14 +16,15 @@ public class BuildingMapper {
     public static void createBuilding(int zip, String address) {
 
         String sql = "insert into Building "
-                + "(Address_addressId,rapportURL,User_userId) "
-                + "values(?,?,?);";
+                + "(Address_addressId,rapportURL,User_userId,hidden) "
+                + "values(?,?,?,?);";
 
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, insertAddress(zip, address, con));
             stmt.setString(2, "testURL");// fix rapport url!
             stmt.setInt(3, 1); //fix user ID
+            stmt.setInt(4, 0); //0 = shown, 1=hidden
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -78,6 +79,7 @@ public class BuildingMapper {
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 String rapportURL = res.getString("rapportURL");
+    
                 ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
                 Address address = new Address(res.getString("addressline"), zip);
                 return new Building(buildingID, address, rapportURL);

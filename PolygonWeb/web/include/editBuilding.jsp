@@ -11,7 +11,7 @@
     Document d = DomainFacade.getDocument(buildingID);
 %>
    
-    
+
 <form action="Servlet" method="POST">
 <div class="well well-lg">   
     <div class="row">
@@ -55,6 +55,13 @@
 </form>
 <a href="index.jsp" class="btn btn-default">Back</a>
 </div>
+         
+<form action="Servlet" method="POST"> 
+    
+   <input class="btn btn-danger" type="submit" value="Request deletion">  
+       <input type="hidden" name="buildingID" value="<%=buildingID%>" />
+       <input type="hidden" name="origin" value="requestDeletion" />
+</form>
             </div>
 
 

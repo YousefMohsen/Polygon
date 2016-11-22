@@ -53,6 +53,11 @@ public class Servlet extends HttpServlet {
                     DomainFacade.createBuilding(zip, address);
                     response.sendRedirect("index.jsp");
                     break;
+                
+                  case "requestDeletion":
+                      out.println("hej"+ buildingID);
+                      break;
+                
                 case "Submit":
                     int id = Integer.parseInt(request.getParameter("id"));
                     
