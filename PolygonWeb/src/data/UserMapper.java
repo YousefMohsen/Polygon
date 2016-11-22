@@ -28,6 +28,7 @@ public class UserMapper {
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
+        // User doesnt exist
         return new Login("no","no",0,0);        
     }
     

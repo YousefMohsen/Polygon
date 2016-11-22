@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author joaci
  */
 @WebServlet(name = "login", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {    
-    DomainFacade DF = new DomainFacade();
+public class LoginServlet extends HttpServlet {      
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
