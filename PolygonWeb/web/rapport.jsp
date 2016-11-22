@@ -197,7 +197,7 @@
                                     <th>Vægge</th>
                                     <th><input type="radio" name="comments4" value="0"></th>
                                     <th><input type="radio" name="comments4" value="1"></th>
-                                    <th><input type="checkbox" name="pictureWall"></th>
+                                    <th><input type="checkbox" name="pictureWall" value="1"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="wallDescription"></textarea></th>
@@ -206,7 +206,7 @@
                                     <th>Loft</th>
                                     <th><input type="radio" name="comments5" value="0"></th>
                                     <th><input type="radio" name="comments5" value="1"></th>
-                                    <th><input type="checkbox" name="pictureCeiling"></th>
+                                    <th><input type="checkbox" name="pictureCeiling" value="1"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="ceilingDescription"></textarea></th>
@@ -215,7 +215,7 @@
                                     <th>Gulv</th>
                                     <th><input type="radio" name="comments6" value="0"></th>
                                     <th><input type="radio" name="comments6" value="1"></th>
-                                    <th><input type="checkbox" name="pictureFloor"></th>
+                                    <th><input type="checkbox" name="pictureFloor" value="1"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="floorDescription"></textarea></th>
@@ -224,7 +224,7 @@
                                     <th>Vinduer/døre</th>
                                     <th><input type="radio" name="comments7" value="0"></th>
                                     <th><input type="radio" name="comments7" value="1"></th>
-                                    <th><input type="checkbox" name="pictureWindows"></th>
+                                    <th><input type="checkbox" name="pictureWindows" value="1"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="windowsDescription"></textarea></th>
@@ -233,7 +233,7 @@
                                     <th><input type="text" name="other"></th>
                                     <th><input type="radio" name="comments8" value="0"></th>
                                     <th><input type="radio" name="comments8" value="1"></th>
-                                    <th><input type="checkbox" name="pictureOther"></th>
+                                    <th><input type="checkbox" name="pictureOther" value="1"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="otherDescription"></textarea></th>
@@ -242,7 +242,7 @@
                                     <th><input type="text" name="other2"></th>
                                     <th><input type="radio" name="comments9" value="0"></th>
                                     <th><input type="radio" name="comments9" value="1"></th>
-                                    <th><input type="checkbox" name="pictureOther2"></th>
+                                    <th><input type="checkbox" name="pictureOther2" value="1"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="other2Description"></textarea></th>
@@ -267,7 +267,7 @@
                                 <th><input type="text" name="measuring"></th>
                             </tr>
                             <tr>
-                                <th colspan="4"><textarea></textarea></th>
+                                <th colspan="4"><textarea name="humidityDescription"></textarea></th>
                             </tr>
                         </table>
                 </div>
@@ -294,35 +294,35 @@
                             </tr>
                             <tr>
                                 <th><input type="text" name="room1"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion1"></textarea></th>
                             </tr>
                             <tr>
                                 <th><input type="text" name="room2"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion2"></textarea></th>
                             </tr>
                             <tr>
                                 <th><input type="text" name="room3"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion3"></textarea></th>
                             </tr>
                             <tr>
                                 <th><input type="text" name="room4"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion4"></textarea></th>
                             </tr>
                             <tr>
                                 <th><input type="text" name="room5"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion5"></textarea></th>
                             </tr>
                             <tr>
                                 <th><input type="text" name="room6"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion6"></textarea></th>
                             </tr>
                             <tr>
                                 <th><input type="text" name="room7"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion7"></textarea></th>
                             </tr>
                             <tr>
                                 <th><input type="text" name="room8"></th>
-                                <th><textarea></textarea></th>
+                                <th><textarea name="conclusion8"></textarea></th>
                             </tr>
 
                         </table>
@@ -346,21 +346,21 @@
                             <tr>
                                 <th><span>Tilstandsgrad 1</span><br>God tilstand</th>
                                 <th>Der er ingen problemer med bygningen; bygningens funktion er uden problemer</th>
-                                <th><input type="radio" name="grade"></th>
+                                <th><input type="radio" name="grade" value="1"></th>
                             </tr>
                             <tr>
                                 <th><span>Tilstandsgrad 2</span><br>Middel tilstand</th>
                                 <th>Der er slid og skader på bygningen eller risiko for potentielle
                                     problemer med bygningen; bygningen funktion er nedstat, eller der er
                                     risiko for, at funktionen bliver nedsat</th>
-                                <th><input type="radio" name="grade"></th>
+                                <th><input type="radio" name="grade" value="2"></th>
                             </tr>
                             <tr>
                                 <th><span>Tilstandsgrad 3</span><br>Dårlig tilstand</th>
                                 <th>Der er problemer med bygningen; bygningen er begyndt at forfalde,
                                     har defekte komponenter, er nedbrudt eller bør udskiftes; bygningens
                                     funktion er nedsat, eller bygningen er næsen eller helt ubrugeligt</th>
-                                <th><input type="radio" name="grade"></th>
+                                <th><input type="radio" name="grade" value="3"></th>
                             </tr>
                         </table>
                 </div>
