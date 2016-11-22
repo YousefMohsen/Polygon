@@ -15,21 +15,19 @@
     </head>
     <body>
         <div id="container">
+            <form action="rapportServlet" method="post">
             <div class="pages">
                 <img src="images/PolygonLogo.jpg" alt="polygon logo" class="polygologo"> 
                 <img src="images/SundeBygningerLogo.jpg" alt="sundebygninger logo" class="sundebygningerlogo">
                 <div class="clear"></div>
 
                 <div class="rapportNr" id="firstRapportNR">
-                    <form action="#" method="GET">
                         <span>Rapport nr.:</span>
-                        <input type="text" name="rapportnr"> 
-                    </form>    
+                        <input type="text" name="rapportnr1"> 
                 </div>
                 <h1 align="center">Bygningsgennemgang</h1>
 
                 <div id="addressform">
-                    <form action="#" method="GET">
                         <div class="left">
                             <input type="text" name="nameOnBuilding">
                             <div class="border-bot"></div>
@@ -48,18 +46,14 @@
                         </div>
                         <img class="left" src="images/PolygonKontaktInfo.jpg" alt="kontakt info">
                         <div class="clear"></div>
-                    </form>
                 </div>
                 <div id="upload-picture">
                     <p>(Indsæt billede af bygningen udefra)</p>
-                    <form action="#" method="post">
                         <input type="file" name="pictureOfBuilding" id="pictureOfBuilding">
-                        <input type="submit" name="submit" value="Upload Image">
-                    </form>
+                        <input type="submit" name="submitPicture" value="Upload Image">
                 </div>
                 <div id="general-building-info">
                     <h2>General information om bygningen</h2>
-                    <form action="#" method="get">
                         <div>
                             <p>Byggeår</p>
                             <input type="text" name="buildYear">
@@ -78,12 +72,10 @@
                             <div class="border-bot"></div>
                             <div class="clear"></div>
                         </div>
-                    </form>
                 </div>
                 <div id="examination-building-outside">
                     <h2>Gennemgang af bygningen udvendig</h2>
                     <div>
-                        <form action="#" method="post">
                             <table cellspacing="0">
                                 <tr>
                                     <th rowspan="2">Tag</th>
@@ -92,18 +84,16 @@
                                     <th>Billede</th>
                                 </tr>
                                 <tr>
-                                    <th><input type="checkbox" name="comments"></th>
-                                    <th><input type="checkbox" name="noComments"></th>
-                                    <th><input type="checkbox" name="picture"></th>
+                                    <th><input type="radio" name="comments1" value="0"></th>
+                                    <th><input type="radio" name="comments1" value="1"></th>
+                                    <th><input type="checkbox" name="picture1" value="1"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="roofDescription"></textarea></th>
                                 </tr>
                             </table>
-                        </form>
                     </div>
                     <div>
-                        <form action="#" method="post">
                             <table cellspacing="0">
                                 <tr>
                                     <th rowspan="2">Ydervægge</th>
@@ -112,15 +102,14 @@
                                     <th>Billede</th>
                                 </tr>
                                 <tr>
-                                    <th><input type="checkbox" name="comments"></th>
-                                    <th><input type="checkbox" name="noComments"></th>
-                                    <th><input type="checkbox" name="picture"></th>
+                                    <th><input type="radio" name="comments2" value="0"></th>
+                                    <th><input type="radio" name="comments2" value="1"></th>
+                                    <th><input type="checkbox" name="picture2" value="1"></th>
                                 </tr>
                                 <tr>
-                                    <th colspan="4"><textarea name="wallDescription"></textarea></th>
+                                    <th colspan="4"><textarea name="outerwallDescription"></textarea></th>
                                 </tr>
                             </table>
-                        </form>
                     </div>
                 </div>
                 <div class="pageNr">
@@ -134,42 +123,35 @@
                 <div class="clear"></div>
 
                 <div class="rapportNr">
-                    <form action="#" method="GET">
                         <span>Rapport nr.:</span>
-                        <input type="text" name="rapportnr"> 
-                    </form>    
+                        <input type="text" name="rapportnr2"> 
                 </div>
                 
                 <div id="room-info">
-                    <form action="#" method="get">
                         <div>
                             <p>Lokale</p>
                             <input type="text" name="room">
                             <div id="room-info-checkbox">
                                 <div class="border-left">
-                                    <input type="checkbox" name="comment">
+                                    <input type="radio" name="comment3" value="0">
                                     <p>Bemærkninger</p>
                                 </div>
                                 <div class="border-left">
-                                    <input type="checkbox" name="noComment">
+                                    <input type="radio" name="comment3" value="1">
                                     <p>Ingen bemærkninger</p>
                                 </div>
                             </div>
-                            <div class="border-bot"></div>
-                            <div class="clear"></div>
                         </div>
-                    </form>
                 </div>
                 
                 <div id="damage-repair">
                     <h2>Skade og reparation</h2>
-                    <form action="#" method="post">
                         <table cellspacing="0">
                             <tr>
                                 <th>Har der været skade i lokalet?</th>
                                 <th colspan="3">
-                                    <div><input type="checkbox" name="yes"> Ja</div>
-                                    <div><input type="checkbox" name="no"> Nej</div>
+                                    <div><input type="radio" name="yesNo1" value="0"> Ja</div>
+                                    <div><input type="radio" name="yesNo1" value="1"> Nej</div>
                                 </th>
                             </tr>
                             <tr>
@@ -187,12 +169,12 @@
                             <tr>
                                 <th>Skade</th>
                                 <th colspan="3">
-                                    <div><input type="checkbox" name="humidity"> Fugt</div>
-                                    <div><input type="checkbox" name="rot"> Råd og swamp</div>
-                                    <div><input type="checkbox" name="mold"> Skimmel</div>
-                                    <div><input type="checkbox" name="fire"> Brand</div>
+                                    <div><input type="radio" name="damageRadio" value="0"> Fugt</div>
+                                    <div><input type="radio" name="damageRadio" value="1"> Råd og swamp</div>
+                                    <div><input type="radio" name="damageRadio" value="2"> Skimmel</div>
+                                    <div><input type="radio" name="damageRadio" value="3"> Brand</div>
                                     <div>
-                                        <input type="checkbox" name="other"> Anden skade 
+                                        <input type="radio" name="damageRadio" value="4"> Anden skade 
                                         <input type="text" name="otherText">
                                         <div class="border-bot"></div>
                                         <div class="clear"></div>
@@ -200,12 +182,10 @@
                                 </th>
                             </tr>
                         </table>
-                    </form>
                 </div>
                 
                 <div id="examination-of">
                     <h2>Gennemgang af...</h2>
-                    <form action="#" method="post">
                         <table cellspacing="0">
                                 <tr>
                                     <th></th>
@@ -215,8 +195,8 @@
                                 </tr>
                                 <tr>
                                     <th>Vægge</th>
-                                    <th><input type="checkbox" name="commentsWall"></th>
-                                    <th><input type="checkbox" name="noCommentsWall"></th>
+                                    <th><input type="radio" name="comments4" value="0"></th>
+                                    <th><input type="radio" name="comments4" value="1"></th>
                                     <th><input type="checkbox" name="pictureWall"></th>
                                 </tr>
                                 <tr>
@@ -224,8 +204,8 @@
                                 </tr>
                                 <tr>
                                     <th>Loft</th>
-                                    <th><input type="checkbox" name="commentsCeiling"></th>
-                                    <th><input type="checkbox" name="noCommentsCeiling"></th>
+                                    <th><input type="radio" name="comments5" value="0"></th>
+                                    <th><input type="radio" name="comments5" value="1"></th>
                                     <th><input type="checkbox" name="pictureCeiling"></th>
                                 </tr>
                                 <tr>
@@ -233,8 +213,8 @@
                                 </tr>
                                 <tr>
                                     <th>Gulv</th>
-                                    <th><input type="checkbox" name="commentsFloor"></th>
-                                    <th><input type="checkbox" name="noCommentsFloor"></th>
+                                    <th><input type="radio" name="comments6" value="0"></th>
+                                    <th><input type="radio" name="comments6" value="1"></th>
                                     <th><input type="checkbox" name="pictureFloor"></th>
                                 </tr>
                                 <tr>
@@ -242,8 +222,8 @@
                                 </tr>
                                 <tr>
                                     <th>Vinduer/døre</th>
-                                    <th><input type="checkbox" name="commentsWindows"></th>
-                                    <th><input type="checkbox" name="noCommentsWindows"></th>
+                                    <th><input type="radio" name="comments7" value="0"></th>
+                                    <th><input type="radio" name="comments7" value="1"></th>
                                     <th><input type="checkbox" name="pictureWindows"></th>
                                 </tr>
                                 <tr>
@@ -251,8 +231,8 @@
                                 </tr>
                                 <tr>
                                     <th><input type="text" name="other"></th>
-                                    <th><input type="checkbox" name="commentsOther"></th>
-                                    <th><input type="checkbox" name="noCommentsOther"></th>
+                                    <th><input type="radio" name="comments8" value="0"></th>
+                                    <th><input type="radio" name="comments8" value="1"></th>
                                     <th><input type="checkbox" name="pictureOther"></th>
                                 </tr>
                                 <tr>
@@ -260,26 +240,24 @@
                                 </tr>
                                 <tr>
                                     <th><input type="text" name="other2"></th>
-                                    <th><input type="checkbox" name="commentsOther2"></th>
-                                    <th><input type="checkbox" name="noCommentsOther2"></th>
+                                    <th><input type="radio" name="comments9" value="0"></th>
+                                    <th><input type="radio" name="comments9" value="1"></th>
                                     <th><input type="checkbox" name="pictureOther2"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="4"><textarea name="other2Description"></textarea></th>
                                 </tr>
                             </table>
-                    </form>
                 </div>
                 
                 <div id="humidity-scan">
                     <h2>Fugtscanning</h2>
-                    <form action="#" method="post">
                         <table cellspacing="0">
                             <tr>
                                 <th colspan="2">Er der foretaget fugtscanning?</th>
                                 <th colspan="2">
-                                    <div><input type="checkbox" name="yes"> Ja</div>
-                                    <div><input type="checkbox" name="no"> Nej</div>
+                                    <div><input type="radio" name="yesNo2" value="0"> Ja</div>
+                                    <div><input type="radio" name="yesNo2" value="1"> Nej</div>
                                 </th>
                             </tr>
                             <tr>
@@ -292,7 +270,6 @@
                                 <th colspan="4"><textarea></textarea></th>
                             </tr>
                         </table>
-                    </form>
                 </div>
                 <div class="pageNr">
                     <p>2</p>
@@ -304,15 +281,12 @@
                 <div class="clear"></div>
 
                 <div class="rapportNr">
-                    <form action="#" method="GET">
                         <span>Rapport nr.:</span>
                         <input type="text" name="rapportnr"> 
-                    </form>    
                 </div>
                 
                 <div id="conclusion">
                     <h2>Konklusion</h2>
-                    <form action="#" method="post">
                         <table cellspacing="0">
                             <tr>
                                 <th>Lokale</th>
@@ -352,21 +326,17 @@
                             </tr>
 
                         </table>
-                    </form>
                 </div>
                 
                 <div id="rapport-writer">
-                    <form action="#" method="post">
                         <p>
                             Bygningsgennemgangen er fortaget af <input type="text" name="writer">, Polygon<br>
                             i samarbejde med <input type="text" name="collaborator"> (bygningsansvarlig).
                         </p> 
-                    </form>
                 </div>
                 
                 <div id="categorize">
                     <h2>Bygningen er katagoriseret som</h2>
-                    <form action="#" method="post">
                         <table cellspacing="0">
                             <tr>
                                 <th>Tilstand</th>
@@ -376,24 +346,23 @@
                             <tr>
                                 <th><span>Tilstandsgrad 1</span><br>God tilstand</th>
                                 <th>Der er ingen problemer med bygningen; bygningens funktion er uden problemer</th>
-                                <th><input type="checkbox" name="grade1"></th>
+                                <th><input type="radio" name="grade"></th>
                             </tr>
                             <tr>
                                 <th><span>Tilstandsgrad 2</span><br>Middel tilstand</th>
                                 <th>Der er slid og skader på bygningen eller risiko for potentielle
                                     problemer med bygningen; bygningen funktion er nedstat, eller der er
                                     risiko for, at funktionen bliver nedsat</th>
-                                <th><input type="checkbox" name="grade2"></th>
+                                <th><input type="radio" name="grade"></th>
                             </tr>
                             <tr>
                                 <th><span>Tilstandsgrad 3</span><br>Dårlig tilstand</th>
                                 <th>Der er problemer med bygningen; bygningen er begyndt at forfalde,
                                     har defekte komponenter, er nedbrudt eller bør udskiftes; bygningens
                                     funktion er nedsat, eller bygningen er næsen eller helt ubrugeligt</th>
-                                <th><input type="checkbox" name="grade3"></th>
+                                <th><input type="radio" name="grade"></th>
                             </tr>
                         </table>
-                    </form>
                 </div>
                 
                 <div id="bot-text">
@@ -420,8 +389,7 @@ bygningsgennemgang.
                 </div>
                 <div class="clear"></div>
             </div><!--pageThree end-->
-            <form action="rapportServlet" method="post">
-                <input type="submit" name="createRapport" value="Gem">
+                <input id="save" type="submit" name="createRapport" value="Gem Rapport">
             </form>
         </div><!--container end-->
     </body>
