@@ -48,8 +48,8 @@ public class rapportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession(true);
-            int buildingID = Integer.parseInt((String) session.getAttribute("ID"));
+            //HttpSession session = request.getSession(true);
+            int buildingID = 5;//Integer.parseInt((String) session.getAttribute("ID"));
             
             String buildingName = request.getParameter("nameOnBuilding");
             String address = request.getParameter("address");
@@ -199,6 +199,8 @@ public class rapportServlet extends HttpServlet {
             Rapport rapport = new Rapport(buildingName, address, zip, buildYear, buildingArea, buildingUse, descriptionRoof, descriptionOuterwall, room, when, where, whatHappend, whatRepaired, otherDamageType, descriptionWall, descriptionCeiling, descriptionFloor, descriptionWindows, otherReview, descriptionOther, otherReview2, descriptionOther2, descriptionScanning, descriptionMeasuring, descriptionHumidity, conclusionRoom1, conclusionConclusion1, conclusionRoom2, conclusionConclusion2, conclusionRoom3, conclusionConclusion3, conclusionRoom4, conclusionConclusion4, conclusionRoom5, conclusionConclusion5, conclusionRoom6, conclusionConclusion6, conclusionRoom7, conclusionConclusion7, conclusionRoom8, conclusionConclusion8, writer, collaborator, commentRoof, pictureRoof, commentOuterwall, pictureOuterwall, commentRoom, yesNoRoomDamage, damageType, commentWall, pictureWall, commentCeiling, pictureCeiling, commentFloor, pictureFloor, commentWindows, pictureWindows, commentOther, pictureOther, commentOther2, pictureOther2, humidityYesNo, categorize, rapportNr);
             
             DomainFacade.createRapport(buildingID, rapport);
+            
+            DomainFacade.getRapport(buildingID);
     }
 
     /**

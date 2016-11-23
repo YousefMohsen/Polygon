@@ -21,7 +21,7 @@ public final class DB {
             //STEP 2: Open a connection
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
+            System.out.println("Connected");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
         }

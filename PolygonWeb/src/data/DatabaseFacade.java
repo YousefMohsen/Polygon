@@ -67,4 +67,8 @@ public class DatabaseFacade {
      public static void createRapport(int buildingID, Rapport rapport) {
          RapportMapper.createRapport(buildingID, rapport);
      }
+     
+     public static Rapport getRapport(int buildingID) {
+         return RapportMapper.getRapport(buildingID);
+     }
 }

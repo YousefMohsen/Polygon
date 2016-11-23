@@ -50,4 +50,8 @@ public class DomainFacade {
     public static void createRapport(int buildingID, Rapport rapport) {
         DatabaseFacade.createRapport(buildingID, rapport);
     }
+    
+    public static Rapport getRapport(int buildingID) {
+        return DatabaseFacade.getRapport(buildingID);
+    }
 }

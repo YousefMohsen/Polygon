@@ -9,6 +9,7 @@ import entity.Rapport;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -18,10 +19,40 @@ import java.time.LocalDate;
  */
 class RapportMapper {
 
+    public static Rapport getRapport(int buildingID){
+        String sql = "SELECT Building.buildingName, Address.addressline, Zipcode.zip, Zipcode.city, Damage.*, BuildingInfo.*, BuildingExamination.*, Humidity.*, Conclusion.*, RapportInfo.*"
+                + "FROM Building "
+                + "JOIN Address ON Building.Address_addressId=Address.addressId "
+                + "JOIN Zipcode ON Address.zipcode_addressId=Zipcode.zipId "
+                + "JOIN Damage ON Damage.Building_buildingId=buildingId "
+                + "JOIN BuildingInfo ON BuildingInfo.Building_buildingId=buildingId "
+                + "JOIN BuildingExamination ON BuildingExamination.Building_buildingId=buildingId "
+                + "JOIN Humidity ON Humidity.Building_buildingId=buildingId "
+                + "JOIN Conclusion ON Conclusion.Building_buildingId=buildingId "
+                + "JOIN Document ON Document.Building_buildingId=buildingId "
+                + "JOIN RapportInfo ON RapportInfo.Document_documentId=documentId "
+                + "WHERE buildingId=? AND documentId=(SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1)";
+                
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, buildingID);
+            ResultSet res = stmt.executeQuery();
+            int count = 0;
+            while (res.next()) {
+                count++;
+//return new Rapport(res.getString("buildingName"),res.getString("addressline"),res.getString("zip") + "/" + res.getString("city"), res.getInt("buildYear"), res.getDouble("area"),res.getString("use"),res.getString(""),);
+            }
+            System.out.println("count: " +count);
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return null;
+    }
+    
     public static void createRapport(int buildingID, Rapport rapport) {
         
-        String sql = "INSERT INTO Damage (room,comments,roomDamaged,when,where,whatHappend,whatRepaired,DamageNr,other,Building_buildingId,categorized) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);"
-                   + "INSERT INTO BuildingInfo (buildYear,area,use,Building_buildingId) VALUES (?,?,?,?);"
+        String sql = "INSERT INTO Damage (room,comments,roomDamaged,Damage.when,Damage.where,whatHappend,whatRepaired,DamageNr,other,Building_buildingId,categorized) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
+                   + "INSERT INTO BuildingInfo (buildYear,area,BuildingInfo.use,Building_buildingId) VALUES (?,?,?,?);"
                    + "INSERT INTO Humidity (scanning,humidityScan,point,description,Building_buildingId) VALUES (?,?,?,?,?);"
                    + "INSERT INTO BuildingExamination (reviewing,description,comments,picture,Building_buildingId) VALUES (?,?,?,?,?);"
                    + "INSERT INTO BuildingExamination (reviewing,description,comments,picture,Building_buildingId) VALUES (?,?,?,?,?);"
@@ -40,7 +71,7 @@ class RapportMapper {
                    + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                    + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                    + "INSERT INTO Document (fileURL,note,Building_buildingId) VALUES (?,?,?);"
-                   + "INSERT INTO RapportInfo (date,author,cooperation,document_documentId) VALUES (?,?,?, (SELECT TOP(1) documentId FROM Document ORDER BY documentId DESC));";
+                   + "INSERT INTO RapportInfo (date,author,cooperation,document_documentId) VALUES (NOW(),?,?, (SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1));";
 
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -152,13 +183,29 @@ class RapportMapper {
             stmt.setString(86, "rapport as pdf");
             stmt.setInt(87, buildingID);
             
-            stmt.setDate(88, Date.valueOf(LocalDate.MAX));
-            stmt.setString(89, rapport.getWriter());
-            stmt.setString(90, rapport.getCollaborator());
+            stmt.setString(88, rapport.getWriter());
+            stmt.setString(89, rapport.getCollaborator());
             
             int rowsAffected = stmt.executeUpdate();
             
             if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+
+        }
+        
+        String sqlDelete = "DELETE FROM BuildingExamination WHERE reviewing = '';"
+                         + "DELETE FROM Conclusion WHERE room = ''";
+
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sqlDelete)) {
+            
+            int rowsAffectedDelete = stmt.executeUpdate();
+            if (rowsAffectedDelete > 0) {
                 System.out.println("Element inserted");
             } else {
                 System.out.println("No change");
