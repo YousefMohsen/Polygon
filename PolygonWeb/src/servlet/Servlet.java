@@ -35,7 +35,7 @@ public class Servlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");         
-            String buildingID = request.getParameter("buildingID");           
+            int buildingID = Integer.parseInt(request.getParameter("buildingID"));           
 
             switch (origin) {
                 case "editBuilding":
@@ -53,7 +53,11 @@ public class Servlet extends HttpServlet {
                     break;
                 
                   case "requestDeletion":
-                      out.println("hej"+ buildingID);
+                    DomainFacade.deletionRequest(buildingID);
+                    session.setAttribute("ID", buildingID);
+                    request.setAttribute("ID", buildingID);
+                    response.sendRedirect("editBuilding.jsp");
+            
                       break;
                 
                 case "Submit":

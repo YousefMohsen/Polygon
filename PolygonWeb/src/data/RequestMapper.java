@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class RequestMapper {
     
- public static void sendRequest(int requestType, int buildingID) {//1=deletion, 2=service
+ public static void sendRequest(int requestType, int buildingID) {//1=deletion, 2=health check
 
         String sql = "insert into Request_has_Building "
                 + "(Request_requestId,Building_buildingId) "

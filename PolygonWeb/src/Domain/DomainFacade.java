@@ -1,6 +1,7 @@
 package Domain;
 
 import data.DatabaseFacade;
+import data.RequestMapper;
 import data.UserMapper;
 import entity.Document;
 import entity.Building;
@@ -45,5 +46,14 @@ public class DomainFacade {
     public static Login getLogin(String username){
         return UserMapper.getLogin(username);
      }
+    
+  public static void deletionRequest(int buildingID) {
+        DatabaseFacade.deletionRequest(buildingID);
+     }
 
+  
+   public static void healthCheckRequest(int buildingID) {
+        DatabaseFacade.healthCheckRequest( buildingID);
+     }
+  
 }
