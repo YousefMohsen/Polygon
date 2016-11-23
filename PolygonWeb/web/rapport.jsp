@@ -1,3 +1,4 @@
+<%@include file="include/loginControl.jsp" %>
 <%-- 
     Document   : rapport
     Created on : Nov 10, 2016, 4:27:45 PM
