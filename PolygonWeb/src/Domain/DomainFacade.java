@@ -5,6 +5,7 @@ import data.UserMapper;
 import entity.Document;
 import entity.Building;
 import entity.Login;
+import entity.Rapport;
 import entity.User;
 import java.util.ArrayList;
 
@@ -45,5 +46,8 @@ public class DomainFacade {
     public static Login getLogin(String username){
         return UserMapper.getLogin(username);
      }
-
+    
+    public static void createRapport(int buildingID, Rapport rapport) {
+        DatabaseFacade.createRapport(buildingID, rapport);
+    }
 }

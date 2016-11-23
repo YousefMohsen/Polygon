@@ -170,12 +170,12 @@
                             <tr>
                                 <th>Skade</th>
                                 <th colspan="3">
-                                    <div><input type="radio" name="damageRadio" value="0"> Fugt</div>
-                                    <div><input type="radio" name="damageRadio" value="1"> Råd og swamp</div>
-                                    <div><input type="radio" name="damageRadio" value="2"> Skimmel</div>
-                                    <div><input type="radio" name="damageRadio" value="3"> Brand</div>
+                                    <div><input type="radio" name="damageRadio" value="1"> Fugt</div>
+                                    <div><input type="radio" name="damageRadio" value="2"> Råd og swamp</div>
+                                    <div><input type="radio" name="damageRadio" value="3"> Skimmel</div>
+                                    <div><input type="radio" name="damageRadio" value="4"> Brand</div>
                                     <div>
-                                        <input type="radio" name="damageRadio" value="4"> Anden skade 
+                                        <input type="radio" name="damageRadio" value="5"> Anden skade 
                                         <input type="text" name="otherText">
                                         <div class="border-bot"></div>
                                         <div class="clear"></div>

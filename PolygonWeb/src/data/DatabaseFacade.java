@@ -4,6 +4,7 @@ import entity.Document;
 import entity.Address;
 import entity.Building;
 import entity.Login;
+import entity.Rapport;
 import entity.User;
 import entity.ZipCode;
 import java.sql.Connection;
@@ -61,5 +62,9 @@ public class DatabaseFacade {
      
      public static Login getLogin(String username){
          return UserMapper.getLogin(username);
+     }
+     
+     public static void createRapport(int buildingID, Rapport rapport) {
+         RapportMapper.createRapport(buildingID, rapport);
      }
 }
