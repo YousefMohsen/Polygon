@@ -43,7 +43,7 @@ public class DomainFacade {
     }
     
     public static Login getLogin(String username){
-         return UserMapper.getLogin(username);
+        return UserMapper.getLogin(username);
      }
 
 }
