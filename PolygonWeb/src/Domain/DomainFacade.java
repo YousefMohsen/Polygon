@@ -41,8 +41,8 @@ public class DomainFacade {
         DatabaseFacade.updateDocument(d, buildingID);
     }
 
-    public static void createBuilding(int zip, String address) {
-        DatabaseFacade.createBuilding(zip, address);
+    public static void createBuilding(int zip, String address, int userID) {
+        DatabaseFacade.createBuilding(zip, address,userID);
     }
     
     public static Login getLogin(String username){

@@ -12,8 +12,8 @@
   
     
     int userId = (int) session.getAttribute("userID");
-    int rank = (int) session.getAttribute("rank");
-   List<Building> buildings = DomainFacade.getBuildingsForUser(userId, rank);
+   // int rank = (int) session.getAttribute("rank");
+    List<Building> buildings = DomainFacade.getBuildingsForUser(userId, rank);
                
 %>
 <form action="Servlet" method="POST">
@@ -28,12 +28,12 @@
         </thead>
         <tbody>
             <%
-                for (Building b : buildings) {
+             for (Building b : buildings) {
                     out.println("<tr class = \"menu_links\" onclick=\"document.location = 'Servlet?origin=editBuilding&buildingID=" + b.getId() +"';\">");   
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
                     out.println("<td>"+ b.getAddress().getAddressline() + "</td>");
-                }                 
+                }                
             %>
         </tbody>
     </table>        
@@ -56,5 +56,8 @@
             </tr>
         </tbody>
     </table>
-    <input type="submit" class="btn btn-success" value="Create Building" name="origin"/>
+
+    <input type="hidden" name="origin" value="createBuilding" />
+    <input type="hidden" name="buildingID" value="1" />
+    <input type="submit" class="btn btn-success" value="Create Building"/>
 </form> 

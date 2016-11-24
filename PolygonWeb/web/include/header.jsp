@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<% int rank = (int) session.getAttribute("userID");   %>
+
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
@@ -20,9 +22,9 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar menu">       
             <li> <a href="buildingTable.jsp">Buildings</a></li>
-            <li><a href="users.jsp">Users</a></li>   
+         <li><a href="users.jsp">Users</a></li>   
             
-            <% if(true){ %> <li><a href="Request.jsp">Request</a></li>    <% } %>
+            <% if(rank==1){ %> <li><a href="Request.jsp">Deletion requests</a></li>    <% } %>
           </ul>
           
         </div>

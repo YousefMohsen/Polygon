@@ -11,8 +11,8 @@ import java.util.List;
 
 public class DatabaseFacade {   
     
-     public static void createBuilding(int zip, String address) {
-         BuildingMapper.createBuilding(zip, address);
+     public static void createBuilding(int zip, String address,int userID) {
+         BuildingMapper.createBuilding(zip, address,userID);
      }
     
     public static List<Building> getBuildings() {   

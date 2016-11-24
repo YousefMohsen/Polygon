@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BuildingMapper {
         
-    public static void createBuilding(int zip, String address) {
+    public static void createBuilding(int zip, String address,int userID) {
 
         String sql = "insert into Building "
                 + "(Address_addressId,rapportURL,User_userId,hidden) "
@@ -23,7 +23,7 @@ public class BuildingMapper {
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, insertAddress(zip, address, con));
             stmt.setString(2, "testURL");// fix rapport url!
-            stmt.setInt(3, 1); //fix user ID
+            stmt.setInt(3, userID); //fix user ID
             stmt.setInt(4, 0); //0 = shown, 1=hidden
 
             int rowsAffected = stmt.executeUpdate();
