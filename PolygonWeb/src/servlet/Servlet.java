@@ -63,8 +63,15 @@ public class Servlet extends HttpServlet {
                       
                case "acceptRequest":
             DomainFacade.hideBuilding(buildingID);
+            DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
             response.sendRedirect("Request.jsp");
                       break;
+                      
+                         case "healthCheck":
+        DomainFacade.healthCheckRequest(buildingID);
+            response.sendRedirect("editBuilding.jsp");
+                      break;
+                      
                 
                 case "Submit":
                     int id = Integer.parseInt(request.getParameter("id"));

@@ -17,10 +17,10 @@ import java.sql.SQLException;
  */
 public class toDelete {
  public static void main(String [] args) throws SQLException{
+
      
      
-     
-     for ( Building b : BuildingMapper.getBuildingList(3, 1)) {
+     for ( Building b : BuildingMapper.getBuildingsForUser(1)) {
          System.out.println(b.getId());
      }
      

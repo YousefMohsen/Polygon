@@ -52,6 +52,10 @@ public class DomainFacade {
   public static void deletionRequest(int buildingID) {
         DatabaseFacade.deletionRequest(buildingID);
      }
+  
+     public static void cancelDeletionRequest(int buildingID) {
+        DatabaseFacade.cancelDeletionRequest( buildingID);
+     }
 
   
    public static void healthCheckRequest(int buildingID) {

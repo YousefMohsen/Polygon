@@ -61,13 +61,19 @@
                             <a href="buildingTable.jsp" class="btn btn-default">Back</a>
    
 </form>
-                            
+                            <br> <br>                         
        <form action="Servlet" method="POST" id="deletionForm"> 
         <input class="btn btn-danger" value="Request deletion" onclick="deletionRequest()">  
        <input type="hidden" name="buildingID" value="<%=buildingID%>" />
        <input type="hidden" name="origin" value="deletionRequest" />
        </form>
-       <input class="btn btn-default" value="Request " onclick="deletionRequest()">  
+       
+        <form action="Servlet" method="POST" id="HealthCheckForm" > 
+        <input class="btn btn-danger" value="Request health check" onclick="healthCheck()">  
+       <input type="hidden" name="buildingID" value="<%=buildingID%>" />
+       <input type="hidden" name="origin" value="healthCheck" />
+       </form>
+     
 
 </div>
          

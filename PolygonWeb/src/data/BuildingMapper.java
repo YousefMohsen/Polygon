@@ -70,28 +70,21 @@ public class BuildingMapper {
     
     
     
-       public static List<Building> getBuildingList(int usertType,int userID) {
-           
-        Connection con = DB.getConnection();
+       public static List<Building> getBuildingsForUser(int userID) {
+               List<Building> buildings = new ArrayList<>();
+
         
         
-        String sql = "SELECT buildingId,Address_addressId,User_userId "
-                + "FROM Building";
-      
+        String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building where User_userId=? And hidden=0;";
         
-        List<Building> buildings = new ArrayList<>();
-        try ( PreparedStatement stmt = con.prepareStatement(sql)
-              ) { //  Statement stmt = con.createStatement()
-                  if(usertType == 3  ){sql +=" where hidden=0 AND User_userId=?;";
-                }//Hvis kunde   
+           System.out.println(sql);
+        try ( Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);) { //  Statement stmt = con.createStatement()
+   //fix user ID
+              stmt.setInt(1, 1);
             
-            else{sql +=";" ;}
-                  
-             stmt.setInt(1, userID);
             ResultSet res = stmt.executeQuery(sql);
-           
-            
-            
+  
             while (res.next()) {
                 Building newBuilding = new Building();
                 int id = res.getInt("buildingId");
@@ -133,6 +126,7 @@ public class BuildingMapper {
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "WHERE buildingId=?";
+        System.out.println(sql);
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);

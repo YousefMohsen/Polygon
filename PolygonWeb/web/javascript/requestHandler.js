@@ -20,3 +20,13 @@ if (r == true) {
     
 };
 
+
+var healthCheck = function(){
+    
+alert("Health check request sent!");
+    document.getElementById("HealthCheckForm").submit();
+    
+    
+};
+
+
