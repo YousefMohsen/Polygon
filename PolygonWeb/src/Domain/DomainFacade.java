@@ -1,5 +1,6 @@
 package Domain;
 
+import data.BuildingMapper;
 import data.DatabaseFacade;
 import data.RequestMapper;
 import data.UserMapper;
@@ -8,6 +9,7 @@ import entity.Building;
 import entity.Login;
 import entity.User;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DomainFacade {
 
@@ -54,6 +56,14 @@ public class DomainFacade {
   
    public static void healthCheckRequest(int buildingID) {
         DatabaseFacade.healthCheckRequest( buildingID);
+     }
+   
+      public static  List<Building>  getDeletionBuildings() {
+      return DatabaseFacade.getDeletionBuildings();
+     }
+      
+        public static void hideBuilding(int buildingID) {
+        DatabaseFacade.hideBuilding( buildingID);
      }
   
 }

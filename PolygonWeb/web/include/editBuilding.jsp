@@ -65,7 +65,7 @@
        <form action="Servlet" method="POST" id="deletionForm"> 
         <input class="btn btn-danger" value="Request deletion" onclick="deletionRequest()">  
        <input type="hidden" name="buildingID" value="<%=buildingID%>" />
-       <input type="hidden" name="origin" value="requestDeletion" />
+       <input type="hidden" name="origin" value="deletionRequest" />
        </form>
        <input class="btn btn-default" value="Request " onclick="deletionRequest()">  
 

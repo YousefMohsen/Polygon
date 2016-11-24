@@ -89,6 +89,32 @@ public class BuildingMapper {
         }
         return null;
     }
+    
+        //Henter info om en bygning fra DB ud fra et givet bygningsID
+    private static Building getBuildingNoConnection(int buildingID,Connection con) {
+        String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
+                + "FROM Building "
+                + "JOIN Address "
+                + "ON Building.Address_addressId=Address.addressId "
+                + "JOIN Zipcode "
+                + "ON Address.zipcode_addressId=Zipcode.zipId "
+                + "WHERE buildingId=?";
+        try (
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, buildingID);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String rapportURL = res.getString("rapportURL");
+    
+                ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
+                Address address = new Address(res.getString("addressline"), zip);
+                return new Building(buildingID, address, rapportURL);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return null;
+    }
 
     //Opdaterer info om en bygning i DB
     public static void updateBuilding(Building b) {
@@ -238,4 +264,61 @@ public class BuildingMapper {
 
         return adressID;
     }
+      private static List<Integer> getRequestList(  Connection con) {
+    
+      ArrayList<Integer> requestIds = new ArrayList();
+             
+      String sql = "SELECT * FROM Request_has_Building "
+                + "where Request_requestId=1; ";
+     
+        try (Statement stmt = con.createStatement()) {
+            ResultSet res = stmt.executeQuery(sql);
+            while (res.next()) {
+               
+                int buildingID = res.getInt("Building_buildingId");
+                requestIds.add(buildingID);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+      
+          
+          
+      
+     return requestIds; }
+    
+        public static List<Building> getDeletionBuildings() {
+   
+        Connection con = DB.getConnection();
+        List<Building> buildings = new ArrayList<>();
+        
+            for (int id : getRequestList(con) ) {
+                buildings.add(getBuildingNoConnection(id,con));
+            }
+        return buildings;
+    }
+        
+     public static void hideBuilding(int id) {
+    
+         String sql = "UPDATE Building SET hidden=1 WHERE buildingId=?;";    
+
+         
+   
+   
+    try (Connection con = DB.getConnection();
+    PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1,id);
+         int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element updated");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not inserted: " + ex.getMessage());
+        }
+         
+         
+    }
+    
 }

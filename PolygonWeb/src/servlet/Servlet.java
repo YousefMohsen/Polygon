@@ -36,7 +36,7 @@ public class Servlet extends HttpServlet {
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");         
             int buildingID = Integer.parseInt(request.getParameter("buildingID"));           
-
+ 
             switch (origin) {
                 case "editBuilding":
                     session.setAttribute("ID", buildingID);
@@ -52,13 +52,18 @@ public class Servlet extends HttpServlet {
                     response.sendRedirect("index.jsp");
                     break;
                 
-                  case "requestDeletion":
+                  case "deletionRequest":
                     DomainFacade.deletionRequest(buildingID);
                     session.setAttribute("ID", buildingID);
                     request.setAttribute("ID", buildingID);
              
                     response.sendRedirect("editBuilding.jsp");
             
+                      break;
+                      
+               case "acceptRequest":
+            DomainFacade.hideBuilding(buildingID);
+response.sendRedirect("Request.jsp");
                       break;
                 
                 case "Submit":

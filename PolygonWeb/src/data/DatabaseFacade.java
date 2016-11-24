@@ -71,6 +71,15 @@ public class DatabaseFacade {
     public static void healthCheckRequest(int buildingID) {
         RequestMapper.sendRequest(2, buildingID);
      }
-
+    
+   public static  List<Building>  getDeletionBuildings() {
+      return BuildingMapper.getDeletionBuildings();
+     }
+            
+   
+            
+  public static void hideBuilding(int buildingID) {
+        BuildingMapper.hideBuilding( buildingID);
+     }
 
 }

@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");     
         try (PrintWriter out = response.getWriter()) {  
+            
             Login log = DomainFacade.getLogin(request.getParameter("username"));          
             String n = log.getUsername();                    
             if(log.getPassword().equals(request.getParameter("password"))){               

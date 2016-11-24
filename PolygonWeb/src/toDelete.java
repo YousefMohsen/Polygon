@@ -1,6 +1,8 @@
 
+import data.BuildingMapper;
 import data.DocumentMapper;
 import data.RequestMapper;
+import entity.Building;
 import java.sql.SQLException;
 
 /*
@@ -18,7 +20,7 @@ public class toDelete {
      
      
      
-   RequestMapper.sendRequest(1, 5);
+ BuildingMapper.hideBuilding(11);
      
      
      
