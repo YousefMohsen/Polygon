@@ -64,6 +64,66 @@ public class BuildingMapper {
         return buildings;
     }
 
+    
+    
+    
+    
+    
+    
+       public static List<Building> getBuildingList(int usertType,int userID) {
+           
+        Connection con = DB.getConnection();
+        
+        
+        String sql = "SELECT buildingId,Address_addressId,User_userId "
+                + "FROM Building";
+      
+        
+        List<Building> buildings = new ArrayList<>();
+        try ( PreparedStatement stmt = con.prepareStatement(sql)
+              ) { //  Statement stmt = con.createStatement()
+                  if(usertType == 3  ){sql +=" where hidden=0 AND User_userId=?;";
+                }//Hvis kunde   
+            
+            else{sql +=";" ;}
+                  
+             stmt.setInt(1, userID);
+            ResultSet res = stmt.executeQuery(sql);
+           
+            
+            
+            while (res.next()) {
+                Building newBuilding = new Building();
+                int id = res.getInt("buildingId");
+                int addressId = res.getInt("Address_addressId");
+                int userId = res.getInt("User_userId");
+
+                newBuilding.setId(id);
+                newBuilding.setAddress(loadAddress(addressId, con));
+                newBuilding.setUser(userId);              
+                buildings.add(newBuilding);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        return buildings;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //Henter info om en bygning fra DB ud fra et givet bygningsID
     public static Building getBuilding(int buildingID) {
         String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "

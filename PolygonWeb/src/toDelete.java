@@ -20,8 +20,9 @@ public class toDelete {
      
      
      
- BuildingMapper.hideBuilding(11);
-     
+     for ( Building b : BuildingMapper.getBuildingList(3, 1)) {
+         System.out.println(b.getId());
+     }
      
      
      

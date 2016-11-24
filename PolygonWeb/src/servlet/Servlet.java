@@ -63,7 +63,7 @@ public class Servlet extends HttpServlet {
                       
                case "acceptRequest":
             DomainFacade.hideBuilding(buildingID);
-response.sendRedirect("Request.jsp");
+            response.sendRedirect("Request.jsp");
                       break;
                 
                 case "Submit":
