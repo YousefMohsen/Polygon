@@ -70,22 +70,22 @@ public class BuildingMapper {
     
     
     
-       public static List<Building> getBuildingsForUser(int userID) {
+       public static List<Building> getBuildingsForUser(int userID) {//Returns a list for a given user
                List<Building> buildings = new ArrayList<>();
 
         
         
-        String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building where User_userId=? And hidden=0;";
+        String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building where User_userId=? ";
         
            System.out.println(sql);
         try ( Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);) { //  Statement stmt = con.createStatement()
    //fix user ID
-              stmt.setInt(1, 1);
+              stmt.setInt(1, userID);
             
-            ResultSet res = stmt.executeQuery(sql);
+            ResultSet res = stmt.executeQuery();
   
-            while (res.next()) {
+             while (res.next()) {
                 Building newBuilding = new Building();
                 int id = res.getInt("buildingId");
                 int addressId = res.getInt("Address_addressId");
