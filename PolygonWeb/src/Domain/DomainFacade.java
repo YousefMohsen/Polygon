@@ -54,4 +54,8 @@ public class DomainFacade {
     public static Rapport getRapport(int buildingID) {
         return DatabaseFacade.getRapport(buildingID);
     }
+    
+    public static void clearRapportData(int buildingID) {
+        DatabaseFacade.clearRapportData(buildingID);
+    }
 }

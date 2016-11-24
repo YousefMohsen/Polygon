@@ -69,6 +69,9 @@ public class Rapport {
     private int categorize;
     private int rapportNr;
 
+    public Rapport() {
+    }
+
     public Rapport(String buildingName, String address, String zip, int buildYear, double buildingArea, String buildingUse, String descriptionRoof, String descriptionOuterwall, String room, String when, String where, String whatHappend, String whatRepaired, String otherDamageType, String descriptionWall, String descriptionCeiling, String descriptionFloor, String descriptionWindows, String otherReview, String descriptionOther, String otherReview2, String descriptionOther2, String descriptionScanning, String descriptionMeasuring, String descriptionHumidity, String conclusionRoom1, String conclusionConclusion1, String conclusionRoom2, String conclusionConclusion2, String conclusionRoom3, String conclusionConclusion3, String conclusionRoom4, String conclusionConclusion4, String conclusionRoom5, String conclusionConclusion5, String conclusionRoom6, String conclusionConclusion6, String conclusionRoom7, String conclusionConclusion7, String conclusionRoom8, String conclusionConclusion8, String writer, String collaborator, int commentRoof, int pictureRoof, int commentOuterwall, int pictureOuterwall, int commentRoom, int yesNoRoomDamage, int damageType, int commentWall, int pictureWall, int commentCeiling, int pictureCeiling, int commentFloor, int pictureFloor, int commentWindows, int pictureWindows, int commentOther, int pictureOther, int commentOther2, int pictureOther2, int humidityYesNo, int categorize, int rapportNr) {
         this.buildingName = buildingName;
         this.address = address;
@@ -90,7 +93,7 @@ public class Rapport {
         this.descriptionWindows = descriptionWindows;
         this.otherReview = otherReview;
         this.descriptionOther = descriptionOther;
-        this.otherReview2 = otherReview;
+        this.otherReview2 = otherReview2;
         this.descriptionOther2 = descriptionOther2;
         this.descriptionScanning = descriptionScanning;
         this.descriptionMeasuring = descriptionMeasuring;

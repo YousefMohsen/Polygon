@@ -71,4 +71,8 @@ public class DatabaseFacade {
      public static Rapport getRapport(int buildingID) {
          return RapportMapper.getRapport(buildingID);
      }
+     
+     public static void clearRapportData(int buildingID) {
+         RapportMapper.clearRapportData(buildingID);
+     }
 }
