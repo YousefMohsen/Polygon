@@ -10,7 +10,7 @@
     Building b = DomainFacade.getBuilding(buildingID);
     User u = DomainFacade.getUser(buildingID);
     Document d = DomainFacade.getDocument(buildingID);
-out.println(buildingID);
+
 %>
 
 

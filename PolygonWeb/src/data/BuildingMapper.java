@@ -123,7 +123,7 @@ public class BuildingMapper {
     
     //Henter info om en bygning fra DB ud fra et givet bygningsID
     public static Building getBuilding(int buildingID) {
-        String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
+        String sql = "SELECT Building.rapportURL,Building.User_userId, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
                 + "JOIN Address "
                 + "ON Building.Address_addressId=Address.addressId "
@@ -136,11 +136,16 @@ public class BuildingMapper {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
+   
+                
                 String rapportURL = res.getString("rapportURL");
-    
+                int userID = res.getInt("User_userId");
                 ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
                 Address address = new Address(res.getString("addressline"), zip);
-                return new Building(buildingID, address, rapportURL);
+               
+       
+
+                return new Building(buildingID, address, rapportURL,userID); 
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());

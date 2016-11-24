@@ -1,9 +1,13 @@
 
+import Domain.DomainFacade;
+import Domain.EmailSender;
 import data.BuildingMapper;
 import data.DocumentMapper;
 import data.RequestMapper;
 import entity.Building;
+import java.net.Authenticator;
 import java.sql.SQLException;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,13 +20,12 @@ import java.sql.SQLException;
  * @author Yousinho
  */
 public class toDelete {
- public static void main(String [] args) throws SQLException{
+ public static void main(String [] args) {
+  
+     EmailSender mail = new EmailSender();
+     
 
-     
-     
-  DocumentMapper.getDocument(5);
-     
-     
+     DomainFacade.sendMail(9);
      
      }
     

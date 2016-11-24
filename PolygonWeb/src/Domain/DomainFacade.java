@@ -60,6 +60,7 @@ public class DomainFacade {
   
    public static void healthCheckRequest(int buildingID) {
         DatabaseFacade.healthCheckRequest( buildingID);
+       EmailSender.sendEmail(buildingID); 
      }
    
       public static  List<Building>  getDeletionBuildings() {
@@ -73,6 +74,11 @@ public class DomainFacade {
         
       public static List<Building> getBuildingsForUser(int userID, int userRank) {
         return DatabaseFacade.getBuildingsForUser(  userID,  userRank);
+     }
+      
+      
+   public static void sendMail(int buildingID) {
+     
      }
   
 }

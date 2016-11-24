@@ -73,9 +73,11 @@ public class Servlet extends HttpServlet {
                       
                          case "healthCheck":
         buildingID = Integer.parseInt(request.getParameter("buildingID"));
-        DomainFacade.healthCheckRequest(buildingID);
+   
+   
+DomainFacade.healthCheckRequest(buildingID);
 
-            response.sendRedirect("editBuilding.jsp");
+response.sendRedirect("editBuilding.jsp");
                       break;
                       
                 
