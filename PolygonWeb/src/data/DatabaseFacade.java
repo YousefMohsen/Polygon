@@ -65,7 +65,9 @@ public class DatabaseFacade {
   public static void deletionRequest(int buildingID) {
         RequestMapper.sendRequest(1, buildingID);
      }
-  
+    public static void cancelDeletionRequest(int buildingID) {
+        RequestMapper.cancelRequest(1, buildingID);
+     }
     public static void healthCheckRequest(int buildingID) {
         RequestMapper.sendRequest(2, buildingID);
      }

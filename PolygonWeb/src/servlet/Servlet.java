@@ -56,6 +56,7 @@ public class Servlet extends HttpServlet {
                     DomainFacade.deletionRequest(buildingID);
                     session.setAttribute("ID", buildingID);
                     request.setAttribute("ID", buildingID);
+             
                     response.sendRedirect("editBuilding.jsp");
             
                       break;

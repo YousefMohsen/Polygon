@@ -59,19 +59,24 @@
                 <input class="btn btn-default" type="submit" name="origin" value="Submit">         
                 <input type="hidden" name="id" value="<%=buildingID%>" />
                             <a href="buildingTable.jsp" class="btn btn-default">Back</a>
-   <input class="btn btn-danger" type="submit" value="Request deletion">  
+   
+</form>
+                            
+       <form action="Servlet" method="POST" id="deletionForm"> 
+        <input class="btn btn-danger" value="Request deletion" onclick="deletionRequest()">  
        <input type="hidden" name="buildingID" value="<%=buildingID%>" />
        <input type="hidden" name="origin" value="requestDeletion" />
-</form>
+       </form>
+       <input class="btn btn-default" value="Request " onclick="deletionRequest()">  
 
-       
 </div>
          
 
             </div>
 
 
- 
 
+ 
+  <script src="javascript/requestHandler.js"></script>
 
     <script src="javascript/inputHider.js"></script>
