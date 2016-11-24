@@ -72,7 +72,7 @@ out.println(buildingID);
        </form>
      
         <form action="Servlet" method="POST" id="HealthCheckForm" > 
-        <input class="btn btn-default pull-right " size="10" value="Request health check" onclick="healthCheck()">  
+        <input class="btn btn-default pull-right "  value="Request health check" onclick="healthCheck()">  
        <input type="hidden" name="buildingID" value="<%=buildingID%>" />
        <input type="hidden" name="origin" value="healthCheck" />
        </form>
