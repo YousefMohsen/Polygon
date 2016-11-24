@@ -14,7 +14,7 @@
 %>
 <form action="Servlet" method="POST">
     <div class="row top-buffer"> </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-hover tableHovers">
         <thead>
             <tr>             
                 <th>Zip</th>
@@ -25,14 +25,14 @@
         <tbody>
             <%
                 for (Building b : buildings) {
-                    out.println("<tr>");   
+                    out.println("<tr class = \"menu_links\" onclick=\"document.location = 'Servlet?origin=editBuilding&buildingID=" + b.getId() +"';\">");   
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                    out.println("<td>"+"<a href=\"Servlet?origin=editBuilding&buildingID=" + b.getId() + "\">"+ b.getAddress().getAddressline() + "</a></td>");
+                    out.println("<td>"+ b.getAddress().getAddressline() + "</td>");
                 }                 
             %>
         </tbody>
-    </table>     
+    </table>        
 </form>
 <br>
 <form action="Servlet" method="POST">  

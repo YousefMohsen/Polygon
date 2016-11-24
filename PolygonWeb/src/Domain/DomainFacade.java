@@ -1,19 +1,14 @@
 package Domain;
 
 import data.DatabaseFacade;
+import data.UserMapper;
 import entity.Document;
 import entity.Building;
+import entity.Login;
 import entity.User;
 import java.util.ArrayList;
 
 public class DomainFacade {
-
-    public DomainFacade() {
-
-    }
-
-    private ArrayList<Building> buildings = new ArrayList();
-    private ArrayList<User> users = new ArrayList();
 
     public static ArrayList<Building> getBuildings() {
         return (ArrayList<Building>) DatabaseFacade.getBuildings();
@@ -46,5 +41,9 @@ public class DomainFacade {
     public static void createBuilding(int zip, String address) {
         DatabaseFacade.createBuilding(zip, address);
     }
+    
+    public static Login getLogin(String username){
+        return UserMapper.getLogin(username);
+     }
 
 }

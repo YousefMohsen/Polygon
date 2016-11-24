@@ -11,13 +11,9 @@ public class ZipCitySqlInserter {
    DB j = new DB();
     public static void main(String[] args) {
         ZipCitySqlInserter m = new ZipCitySqlInserter();
-        m.getDataFromSql();
-       
-   
-        // System.out.println(dbf.loadZip(0).getCity());
+        m.getDataFromSql();    
     }
-    
-    // Eksempel på at hente data, og endelig afslutte forbindelsen.
+       
     public void getDataFromSql()  {       
      
         try {          

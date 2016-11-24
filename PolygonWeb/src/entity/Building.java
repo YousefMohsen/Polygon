@@ -18,6 +18,8 @@ public class Building {
         this.report = report;
         this.user = user;
     }
+    
+
 
     public Building(int id, Address address, String report) {
         this.id = id;
