@@ -20,8 +20,8 @@ public class toDelete {
 
      
      
-     for ( Building b : BuildingMapper.getBuildingsForUser(2)) {
-         System.out.println(b.getId());
+     for ( Building b : BuildingMapper.getBuildingsForUser(1,1)) {
+         System.out.println(b.getId()+ " " +b.getAddress().getAddressline());
      }
      
      

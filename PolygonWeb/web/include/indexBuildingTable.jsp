@@ -9,15 +9,19 @@
 
 <h1 class="page-header">Buildings</h1>
 <%
-    DomainFacade df = new DomainFacade();
-    List<Building> buildings = df.getBuildings();
+  
+    
+    int userId = (int) session.getAttribute("userID");
+    int rank = (int) session.getAttribute("rank");
+   List<Building> buildings = DomainFacade.getBuildingsForUser(userId, rank);
+               
 %>
 <form action="Servlet" method="POST">
     <div class="row top-buffer"> </div>
     <table class="table table-bordered table-hover tableHovers">
         <thead>
             <tr>             
-                <th>Zip</th>
+                <th>Zip%></th>
                 <th>City</th>
                 <th>Address</th>
             </tr>

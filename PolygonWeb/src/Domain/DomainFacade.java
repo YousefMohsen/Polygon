@@ -69,5 +69,10 @@ public class DomainFacade {
         public static void hideBuilding(int buildingID) {
         DatabaseFacade.hideBuilding( buildingID);
      }
+        
+        
+      public static List<Building> getBuildingsForUser(int userID, int userRank) {
+        return DatabaseFacade.getBuildingsForUser(  userID,  userRank);
+     }
   
 }

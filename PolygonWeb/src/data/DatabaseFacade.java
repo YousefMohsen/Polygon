@@ -75,11 +75,13 @@ public class DatabaseFacade {
    public static  List<Building>  getDeletionBuildings() {
       return BuildingMapper.getDeletionBuildings();
      }
-            
-   
-            
+        
   public static void hideBuilding(int buildingID) {
         BuildingMapper.hideBuilding( buildingID);
      }
+  public static List<Building> getBuildingsForUser(int userID, int userRank) {
+       return BuildingMapper.getBuildingsForUser(  userID,  userRank);
+     }
+
 
 }
