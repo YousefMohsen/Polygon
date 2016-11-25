@@ -69,10 +69,10 @@ public class UserMapperTest {
      */
     @Test
     public void testUpdateUser() {
-        User u = new User(500,"testname",null,null,null, new Address("1",new ZipCode(1,"1")));
+        User u = new User("testname",null,null,null, new Address("1",new ZipCode(1,"1")));
         int buildingID = 5;
         UserMapper.updateUser(u, buildingID);
-        assertEquals(UserMapper.getUser(buildingID).getFirstname(), "testname");
+        assertEquals(UserMapper.getUser(buildingID).getFirstname(),"testname");
     }
 
     /**
@@ -80,9 +80,8 @@ public class UserMapperTest {
      */
     @Test
     public void testFindCity() {
-        System.out.println("findCity");
-        int zip = 0;
-        String expResult = "";
+        int zip = 2800;
+        String expResult = "Kongens Lyngby";
         String result = UserMapper.findCity(zip);
         assertEquals(expResult, result);
     }
