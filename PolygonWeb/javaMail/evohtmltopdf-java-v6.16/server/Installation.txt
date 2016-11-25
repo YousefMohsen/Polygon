@@ -1,0 +1,4 @@
+EVO HTML to PDF Converter Server Installation
+=============================================
+
+For detailed instructions about how to install the server please check the 'Readme.txt' from root folder.
