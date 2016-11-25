@@ -19,12 +19,13 @@ public class DocumentMapper {
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
-            if (res.next()) {
+            if (res.next()) {System.out.println("document true");
                 String fileURL = res.getString("fileURL");
                 String note = res.getString("note");
                 return new Document(buildingID, fileURL, note);
             } else{     //if building has no file or note
-                return new Document(buildingID, "", "");}
+                System.out.println("document false");
+                return new Document(buildingID, " ", " ");}
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }

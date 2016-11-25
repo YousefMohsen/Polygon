@@ -29,10 +29,17 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");     
         try (PrintWriter out = response.getWriter()) {  
+            
             Login log = DomainFacade.getLogin(request.getParameter("username"));          
-            String n = log.getUsername();                    
+            String n = log.getUsername(); 
+            int userID = log.getId();
+            int rank = log.getRank();
             if(log.getPassword().equals(request.getParameter("password"))){               
-                request.getSession().setAttribute("name", n);  
+                request.getSession().setAttribute("name", n); 
+                
+                 request.getSession().setAttribute("userID", userID); 
+                 request.getSession().setAttribute("rank", rank); 
+                
                 response.sendRedirect("buildingTable.jsp");
             } else {
                 response.sendRedirect("index.jsp");

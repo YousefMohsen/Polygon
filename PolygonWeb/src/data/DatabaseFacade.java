@@ -11,8 +11,8 @@ import java.util.List;
 
 public class DatabaseFacade {   
     
-     public static void createBuilding(int zip, String address) {
-         BuildingMapper.createBuilding(zip, address);
+     public static void createBuilding(int zip, String address,int userID) {
+         BuildingMapper.createBuilding(zip, address,userID);
      }
     
     public static List<Building> getBuildings() {   
@@ -62,4 +62,26 @@ public class DatabaseFacade {
      public static Login getLogin(String username){
          return UserMapper.getLogin(username);
      }
+  public static void deletionRequest(int buildingID) {
+        RequestMapper.sendRequest(1, buildingID);
+     }
+    public static void cancelDeletionRequest(int buildingID) {
+        RequestMapper.cancelRequest(1, buildingID);
+     }
+    public static void healthCheckRequest(int buildingID) {
+        RequestMapper.sendRequest(2, buildingID);
+     }
+    
+   public static  List<Building>  getDeletionBuildings() {
+      return BuildingMapper.getDeletionBuildings();
+     }
+        
+  public static void hideBuilding(int buildingID) {
+        BuildingMapper.hideBuilding( buildingID);
+     }
+  public static List<Building> getBuildingsForUser(int userID, int userRank) {
+       return BuildingMapper.getBuildingsForUser(  userID,  userRank);
+     }
+
+
 }
