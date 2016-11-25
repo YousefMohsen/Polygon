@@ -5,6 +5,7 @@
  */
 package data;
 
+import Domain.DomainFacade;
 import static data.DatabaseFacade.getBuildings;
 import entity.Address;
 import entity.Building;
@@ -20,10 +21,13 @@ import static org.junit.Assert.*;
 public class DatabaseFacadeTest {
     
     public DatabaseFacadeTest() {
+        //DB.getConnection();
+         
     }
     
     @Before
     public void setUp() {
+        
     }
 
     /**
@@ -31,7 +35,7 @@ public class DatabaseFacadeTest {
      */
     @Test
     public void testGetBuildings() {
-        int expResultSize = 3;
+        int expResultSize = 14;
         List<Building> result = getBuildings();
         assertEquals( expResultSize, result.size() );
     }
@@ -42,9 +46,10 @@ public class DatabaseFacadeTest {
     @Test
     public void testGetBuilding() {
         //Creating test result
-        Address testAddress = new Address("Roskildevej 153B",null);
+        Address testAddress = new Address("Klampenborgvej 1",null);
         //testing if the building recieved has the same adressline as the test adress
-       assertEquals(DatabaseFacade.getBuilding(1).getAddress().getAddressline(), testAddress.getAddressline());
+        List<Building> result = getBuildings();
+       assertEquals(result.get(2).getAddress().getAddressline(), testAddress.getAddressline());
     }
 
     /**

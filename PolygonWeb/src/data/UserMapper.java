@@ -34,7 +34,7 @@ public class UserMapper {
     
     
     //Henter info om en bruger fra DB ud fra et givet bygningsID
-    public static User getUser(int buildingID) {
+    public static User getUser(int buildingID) {          
         String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM User "
                 + "JOIN Building "
@@ -44,11 +44,12 @@ public class UserMapper {
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "WHERE buildingId=?";
-        try (Connection con = DB.getConnection();
+        try (Connection con = DB.getConnection();                
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
+                System.out.println("test");
                 String firstname = res.getString("firstname");
                 String lastname = res.getString("lastname");
                 String phone = res.getString("phone");

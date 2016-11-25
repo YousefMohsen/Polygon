@@ -9,8 +9,8 @@
     int buildingID = Integer.parseInt(temp);
     Building b = DomainFacade.getBuilding(buildingID);
     User u = DomainFacade.getUser(buildingID);
-    Document d = DomainFacade.getDocument(buildingID);
-
+    Document d = DomainFacade.getDocument(buildingID);  
+    System.out.println(d.getFileURL());
 %>
 
 
@@ -18,10 +18,7 @@
     <div class="well well-lg">   
         <div class="row">
             <button class="btn btn-default pull-right" type="button" onclick="unlock()">Edit</button>
-
-
         </div>
-
         <div class="row">
             <div class="col-md-6">
                 <h4>Info om ejer af bygning:</h4>
@@ -48,6 +45,7 @@
             </div>
         </div>            
     </div>
+
            
 </div>
             <div class="row">
@@ -88,4 +86,5 @@
  
   <script src="javascript/requestHandler.js"></script>
 
+    
     <script src="javascript/inputHider.js"></script>
