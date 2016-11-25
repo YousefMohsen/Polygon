@@ -36,7 +36,7 @@ public class Servlet extends HttpServlet {
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");         
             int buildingID  = Integer.parseInt(request.getParameter("buildingID"));;           
-   
+
             switch (origin) {
                 case "editBuilding":
                     out.println(origin+" "+buildingID );
@@ -44,14 +44,14 @@ public class Servlet extends HttpServlet {
               response.sendRedirect("editBuilding.jsp");
                     break;
                 case "createBuilding":
-                   
+                      
                     String address = request.getParameter("address");
                     int zip = Integer.parseInt(request.getParameter("zip"));
                     String city = request.getParameter("city");
-       int userID =  Integer.parseInt( session.getAttribute("userID").toString());
-              
-                    DomainFacade.createBuilding(zip, address,userID);
-                    response.sendRedirect("index.jsp");
+        int userID =  Integer.parseInt( session.getAttribute("userID").toString());
+
+                  DomainFacade.createBuilding(zip, address,userID);
+                  response.sendRedirect("index.jsp");
                     break;
                 
                   case "deletionRequest":

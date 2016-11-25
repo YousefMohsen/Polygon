@@ -36,7 +36,7 @@ User user = DomainFacade.getUser(buildingID);
 String fromEmail = "polygonrequests@gmail.com"; //requires valid gmail id
 String password = "Polygon16sundbygning!"; // correct password for gmail id
 
-String subject = "Anmodning om et sunhedstjek";
+String emailSubject = "Anmodning om et sunhedstjek";
 String emailMessage =createMessege(user,building) ;
        
 String toEmail = "polygonrequests@gmail.com"; //receiver
@@ -66,7 +66,7 @@ System.out.println(emailMessage);
 
             System.out.println("Mail Check 2");
 
-            message.setSubject(subject);
+            message.setSubject(emailSubject);
             message.setText(emailMessage);
 
             System.out.println("Mail Check 3");

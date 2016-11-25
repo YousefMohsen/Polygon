@@ -21,7 +21,7 @@
     <table class="table table-bordered table-hover tableHovers">
         <thead>
             <tr>             
-                <th>Zip%></th>
+                <th>Zip</th>
                 <th>City</th>
                 <th>Address</th>
             </tr>
