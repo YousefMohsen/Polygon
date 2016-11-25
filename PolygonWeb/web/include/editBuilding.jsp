@@ -12,10 +12,6 @@
     Document d = DomainFacade.getDocument(buildingID);  
     System.out.println(d.getFileURL());
 %>
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 
 <form action="Servlet" method="POST">
     <div class="well well-lg">   
@@ -48,12 +44,9 @@
             </div>
         </div>            
     </div>
-<<<<<<< HEAD
-=======
 
            
 </div>
->>>>>>> master
             <div class="row">
                 <div class="col-md-3"> </div>
                 <div class="col-md-4">
@@ -65,10 +58,8 @@
                             <a href="buildingTable.jsp" class="btn btn-default">Back</a>
    
 </form>
-<<<<<<< HEAD
 <a href="index.jsp" class="btn btn-default">Back</a>
 </div>
-=======
                            
                </div>       
                       <div class="col-md-4">     
@@ -97,5 +88,4 @@
   <script src="javascript/requestHandler.js"></script>
 
     
->>>>>>> master
     <script src="javascript/inputHider.js"></script>

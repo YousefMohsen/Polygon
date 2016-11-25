@@ -50,8 +50,8 @@ public class rapportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            //HttpSession session = request.getSession(true);
-            int buildingID = 5;//Integer.parseInt((String) session.getAttribute("ID"));
+            HttpSession session = request.getSession(true);
+            int buildingID = 5;//(int) session.getAttribute("ID");
             
             String buildingName = request.getParameter("nameOnBuilding");
             String address = request.getParameter("address");

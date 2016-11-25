@@ -24,9 +24,16 @@
     <body>
         <% 
             List<Rapport> r = null;
+            int id = 0;
+            //if(session.getAttribute("ID") != null) {
+              //  id = (int) session.getAttribute("ID");
+                //r = new ArrayList<Rapport>();
+               // r.add(DomainFacade.getRapport(id));
+
+            //}
+            
             if(request.getParameter("sql") != null){
-                System.out.println("url: " + request.getParameter("sql"));
-                int id = Integer.parseInt(request.getParameter("sql"));
+                id = Integer.parseInt(request.getParameter("sql"));
                 r = new ArrayList<Rapport>();
                 r.add(DomainFacade.getRapport(5));
             }
