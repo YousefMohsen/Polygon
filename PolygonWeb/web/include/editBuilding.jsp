@@ -52,7 +52,7 @@
 
             <input class="btn btn-default" type="submit" name="origin" value="Submit">         
             <input type="hidden" name="id" value="<%=buildingID%>" />
-        
+
             <a href="index.jsp" class="btn btn-default">Back</a>
         </div>
 

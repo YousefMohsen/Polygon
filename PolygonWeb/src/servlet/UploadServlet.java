@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet(name = "UploadServlet", urlPatterns = {"/UploadServlet"})
@@ -33,7 +34,10 @@ public class UploadServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            response.sendRedirect("index.jsp");
+//            HttpSession session = request.getSession();
+//            String buildingID = request.getParameter("buildingID");
+//            session.setAttribute("ID", buildingID);
+//            request.setAttribute("ID", buildingID);
         }
     }
 
@@ -66,20 +70,19 @@ public class UploadServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            // get access to file that is uploaded from client
-//            Part p = request.getPart("file");
-//            InputStream is = p.getInputStream();
-
-            // get filename to use on the server
-            //String outputfile = this.getServletContext().getRealPath("/floorPlan/");  // get path on the server
-            //FileOutputStream os = new FileOutputStream (outputfile + "TEST.jpg");
+            String buildingID = request.getParameter("buildingID");
+//            // get access to file that is uploaded from client
+            Part p = request.getPart("file");
+            InputStream is = p.getInputStream();
+//
+//            // get filename to use on the server
+//            String outputfile = this.getServletContext().getRealPath("/floorPlan/");  // get path on the server
+//            FileOutputStream os = new FileOutputStream (outputfile + buildingID + ".jpg");
             
-            Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-            InputStream is = filePart.getInputStream();
-            File uploads = new File();
-            out.println(uploads);
-            FileOutputStream os = new FileOutputStream (uploads + "TEST.jpg");
+//            String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+//            File uploads = new File("");
+            FileOutputStream os = new FileOutputStream(buildingID + ".jpg");
+            
             
             // write bytes taken from uploaded file to target file
             int ch = is.read();
@@ -90,7 +93,7 @@ public class UploadServlet extends HttpServlet {
             os.close();
             out.println("<h3>File uploaded successfully!</h3>");
         }
-        catch(Exception ex) {
+        catch(IOException | ServletException ex) {
            out.println("Exception -->" + ex.getMessage());
         }
         finally { 
