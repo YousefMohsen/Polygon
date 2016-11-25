@@ -35,26 +35,51 @@ public class Servlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String origin = request.getParameter("origin");         
-            String buildingID = request.getParameter("buildingID");           
+            int buildingID  = Integer.parseInt(request.getParameter("buildingID"));;           
 
             switch (origin) {
                 case "editBuilding":
+                    out.println(origin+" "+buildingID );
                     session.setAttribute("ID", buildingID);
-                    request.setAttribute("ID", buildingID);
-                    response.sendRedirect("editBuilding.jsp");
+              response.sendRedirect("editBuilding.jsp");
                     break;
-                case "Create Building":
+                case "createBuilding":
+                      
                     String address = request.getParameter("address");
                     int zip = Integer.parseInt(request.getParameter("zip"));
                     String city = request.getParameter("city");
+        int userID =  Integer.parseInt( session.getAttribute("userID").toString());
 
-                    DomainFacade.createBuilding(zip, address);
-                    response.sendRedirect("index.jsp");
+                  DomainFacade.createBuilding(zip, address,userID);
+                  response.sendRedirect("index.jsp");
                     break;
                 
-                  case "requestDeletion":
-                      out.println("hej"+ buildingID);
+                  case "deletionRequest":
+                      buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                    DomainFacade.deletionRequest(buildingID);
+                    session.setAttribute("ID", buildingID);
+                    request.setAttribute("ID", buildingID);
+             
+                    response.sendRedirect("editBuilding.jsp");
+            
                       break;
+                      
+               case "acceptRequest":
+                   buildingID = Integer.parseInt(request.getParameter("buildingID"));
+            DomainFacade.hideBuilding(buildingID);
+            DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
+            response.sendRedirect("Request.jsp");
+                      break;
+                      
+                         case "healthCheck":
+        buildingID = Integer.parseInt(request.getParameter("buildingID"));
+   
+   
+DomainFacade.healthCheckRequest(buildingID);
+
+response.sendRedirect("editBuilding.jsp");
+                      break;
+                      
                 
                 case "Submit":
                     int id = Integer.parseInt(request.getParameter("id"));

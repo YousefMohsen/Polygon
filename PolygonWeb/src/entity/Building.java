@@ -18,20 +18,20 @@ public class Building {
         this.report = report;
         this.user = user;
     }
-    
 
 
+    public Building(int id, Address address, String report,int user) {
+        this.id = id;
+        this.address = address;
+        this.report = report;
+        this.user = user;
+    }
     public Building(int id, Address address, String report) {
         this.id = id;
         this.address = address;
         this.report = report;
     }
 
-    public Building(Address address, String report, int user) {
-        this.address = address;
-        this.report = report;
-        this.user = user;
-    }
 
     public int getId() {
         return id;

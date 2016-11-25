@@ -4,23 +4,24 @@
 <%@page import="Domain.DomainFacade"%>    
 
 <%
-
-    String temp = session.getAttribute("ID").toString().substring(0, 1);
+    int idLength = session.getAttribute("ID").toString().length();
+    String temp = session.getAttribute("ID").toString().substring(0, idLength);
     int buildingID = Integer.parseInt(temp);
     Building b = DomainFacade.getBuilding(buildingID);
     User u = DomainFacade.getUser(buildingID);
-    Document d = DomainFacade.getDocument(buildingID);
-
+    Document d = DomainFacade.getDocument(buildingID);  
+    System.out.println(d.getFileURL());
 %>
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 <form action="Servlet" method="POST">
     <div class="well well-lg">   
         <div class="row">
             <button class="btn btn-default pull-right" type="button" onclick="unlock()">Edit</button>
-
-
         </div>
-
         <div class="row">
             <div class="col-md-6">
                 <h4>Info om ejer af bygning:</h4>
@@ -47,13 +48,54 @@
             </div>
         </div>            
     </div>
+<<<<<<< HEAD
+=======
+
+           
+</div>
+>>>>>>> master
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3"> </div>
+                <div class="col-md-4">
+                    
                 <a href="rapport.jsp" class="btn btn-default">Lav rapport</a>
 
                 <input class="btn btn-default" type="submit" name="origin" value="Submit">         
                 <input type="hidden" name="id" value="<%=buildingID%>" />
+                            <a href="buildingTable.jsp" class="btn btn-default">Back</a>
+   
 </form>
+<<<<<<< HEAD
 <a href="index.jsp" class="btn btn-default">Back</a>
 </div>
+=======
+                           
+               </div>       
+                      <div class="col-md-4">     
+                            
+       <form action="Servlet" method="POST" id="deletionForm"> 
+        <input class="btn btn-danger pull-right" size="12" value="Request deletion" onclick="deletionRequest()">  
+       <input type="hidden" name="buildingID" value="<%=buildingID%>" />
+       <input type="hidden" name="origin" value="deletionRequest" />
+       </form>
+     
+        <form action="Servlet" method="POST" id="HealthCheckForm" > 
+        <input class="btn btn-default pull-right "  value="Request health check" onclick="healthCheck()">  
+       <input type="hidden" name="buildingID" value="<%=buildingID%>" />
+       <input type="hidden" name="origin" value="healthCheck" />
+       </form>
+      
+</div> 
+
+       <div class="col-md-1"> </div>  
+
+            </div>
+
+
+
+ 
+  <script src="javascript/requestHandler.js"></script>
+
+    
+>>>>>>> master
     <script src="javascript/inputHider.js"></script>
