@@ -28,7 +28,7 @@ textarea {
     font-weight: bold;
     padding: 5px 0 20px 5px;
 }
-#addressform form {
+#addressform {
     margin-left: 75px;
 }
 #addressform input[type=text] {
@@ -75,25 +75,25 @@ textarea {
 #general-building-info .border-bot, #room-info .border-bot {
     float: left;
 }
-#general-building-info div:nth-child(1) .border-bot {
+#general-building-info div:nth-child(2) .border-bot {
     width: 630px;
 }
-#general-building-info div:nth-child(2) .border-bot {
+#general-building-info div:nth-child(3) .border-bot {
     width: 350px;
 }
-#general-building-info div:nth-child(3) .border-bot, #room-info div .border-bot {
+#general-building-info div:nth-child(4) .border-bot, #room-info div .border-bot {
     width: 200px;
 }
-#general-building-info div:nth-child(1) input[type=text] {
+#general-building-info div:nth-child(2) input[type=text] {
     border: none;
     height: 25px;
-    width: 630px;
+    width: 625px;
     font-size: 18px;
     outline: none;
     padding-left: 5px;
     margin-top: 10px;
 }
-#general-building-info div:nth-child(2) input[type=text] {
+#general-building-info div:nth-child(3) input[type=text] {
     border: none;
     height: 25px;
     width: 350px;
@@ -102,7 +102,7 @@ textarea {
     padding-left: 5px;
     margin-top: 14px;
 }
-#general-building-info div:nth-child(3) input[type=text], #room-info input[type=text] {
+#general-building-info div:nth-child(4) input[type=text], #room-info input[type=text] {
     border:none;
     height: 25px;
     width: 200px;
@@ -113,6 +113,7 @@ textarea {
 }
 #room-info input[type=text] {
     margin-right: 430px;
+    border-bottom: 1px solid #000;
 }
 #room-info-checkbox {
     float: left;
@@ -121,14 +122,16 @@ textarea {
     margin-left: 290px;
     margin-top: -35px;
 }
-#room-info-checkbox p, #room-info-checkbox input[type=checkbox]{
+#room-info-checkbox p, #room-info-checkbox input[type=radio]{
     float:left;
     margin: 0;
     padding:0 5px 0 5px;
     font-weight: bold;
     font-size: 14px;
+    position: relative;
+    z-index: 10;
 }
-#room-info-checkbox input[type=checkbox]:nth-last-child(2)  {
+#room-info-checkbox input[type=radio]:nth-last-child(2)  {
     margin-left: 20px;
 }
 #examination-building-outside, #examination-of {
@@ -366,7 +369,7 @@ textarea {
     font-size: 16px;
 }
 #rapport-writer input[type=text]:last-child {
-    width: 417px;
+    width: 410px;
 }
 #categorize {
     margin: 40px 75px 0 75px;
@@ -396,7 +399,7 @@ textarea {
 #categorize table tr:nth-child(n+2) th:last-child {
     background-color: #ffffff;
 }
-#categorize table th input[type=checkbox] {
+#categorize table th input[type=radio] {
     margin-left: 40px;
 }
 #bot-text {
@@ -410,6 +413,12 @@ textarea {
 }
 #bot-text p:last-child {
     margin: 0;
+}
+#save {
+    float: right;
+    margin: 20px 0 20px 0;
+    height: 25px;
+    width: 100px;
 }
 /* Classes */
 .clear {
@@ -461,7 +470,7 @@ textarea {
     min-height: 600px;
     height: auto;
     border:1px solid #000;
-    margin-top: 50px; 
+    margin-top: 30px; 
 }
 .pages:last-child {
     margin-bottom: 10px;

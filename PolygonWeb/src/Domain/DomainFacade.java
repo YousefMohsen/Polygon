@@ -7,6 +7,7 @@ import data.UserMapper;
 import entity.Document;
 import entity.Building;
 import entity.Login;
+import entity.Rapport;
 import entity.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,19 @@ public class DomainFacade {
         return UserMapper.getLogin(username);
      }
     
-  public static void deletionRequest(int buildingID) {
+    public static void createRapport(int buildingID, Rapport rapport) {
+        DatabaseFacade.createRapport(buildingID, rapport);
+    }
+    
+    public static Rapport getRapport(int buildingID) {
+        return DatabaseFacade.getRapport(buildingID);
+    }
+    
+    public static void clearRapportData(int buildingID) {
+        DatabaseFacade.clearRapportData(buildingID);
+    }
+
+    public static void deletionRequest(int buildingID) {
         DatabaseFacade.deletionRequest(buildingID);
      }
   
@@ -58,7 +71,7 @@ public class DomainFacade {
      }
 
   
-   public static void healthCheckRequest(int buildingID) {
+    public static void healthCheckRequest(int buildingID) {
         DatabaseFacade.healthCheckRequest( buildingID);
        EmailSender.sendEmail(buildingID); 
      }

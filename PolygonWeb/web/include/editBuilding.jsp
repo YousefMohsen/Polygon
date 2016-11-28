@@ -13,7 +13,6 @@
     System.out.println(d.getFileURL());
 %>
 
-
 <form action="Servlet" method="POST">
     <div class="well well-lg">   
         <div class="row">
@@ -59,6 +58,8 @@
                             <a href="buildingTable.jsp" class="btn btn-default">Back</a>
    
 </form>
+<a href="index.jsp" class="btn btn-default">Back</a>
+</div>
                            
                </div>       
                       <div class="col-md-4">     

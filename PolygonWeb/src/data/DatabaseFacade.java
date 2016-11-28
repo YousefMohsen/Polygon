@@ -4,6 +4,7 @@ import entity.Document;
 import entity.Address;
 import entity.Building;
 import entity.Login;
+import entity.Rapport;
 import entity.User;
 import entity.ZipCode;
 import java.sql.Connection;
@@ -62,6 +63,19 @@ public class DatabaseFacade {
      public static Login getLogin(String username){
          return UserMapper.getLogin(username);
      }
+     
+     public static void createRapport(int buildingID, Rapport rapport) {
+         RapportMapper.createRapport(buildingID, rapport);
+     }
+     
+     public static Rapport getRapport(int buildingID) {
+         return RapportMapper.getRapport(buildingID);
+     }
+     
+     public static void clearRapportData(int buildingID) {
+         RapportMapper.clearRapportData(buildingID);
+     }
+     
   public static void deletionRequest(int buildingID) {
         RequestMapper.sendRequest(1, buildingID);
      }
@@ -82,6 +96,4 @@ public class DatabaseFacade {
   public static List<Building> getBuildingsForUser(int userID, int userRank) {
        return BuildingMapper.getBuildingsForUser(  userID,  userRank);
      }
-
-
 }
