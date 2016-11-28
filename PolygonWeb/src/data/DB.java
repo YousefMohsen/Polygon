@@ -12,29 +12,20 @@ public final class DB {
     //  Database credentials
     static final String USER = "polygon";
     static final String PASS = "Polygon16sundbygning!";
-    
-    //implemented as a injected singleton
     private static Connection conn = null;
-    
 
     public static Connection getConnection() {
-        if (conn == null) {
-            try {
-                //STEP 1: Register JDBC driver
-                Class.forName("com.mysql.jdbc.Driver");
-                //STEP 2: Open a connection
-                System.out.println("Connecting to database...");
-                conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                System.out.println("Connected");
-            } catch (ClassNotFoundException | SQLException e) {
-                System.out.println(e);
-            }
+        try {
+            //STEP 1: Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+            //STEP 2: Open a connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
         }
         return conn;
-    }
-    
-    public static void setConnection(Connection conn){
-        DB.conn = conn;
     }
 
     public void close() {

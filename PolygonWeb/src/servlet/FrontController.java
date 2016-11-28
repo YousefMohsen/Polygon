@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author joaci
  */
-@WebServlet(name = "frontController", urlPatterns = {"/frontController"})
+@WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
 public class FrontController extends HttpServlet {
 
     /**
@@ -32,15 +26,11 @@ public class FrontController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-          if(request.getSession() != null){  
-            String name=(String)request.getAttribute("name");            
-            out.print("Hello, "+name+" Welcome to Profile");  
-        }  
-        else{  
-            out.print("Please login first");  
-            request.getRequestDispatcher("login.html").include(request, response);  
-        }  
+        String whereTOGO = request.getParameter("ID");         
+        if (request.getSession() != null) {            
+            request.getRequestDispatcher(whereTOGO).forward(request, response);
+        } else {
+            response.sendRedirect("index.jsp");
         }
     }
 
