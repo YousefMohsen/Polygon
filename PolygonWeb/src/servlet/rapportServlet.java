@@ -63,7 +63,7 @@ public class rapportServlet extends HttpServlet {
                 return;
             }
             
-            String buildingName = request.getParameter("nameOnBuilding");
+            String buildingName = request.getParameter("nameOnBuilding").replaceAll("\\s+","");
             String address = request.getParameter("address");
             String zip = request.getParameter("zipCity");
             
@@ -216,8 +216,6 @@ public class rapportServlet extends HttpServlet {
             List<Rapport> ListRap = new ArrayList();
             ListRap.add(DomainFacade.getRapport(buildingID));
             request.setAttribute("rapportData", ListRap);
-            request.getSession().setAttribute("rapportData", ListRap);
-            //response.sendRedirect("FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&sql&newRapport");
             request.getRequestDispatcher("FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport").forward(request, response);
     }
 
