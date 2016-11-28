@@ -23,26 +23,27 @@ public class BuildingMapperTest {
     }
     
     private Connection testDatabase;
-    private static String USER = "javatester";
-    private static String USERPW = "testogeksperimenter=21coolstuf";
+    private static String USER = "polygon";
+    private static String USERPW = "Polygon16sundbygning!";
     private static String DBNAME = "buildingsTest";
     
     @Before
     public void setUp() { try {
-            String url = String.format("jdbc:mysql://vetterlain.dk/Polygon");
+            String url = String.format("jdbc:mysql://vetterlain.dk/buildingsTest");
             Class.forName("com.mysql.jdbc.Driver");
             
             testDatabase =  DriverManager.getConnection(url, USER, USERPW);
             try( Statement stmt = testDatabase.createStatement()){
-                stmt.execute( "drop table if exists building");
-                stmt.execute( "create table building like testbuilding");
-                stmt.execute( "insert into building select * from testbuilding");
+                stmt.execute( "drop table if exists Building");
+                stmt.execute( "create table Building like testbuilding");
+                stmt.execute( "insert into Building select * from testbuilding");
             }
             DB.setConnection(testDatabase);
+            System.out.println("test connection");
             
         } catch ( ClassNotFoundException | SQLException ex ) {
             testDatabase = null;
-            System.out.println( "Could not open connection to database: " + ex.getMessage() );;
+            System.out.println( "Could not open connection to database: " + ex.getMessage() );
         }
     }
 
@@ -58,6 +59,8 @@ public class BuildingMapperTest {
      */
     @Test
     public void testGetBuildings() {
+        System.out.println("bygningid: "+BuildingMapper.getBuildings().get(0).getId());
+        
     }
 
     /**
