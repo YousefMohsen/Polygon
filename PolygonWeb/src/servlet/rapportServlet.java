@@ -57,8 +57,8 @@ public class rapportServlet extends HttpServlet {
             String address = request.getParameter("address");
             String zip = request.getParameter("zipCity");
             
-            int buildYear = Integer.parseInt(request.getParameter("buildYear"));
-            double buildingArea = Double.parseDouble(request.getParameter("buildingArea"));
+            String buildYear = request.getParameter("buildYear");
+            String buildingArea = request.getParameter("buildingArea");
             String buildingUse = request.getParameter("buildingUse");
             
             int commentRoof = 1;
@@ -196,7 +196,7 @@ public class rapportServlet extends HttpServlet {
                 categorize = Integer.parseInt(request.getParameter("grade"));
             } 
             
-            int rapportNr = Integer.parseInt(request.getParameter("rapportnr1"));
+            String rapportNr = request.getParameter("rapportnr1");
             
             Rapport rapport = new Rapport(buildingName, address, zip, buildYear, buildingArea, buildingUse, descriptionRoof, descriptionOuterwall, room, when, where, whatHappend, whatRepaired, otherDamageType, descriptionWall, descriptionCeiling, descriptionFloor, descriptionWindows, otherReview, descriptionOther, otherReview2, descriptionOther2, descriptionScanning, descriptionMeasuring, descriptionHumidity, conclusionRoom1, conclusionConclusion1, conclusionRoom2, conclusionConclusion2, conclusionRoom3, conclusionConclusion3, conclusionRoom4, conclusionConclusion4, conclusionRoom5, conclusionConclusion5, conclusionRoom6, conclusionConclusion6, conclusionRoom7, conclusionConclusion7, conclusionRoom8, conclusionConclusion8, writer, collaborator, commentRoof, pictureRoof, commentOuterwall, pictureOuterwall, commentRoom, yesNoRoomDamage, damageType, commentWall, pictureWall, commentCeiling, pictureCeiling, commentFloor, pictureFloor, commentWindows, pictureWindows, commentOther, pictureOther, commentOther2, pictureOther2, humidityYesNo, categorize, rapportNr);
             

@@ -50,8 +50,8 @@ class RapportMapper {
                 rapport.setDamageType(res.getInt("DamageNr"));
                 rapport.setOtherDamageType(res.getString("other"));
                 rapport.setCategorize(res.getInt("categorized"));
-                rapport.setBuildYear(res.getInt("buildYear"));
-                rapport.setBuildingArea(res.getDouble("area"));
+                rapport.setBuildYear(res.getString("buildYear"));
+                rapport.setBuildingArea(res.getString("area"));
                 rapport.setBuildingUse(res.getString("use"));
                 rapport.setHumidityYesNo(res.getInt("scanning"));
                 rapport.setDescriptionScanning(res.getString("humidityScan"));
@@ -59,6 +59,7 @@ class RapportMapper {
                 rapport.setDescriptionHumidity(res.getString("description"));
                 rapport.setWriter(res.getString("author"));
                 rapport.setCollaborator(res.getString("cooperation"));
+                rapport.setRapportNr(res.getString("rapportNr"));
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
@@ -191,7 +192,7 @@ class RapportMapper {
                    + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                    + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                    + "INSERT INTO Document (fileURL,note,Building_buildingId) VALUES (?,?,?);"
-                   + "INSERT INTO RapportInfo (date,author,cooperation,document_documentId) VALUES (NOW(),?,?, (SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1));";
+                   + "INSERT INTO RapportInfo (date,author,cooperation,document_documentId, rapportNr) VALUES (NOW(),?,?, (SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1), ?);";
 
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -208,8 +209,8 @@ class RapportMapper {
             stmt.setInt(10, buildingID);
             stmt.setInt(11, rapport.getCategorize());
             
-            stmt.setInt(12, rapport.getBuildYear());
-            stmt.setDouble(13, rapport.getBuildingArea());
+            stmt.setString(12, rapport.getBuildYear());
+            stmt.setString(13, rapport.getBuildingArea());
             stmt.setString(14, rapport.getBuildingUse());
             stmt.setInt(15, buildingID);
             
@@ -305,6 +306,7 @@ class RapportMapper {
             
             stmt.setString(88, rapport.getWriter());
             stmt.setString(89, rapport.getCollaborator());
+            stmt.setString(90, rapport.getRapportNr());
             
             int rowsAffected = stmt.executeUpdate();
             
