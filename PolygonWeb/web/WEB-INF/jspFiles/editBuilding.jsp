@@ -37,7 +37,10 @@
                     <tr><td>Adresse</td><td><input  type="text" name="buildingStreet" value="<%=b.getAddress().getAddressline()%>"></td></tr>
                     <tr><td>Post nr.</td><td><input  type="text" name="buildingZip" value="<%=b.getAddress().getZipCode().getZip()%>"></td></tr>
                     <tr><td>By</td><td><input  type="text" name="buildingCity" value="<%=b.getAddress().getZipCode().getCity()%>"></td></tr>
-                    <tr><td>Rapport URL</td><td><input  type="text" name="reportURL" value="<%=b.getReport()%>"></td></tr>
+                    <% 
+                        String rapportPath = "files/" + b.getReport();
+                    %>
+                    <tr><td><a href="<%= rapportPath %>" target="_blank">Rapport URL</a></td><td><input  type="text" name="reportURL" value="<%=b.getReport()%>"></td></tr>
                     <tr><td>Fil URL</td><td><input  type="text" name="fileURL" value="<%=d.getFileURL()%>"></td></tr>
                     <tr><td>Evt. note</td><td><input  type="text" name="note" value="<%=d.getNote()%>"></td></tr>
                 </table>
@@ -48,7 +51,7 @@
 
 <div class="row">
     <div class="col-md-3">
-        <a href="FrontController?ID=LinkServlet&page=rapport.jsp" class="btn btn-default">Lav rapport</a>
+        <a href="FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=<%= buildingID %>&newRapport" class="btn btn-default">Lav rapport</a>
         <a href="FrontController?ID=LinkServlet&page=buildingTable.jsp" class="btn btn-default">Back</a>       
               <input type="hidden" name="buildingID" value="<%=buildingID%>" />
               <input type="hidden" name="id" value="<%=buildingID%>" />

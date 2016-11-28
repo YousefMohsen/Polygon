@@ -1,3 +1,4 @@
+<%@page import="entity.Building"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Domain.DomainFacade"%>
 <%@page import="data.CreateRapport"%>
@@ -25,17 +26,28 @@
         <% 
             List<Rapport> r = null;
             int id = 0;
-            //if(session.getAttribute("ID") != null) {
-              //  id = (int) session.getAttribute("ID");
-                //r = new ArrayList<Rapport>();
-               // r.add(DomainFacade.getRapport(id));
-
-            //}
-            
-            if(request.getParameter("sql") != null){
-                id = Integer.parseInt(request.getParameter("sql"));
-                r = new ArrayList<Rapport>();
-                r.add(DomainFacade.getRapport(5));
+            List<Building> buildings = null;
+            if(request.getParameter("buildingID") != null) {
+                try {
+                    id = Integer.parseInt(request.getParameter("buildingID"));
+                    if(request.getParameter("newRapport") != null) {
+                        buildings = new ArrayList<>();
+                        buildings.add(DomainFacade.getBuilding(id));
+                    }
+                    if(request.getParameter("pdf") != null) {
+                        r = new ArrayList<>();
+                        r.add(DomainFacade.getRapport(id));
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println(e.getMessage());
+                    response.sendRedirect("buildingTable.jsp");
+                }
+            }
+            if(request.getAttribute("rapportData") != null) {
+                r = new ArrayList<>();
+                r = (List<Rapport>) request.getAttribute("rapportData");
+            } else {
+                System.out.println("no data");
             }
         %>
         <div id="container">
@@ -53,13 +65,13 @@
 
                 <div id="addressform">
                         <div class="left">
-                            <input type="text" name="nameOnBuilding" <% if(r != null) {%> value="<%= r.get(0).getBuildingName() %>" <% } %>>
+                            <input type="text" name="nameOnBuilding" <% if(r != null) {%> value="<%= r.get(0).getBuildingName() %>" <% } else { if(buildings != null) { %> value="<%= buildings.get(0).getBuildingName() %>" <% }} %>>
                             <div class="border-bot"></div>
                             <p>Navn på bygning</p>
-                            <input type="text" name="address" <% if(r != null) {%> value="<%= r.get(0).getAddress() %>" <% } %>> 
+                            <input type="text" name="address" <% if(r != null) {%> value="<%= r.get(0).getAddress() %>" <% } else { if(buildings != null) { %> value="<%= buildings.get(0).getAddress().getAddressline() %>" <% }} %>> 
                             <div class="border-bot"></div>
                             <p>Adresse</p>
-                            <input type="text" name="zipCity" <% if(r != null) {%> value="<%= r.get(0).getZip() %>" <% } %>>
+                            <input type="text" name="zipCity" <% if(r != null) {%> value="<%= r.get(0).getZip() %>" <% } else { if(buildings != null) { %> value="<%= buildings.get(0).getAddress().getZipCode().getZip()%> / <%= buildings.get(0).getAddress().getZipCode().getCity()%>" <% }} %>>
                             <div class="border-bot"></div>
                             <p>Postnr./By</p>
                         </div>
@@ -417,6 +429,8 @@ bygningsgennemgang.
                 </div>
                 <div class="clear"></div>
             </div><!--pageThree end-->
+                <input type="hidden" name="buildingID" value="<%= id %>">
+                <input id="back" type="submit" name="goBack" value="back">
                 <input id="save" type="submit" name="createRapport" value="Gem Rapport">
             </form>
         </div><!--container end-->
@@ -425,6 +439,8 @@ bygningsgennemgang.
 <% 
     if(request.getAttribute("rapportData") != null){
         CreateRapport cr = new CreateRapport();
-        cr.createPDF(Integer.parseInt(request.getParameter("sql")));
+        cr.createPDF(id, r.get(0).getBuildingName());
+        response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID="+id);
+        return;
     }
 %>

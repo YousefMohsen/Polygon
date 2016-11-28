@@ -50,8 +50,18 @@ public class rapportServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession(true);
-            int buildingID = 5;//(int) session.getAttribute("ID");
+            int buildingID = 0;
+            try {
+                buildingID = Integer.parseInt(request.getParameter("buildingID"));
+            } catch(NumberFormatException e) {
+                System.out.println(e.getMessage());
+                response.sendRedirect("FrontController?ID=LinkServlet&page=buildingTable.jsp");
+                return;
+            }
+            if(request.getParameter("goBack") != null) {
+                response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID="+buildingID);
+                return;
+            }
             
             String buildingName = request.getParameter("nameOnBuilding");
             String address = request.getParameter("address");
@@ -206,7 +216,9 @@ public class rapportServlet extends HttpServlet {
             List<Rapport> ListRap = new ArrayList();
             ListRap.add(DomainFacade.getRapport(buildingID));
             request.setAttribute("rapportData", ListRap);
-            request.getRequestDispatcher("rapport.jsp?sql="+buildingID).forward(request, response);
+            request.getSession().setAttribute("rapportData", ListRap);
+            //response.sendRedirect("FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&sql&newRapport");
+            request.getRequestDispatcher("FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport").forward(request, response);
     }
 
     /**

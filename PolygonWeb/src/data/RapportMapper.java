@@ -163,7 +163,6 @@ class RapportMapper {
                 }
                 count++;
             }
-            System.out.println("count: " +count);
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
@@ -192,7 +191,8 @@ class RapportMapper {
                    + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                    + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                    + "INSERT INTO Document (fileURL,note,Building_buildingId) VALUES (?,?,?);"
-                   + "INSERT INTO RapportInfo (date,author,cooperation,document_documentId, rapportNr) VALUES (NOW(),?,?, (SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1), ?);";
+                   + "INSERT INTO RapportInfo (date,author,cooperation,document_documentId, rapportNr) VALUES (NOW(),?,?, (SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1), ?);"
+                   + "UPDATE Building SET rapportURL=? WHERE buildingId=?;";
 
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -300,13 +300,16 @@ class RapportMapper {
             stmt.setString(83, rapport.getConclusionConclusion8());
             stmt.setInt(84, buildingID);
             
-            stmt.setString(85, "rapport_" + rapport.getBuildingName() + rapport.getRapportNr() + ".pdf");
+            stmt.setString(85, "buildingRapport_" + rapport.getBuildingName() + buildingID + ".pdf");
             stmt.setString(86, "rapport as pdf");
             stmt.setInt(87, buildingID);
             
             stmt.setString(88, rapport.getWriter());
             stmt.setString(89, rapport.getCollaborator());
             stmt.setString(90, rapport.getRapportNr());
+            
+            stmt.setString(91, "buildingRapport_" + rapport.getBuildingName() + buildingID + ".pdf");
+            stmt.setInt(92, buildingID);
             
             int rowsAffected = stmt.executeUpdate();
             
@@ -341,7 +344,7 @@ class RapportMapper {
     public static void clearRapportData(int buildingID) {
         String sqlDelete = "DELETE FROM BuildingExamination WHERE Building_buildingId = ?;"
                          + "DELETE FROM Conclusion WHERE Building_buildingId = ?;"
-                         + "DELETE FROM Damgage WHERE Building_buildingId = ?;"
+                         + "DELETE FROM Damage WHERE Building_buildingId = ?;"
                          + "DELETE FROM BuildingInfo WHERE Building_buildingId = ?;"
                          + "DELETE FROM Humidity WHERE Building_buildingId = ?;"
                          + "DELETE FROM Document WHERE Building_buildingId = ?";
