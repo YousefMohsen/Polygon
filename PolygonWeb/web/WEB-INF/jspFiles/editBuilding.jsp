@@ -58,9 +58,9 @@
     <div class="col-md-9">     
 
         <form action="FrontController?ID=Servlet&switch=deletionRequest" method="POST" id="deletionForm"> 
-            <input class="btn btn-danger pull-right" size="12" value="Request deletion" onclick="deletionRequest()">  
             <input type="hidden" name="buildingID" value="<%=buildingID%>" />
             <input type="hidden" name="origin" value="deletionRequest" />
+            <input class="btn btn-danger pull-right" size="12" value="Request deletion" onclick="deletionRequest()">  
         </form>
         <form action="FrontController?ID=Servlet&switch=healthCheck" method="POST" id="HealthCheckForm" > 
             <input class="btn btn-default pull-right "  value="Request health check" onclick="healthCheck()">  
