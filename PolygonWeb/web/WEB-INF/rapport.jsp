@@ -51,7 +51,7 @@
             }
         %>
         <div id="container">
-            <form action="rapportServlet" method="post">
+            <form action="FrontController?ID=rapportServlet" method="post">
             <div class="pages">
                 <img src="images/PolygonLogo.jpg" alt="polygon logo" class="polygologo"> 
                 <img src="images/SundeBygningerLogo.jpg" alt="sundebygninger logo" class="sundebygningerlogo">
