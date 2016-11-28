@@ -8,13 +8,9 @@
 <%@page import="Domain.DomainFacade"%>
 
 <h1 class="page-header">Buildings</h1>
-<%
-  
-    
-    int userId = (int) session.getAttribute("userID");
-    //int rank = (int) session.getAttribute("rank");
-    //System.out.println(rank);
-    List<Building> buildings = DomainFacade.getBuildingsForUser(userId, 1);
+<%  
+    int userId = (int) session.getAttribute("userID");  
+    List<Building> buildings = DomainFacade.getBuildingsForUser(userId, (int)session.getAttribute("rank"));
                
 %>
 <form action="" method="POST">
@@ -29,11 +25,11 @@
         </thead>
         <tbody>
             <%
-             for (Building b : buildings) {
+             for (Building b : buildings) {  
                     out.println("<tr class = \"menu_links\" onclick=\"document.location = 'FrontController?ID=Servlet&switch=editBuilding&buildingID=" + b.getId() +"';\">");   
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                    out.println("<td>"+ b.getAddress().getAddressline() + "</td>");
+                    out.println("<td>"+ b.getAddress().getAddressline() + "</td>");                 
                 }                
             %>
         </tbody>

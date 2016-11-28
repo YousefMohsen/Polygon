@@ -31,8 +31,7 @@ public class LoginServlet extends HttpServlet {
             Login login = DomainFacade.getLogin(request.getParameter("username"));          
             String username = login.getUsername(); 
             int userID = login.getId();
-            int rank = login.getRank();  
-            System.out.println(rank);
+            int rank = login.getRank();             
             if(login.getPassword().equals(request.getParameter("password"))){               
                 request.getSession().setAttribute("name", username);                 
                 request.getSession().setAttribute("userID", userID); 

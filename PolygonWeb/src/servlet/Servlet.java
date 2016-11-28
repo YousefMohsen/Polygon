@@ -32,29 +32,23 @@ public class Servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");        
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();          
-            String origin = request.getParameter("switch");  
-            int buildingID = Integer.parseInt(request.getParameter("buildingID"));       
+            String origin = request.getParameter("switch");     
+            int buildingID = Integer.parseInt(request.getParameter("buildingID"));                 
             switch (origin) {
-                
-                case "editBuilding":
-                    out.println(origin + " " + buildingID);
-                    session.setAttribute("ID", buildingID);
+                case "editBuilding":      
+                    session.setAttribute("ID", buildingID);                    
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "createBuilding":
                     String address = request.getParameter("address");
                     int zip = Integer.parseInt(request.getParameter("zip"));
-                    String city = request.getParameter("city");
-                    int userID = Integer.parseInt(session.getAttribute("userID").toString());
-                    DomainFacade.createBuilding(zip, address, userID);
+                    // String city = request.getParameter("city"); bliver ikke brugt                   
+                    DomainFacade.createBuilding(zip, address, (int)session.getAttribute("userID"));
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);                       
                     break;
 
-                case "deletionRequest":
-                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    DomainFacade.deletionRequest(buildingID);
-                    session.setAttribute("ID", buildingID);
-                    request.setAttribute("ID", buildingID);                    
+                case "deletionRequest":                      
+                    DomainFacade.deletionRequest(buildingID);   
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);                     
                     break;
 
