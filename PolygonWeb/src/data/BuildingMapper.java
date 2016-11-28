@@ -12,20 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuildingMapper {
-        
-    public static void createBuilding(int zip, String address,int userID) {
 
+    public static void createBuilding(int zip, String address, int userID) {
+        System.out.println(zip+address+userID);
         String sql = "insert into Building "
-                + "(Address_addressId,rapportURL,User_userId,hidden) "
-                + "values(?,?,?,?);";
+                + "(Address_addressId,rapportURL,User_userId,hidden,buildingName) "
+                + "values(?,?,?,?,?);";
 
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, insertAddress(zip, address, con));
             stmt.setString(2, "testURL");// fix rapport url!
-            stmt.setInt(3, userID); //fix user ID
+            stmt.setInt(3, 3); //fix user ID
             stmt.setInt(4, 0); //0 = shown, 1=hidden
-
+            stmt.setString(5,"navnpaabygning");
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -34,9 +34,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-
         }
-
     }
 
     public static List<Building> getBuildings() {
@@ -55,7 +53,7 @@ public class BuildingMapper {
 
                 newBuilding.setId(id);
                 newBuilding.setAddress(loadAddress(addressId, con));
-                newBuilding.setUser(userId);              
+                newBuilding.setUser(userId);
                 buildings.add(newBuilding);
             }
         } catch (SQLException ex) {
@@ -64,32 +62,26 @@ public class BuildingMapper {
         return buildings;
     }
 
-    
-    
-    
-    
-    
-    
-       public static List<Building> getBuildingsForUser(int userID,int userType) {//Returns a list for a given user
-              
-           
+    public static List<Building> getBuildingsForUser(int userID, int userType) {//Returns a list for a given user
+
         List<Building> buildings = new ArrayList<>();
 
-  String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building ";
-       
-  if(userType!=1){ sql += "where User_userId=? And hidden=0";} //if user is not an admin, then hide deleted buildings
-           
-        System.out.println(sql);
-        
-           
-           try ( Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql);) { 
+        String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building ";
 
-             if(userType!=1){ stmt.setInt(1, userID);}
-            
+        if (userType != 1) {
+            sql += "where User_userId=? And hidden=0";
+        } //if user is not an admin, then hide deleted buildings   
+
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);) {
+
+            if (userType != 1) {
+                stmt.setInt(1, userID);
+            }
+
             ResultSet res = stmt.executeQuery();
-  
-             while (res.next()) {
+
+            while (res.next()) {
                 Building newBuilding = new Building();
                 int id = res.getInt("buildingId");
                 int addressId = res.getInt("Address_addressId");
@@ -97,7 +89,7 @@ public class BuildingMapper {
 
                 newBuilding.setId(id);
                 newBuilding.setAddress(loadAddress(addressId, con));
-                newBuilding.setUser(userId);              
+                newBuilding.setUser(userId);
                 buildings.add(newBuilding);
             }
         } catch (SQLException ex) {
@@ -105,22 +97,7 @@ public class BuildingMapper {
         }
         return buildings;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     //Henter info om en bygning fra DB ud fra et givet bygningsID
     public static Building getBuilding(int buildingID) {
         String sql = "SELECT Building.rapportURL,Building.User_userId, Address.addressline, Zipcode.zip, Zipcode.city "
@@ -136,25 +113,22 @@ public class BuildingMapper {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
-   
-                
+
                 String rapportURL = res.getString("rapportURL");
                 int userID = res.getInt("User_userId");
                 ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
                 Address address = new Address(res.getString("addressline"), zip);
-               
-       
 
-                return new Building(buildingID, address, rapportURL,userID); 
+                return new Building(buildingID, address, rapportURL, userID);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
         return null;
     }
-    
-        //Henter info om en bygning fra DB ud fra et givet bygningsID
-    private static Building getBuildingNoConnection(int buildingID,Connection con) {
+
+    //Henter info om en bygning fra DB ud fra et givet bygningsID
+    private static Building getBuildingNoConnection(int buildingID, Connection con) {
         String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
                 + "JOIN Address "
@@ -168,7 +142,7 @@ public class BuildingMapper {
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 String rapportURL = res.getString("rapportURL");
-    
+
                 ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
                 Address address = new Address(res.getString("addressline"), zip);
                 return new Building(buildingID, address, rapportURL);
@@ -327,51 +301,47 @@ public class BuildingMapper {
 
         return adressID;
     }
-      private static List<Integer> getRequestList(  Connection con) {
-    
-      ArrayList<Integer> requestIds = new ArrayList();
-             
-      String sql = "SELECT * FROM Request_has_Building "
+
+    private static List<Integer> getRequestList(Connection con) {
+
+        ArrayList<Integer> requestIds = new ArrayList();
+
+        String sql = "SELECT * FROM Request_has_Building "
                 + "where Request_requestId=1; ";
-     
+
         try (Statement stmt = con.createStatement()) {
             ResultSet res = stmt.executeQuery(sql);
             while (res.next()) {
-               
+
                 int buildingID = res.getInt("Building_buildingId");
                 requestIds.add(buildingID);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
-      
-          
-          
-      
-     return requestIds; }
-    
-        public static List<Building> getDeletionBuildings() {
-   
+
+        return requestIds;
+    }
+
+    public static List<Building> getDeletionBuildings() {
+
         Connection con = DB.getConnection();
         List<Building> buildings = new ArrayList<>();
-        
-            for (int id : getRequestList(con) ) {
-                buildings.add(getBuildingNoConnection(id,con));
-            }
+
+        for (int id : getRequestList(con)) {
+            buildings.add(getBuildingNoConnection(id, con));
+        }
         return buildings;
     }
-        
-     public static void hideBuilding(int id) {
-    
-         String sql = "UPDATE Building SET hidden=1 WHERE buildingId=?;";    
 
-         
-   
-   
-    try (Connection con = DB.getConnection();
-    PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1,id);
-         int rowsAffected = stmt.executeUpdate();
+    public static void hideBuilding(int id) {
+
+        String sql = "UPDATE Building SET hidden=1 WHERE buildingId=?;";
+
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element updated");
             } else {
@@ -380,8 +350,7 @@ public class BuildingMapper {
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
         }
-         
-         
+
     }
-    
+
 }
