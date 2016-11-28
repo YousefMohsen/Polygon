@@ -17,14 +17,14 @@
                                 <!-- Username -->
                                 <label>Username</label>
                                 <div class="controls">
-                                    <input type="text" id="username" name="username" placeholder="" class="form-control input-xlarge ">
+                                    <input type="text" id="username" name="username" placeholder="admin" class="form-control input-xlarge ">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <!-- Password-->
                                 <label for="password">Password</label>
                                 <div class="controls">
-                                    <input type="password" id="password" name="password" placeholder="" class="form-control input-xlarge">
+                                    <input type="password" id="password" name="password" placeholder="admin" class="form-control input-xlarge">
                                 </div>
                             </div>
                             <div class="form-group">

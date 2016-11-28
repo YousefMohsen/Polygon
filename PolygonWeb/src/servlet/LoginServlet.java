@@ -31,11 +31,12 @@ public class LoginServlet extends HttpServlet {
             Login login = DomainFacade.getLogin(request.getParameter("username"));          
             String username = login.getUsername(); 
             int userID = login.getId();
-            int rank = login.getRank();            
+            int rank = login.getRank();  
+            System.out.println(rank);
             if(login.getPassword().equals(request.getParameter("password"))){               
                 request.getSession().setAttribute("name", username);                 
                 request.getSession().setAttribute("userID", userID); 
-                request.getSession().setAttribute("rank", rank);    
+                request.getSession().setAttribute("rank", rank);                    
                 request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);                
             } else {
                 response.sendRedirect("index.jsp");                        

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%int rank = (int)session.getAttribute("userID");%>
+<%int rank = (int)session.getAttribute("rank");%>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  

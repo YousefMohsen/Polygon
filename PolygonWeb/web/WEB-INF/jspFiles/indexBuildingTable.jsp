@@ -12,8 +12,9 @@
   
     
     int userId = (int) session.getAttribute("userID");
-   // int rank = (int) session.getAttribute("rank");
-    List<Building> buildings = DomainFacade.getBuildingsForUser(userId, rank);
+    //int rank = (int) session.getAttribute("rank");
+    //System.out.println(rank);
+    List<Building> buildings = DomainFacade.getBuildingsForUser(userId, 1);
                
 %>
 <form action="" method="POST">
