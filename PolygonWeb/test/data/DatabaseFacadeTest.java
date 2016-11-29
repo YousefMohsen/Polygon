@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import Domain.DomainFacade;
@@ -14,20 +9,16 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Janus
- */
 public class DatabaseFacadeTest {
-    
+
     public DatabaseFacadeTest() {
         //DB.getConnection();
-         
+
     }
-    
+
     @Before
     public void setUp() {
-        
+
     }
 
     /**
@@ -37,7 +28,7 @@ public class DatabaseFacadeTest {
     public void testGetBuildings() {
         int expResultSize = 14;
         List<Building> result = getBuildings();
-        assertEquals( expResultSize, result.size() );
+        assertEquals(expResultSize, result.size());
     }
 
     /**
@@ -46,10 +37,10 @@ public class DatabaseFacadeTest {
     @Test
     public void testGetBuilding() {
         //Creating test result
-        Address testAddress = new Address("Klampenborgvej 1",null);
+        Address testAddress = new Address("Klampenborgvej 1", null);
         //testing if the building recieved has the same adressline as the test adress
         List<Building> result = getBuildings();
-       assertEquals(result.get(2).getAddress().getAddressline(), testAddress.getAddressline());
+        assertEquals(result.get(2).getAddress().getAddressline(), testAddress.getAddressline());
     }
 
     /**
@@ -86,5 +77,5 @@ public class DatabaseFacadeTest {
     @Test
     public void testLoadAddress() {
     }
-    
+
 }

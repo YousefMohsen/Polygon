@@ -12,29 +12,28 @@ import java.sql.SQLException;
 public class UserMapper {
 
     //Henter login info
-    public static Login getLogin(String username){
+    public static Login getLogin(String username) {
         String sql = "SELECT * FROM Polygon.Login WHERE username = ?;";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
-            ResultSet res = stmt.executeQuery();           
+            ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 String userName = res.getString("username");
                 String password = res.getString("password");
                 int rank = res.getInt("rank");
-                int id = res.getInt("loginId");                
-                return new Login(userName,password,rank,id);
+                int id = res.getInt("loginId");
+                return new Login(userName, password, rank, id);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
         // User doesnt exist
-        return new Login("no","no",0,0);        
+        return new Login("no", "no", 0, 0);
     }
-    
-    
+
     //Henter info om en bruger fra DB ud fra et givet bygningsID
-    public static User getUser(int buildingID) {          
+    public static User getUser(int buildingID) {
         String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM User "
                 + "JOIN Building "
@@ -44,7 +43,7 @@ public class UserMapper {
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "WHERE buildingId=?";
-        try (Connection con = DB.getConnection();                
+        try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();

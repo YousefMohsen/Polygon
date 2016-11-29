@@ -78,25 +78,22 @@ public class UploadServlet extends HttpServlet {
 //            // get filename to use on the server
 //            String outputfile = this.getServletContext().getRealPath("/floorPlan/");  // get path on the server
 //            FileOutputStream os = new FileOutputStream (outputfile + buildingID + ".jpg");
-            
+
 //            String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 //            File uploads = new File("");
             FileOutputStream os = new FileOutputStream(buildingID + ".jpg");
-            
-            
+
             // write bytes taken from uploaded file to target file
             int ch = is.read();
             while (ch != -1) {
-                 os.write(ch);
-                 ch = is.read();
+                os.write(ch);
+                ch = is.read();
             }
             os.close();
             out.println("<h3>File uploaded successfully!</h3>");
-        }
-        catch(IOException | ServletException ex) {
-           out.println("Exception -->" + ex.getMessage());
-        }
-        finally { 
+        } catch (IOException | ServletException ex) {
+            out.println("Exception -->" + ex.getMessage());
+        } finally {
             out.close();
         }
     }

@@ -1,17 +1,12 @@
-<%-- 
-    Document   : seeBuildings
-    Created on : 20-11-2016, 20:59:26
-    Author     : joaci
---%>
 <%@page import="java.util.List"%>
 <%@page import="entity.Building"%>
 <%@page import="Domain.DomainFacade"%>
 
 <h1 class="page-header">Buildings</h1>
-<%  
-    int userId = (int) session.getAttribute("userID");  
-    List<Building> buildings = DomainFacade.getBuildingsForUser(userId, (int)session.getAttribute("rank"));
-               
+<%
+    int userId = (int) session.getAttribute("userID");
+    List<Building> buildings = DomainFacade.getBuildingsForUser(userId, (int) session.getAttribute("rank"));
+
 %>
 <form action="" method="POST">
     <div class="row top-buffer"> </div>
@@ -24,13 +19,12 @@
             </tr>
         </thead>
         <tbody>
-            <%
-             for (Building b : buildings) {  
-                    out.println("<tr class = \"menu_links\" onclick=\"document.location = 'FrontController?ID=Servlet&switch=editBuilding&buildingID=" + b.getId() +"';\">");   
+            <%                for (Building b : buildings) {
+                    out.println("<tr class = \"menu_links\" onclick=\"document.location = 'FrontController?ID=Servlet&switch=editBuilding&buildingID=" + b.getId() + "';\">");
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
-                    out.println("<td>"+ b.getAddress().getAddressline() + "</td>");                 
-                }                
+                    out.println("<td>" + b.getAddress().getAddressline() + "</td>");
+                }
             %>
         </tbody>
     </table>        

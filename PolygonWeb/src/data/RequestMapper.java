@@ -4,14 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- *
- * @author Yousinho
- */
 public class RequestMapper {
 
     public static void sendRequest(int requestType, int buildingID) {//1=deletion, 2=health check
-System.out.println(requestType + "hejh" + buildingID);
+        System.out.println(requestType + "hejh" + buildingID);
         String sql = "insert into Request_has_Building "
                 + "(Request_requestId,Building_buildingId) "
                 + "values(?,?);";

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : footer
-    Created on : 20-11-2016, 20:55:10
-    Author     : joaci
---%>
 </div>
 </div>
 </div>

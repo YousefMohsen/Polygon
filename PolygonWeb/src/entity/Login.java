@@ -5,6 +5,7 @@ package entity;
  * @author joaci
  */
 public class Login {
+
     String username;
     String password;
     int rank;
@@ -40,13 +41,13 @@ public class Login {
     public void setRank(int rank) {
         this.rank = rank;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return password + id;
     }
 }

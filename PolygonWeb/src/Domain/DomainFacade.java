@@ -1,8 +1,6 @@
 package Domain;
 
-import data.BuildingMapper;
 import data.DatabaseFacade;
-import data.RequestMapper;
 import data.UserMapper;
 import entity.Document;
 import entity.Building;
@@ -37,61 +35,58 @@ public class DomainFacade {
     public static void updateUser(User u, int buildingID) {
         DatabaseFacade.updateUser(u, buildingID);
     }
-    
+
     public static void updateDocument(Document d, int buildingID) {
         DatabaseFacade.updateDocument(d, buildingID);
     }
 
     public static void createBuilding(int zip, String address, int userID) {
-        DatabaseFacade.createBuilding(zip, address,userID);
+        DatabaseFacade.createBuilding(zip, address, userID);
     }
-    
-    public static Login getLogin(String username){
+
+    public static Login getLogin(String username) {
         return UserMapper.getLogin(username);
-     }
-    
+    }
+
     public static void createRapport(int buildingID, Rapport rapport) {
         DatabaseFacade.createRapport(buildingID, rapport);
     }
-    
+
     public static Rapport getRapport(int buildingID) {
         return DatabaseFacade.getRapport(buildingID);
     }
-    
+
     public static void clearRapportData(int buildingID) {
         DatabaseFacade.clearRapportData(buildingID);
     }
 
     public static void deletionRequest(int buildingID) {
         DatabaseFacade.deletionRequest(buildingID);
-     }
-  
-     public static void cancelDeletionRequest(int buildingID) {
-        DatabaseFacade.cancelDeletionRequest( buildingID);
-     }
+    }
 
-  
+    public static void cancelDeletionRequest(int buildingID) {
+        DatabaseFacade.cancelDeletionRequest(buildingID);
+    }
+
     public static void healthCheckRequest(int buildingID) {
-        DatabaseFacade.healthCheckRequest( buildingID);
-       EmailSender.sendEmail(buildingID); 
-     }
-   
-      public static  List<Building>  getDeletionBuildings() {
-      return DatabaseFacade.getDeletionBuildings();
-     }
-      
-        public static void hideBuilding(int buildingID) {
-        DatabaseFacade.hideBuilding( buildingID);
-     }
-        
-        
-      public static List<Building> getBuildingsForUser(int userID, int userRank) {
-        return DatabaseFacade.getBuildingsForUser(  userID,  userRank);
-     }
-      
-      
-   public static void sendMail(int buildingID) {
-     
-     }
-  
+        DatabaseFacade.healthCheckRequest(buildingID);
+        EmailSender.sendEmail(buildingID);
+    }
+
+    public static List<Building> getDeletionBuildings() {
+        return DatabaseFacade.getDeletionBuildings();
+    }
+
+    public static void hideBuilding(int buildingID) {
+        DatabaseFacade.hideBuilding(buildingID);
+    }
+
+    public static List<Building> getBuildingsForUser(int userID, int userRank) {
+        return DatabaseFacade.getBuildingsForUser(userID, userRank);
+    }
+
+    public static void sendMail(int buildingID) {
+
+    }
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import entity.Address;
@@ -16,28 +11,24 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author JanusPC
- */
 public class UserMapperTest {
-    
+
     public UserMapperTest() {
-        
+
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -69,10 +60,10 @@ public class UserMapperTest {
      */
     @Test
     public void testUpdateUser() {
-        User u = new User("testname",null,null,null, new Address("1",new ZipCode(1,"1")));
+        User u = new User("testname", null, null, null, new Address("1", new ZipCode(1, "1")));
         int buildingID = 5;
         UserMapper.updateUser(u, buildingID);
-        assertEquals(UserMapper.getUser(buildingID).getFirstname(),"testname");
+        assertEquals(UserMapper.getUser(buildingID).getFirstname(), "testname");
     }
 
     /**
@@ -85,5 +76,5 @@ public class UserMapperTest {
         String result = UserMapper.findCity(zip);
         assertEquals(expResult, result);
     }
-    
+
 }

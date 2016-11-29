@@ -1,9 +1,3 @@
-<%-- 
-    Document   : deletionRequests
-    Created on : 24-11-2016, 02:02:48
-    Author     : Yousinho
---%>
-
 <%@page import="java.util.List"%>
 <%@page import="entity.Building"%>
 <%@page import="Domain.DomainFacade"%>

@@ -7,7 +7,7 @@
 //    String temp = session.getAttribute("ID").toString().substring(0, 1);
 //    int buildingID = Integer.parseInt(temp);
 //    String file = DomainFacade.getDocument(buildingID).getFileURL();
-      int buildingID = 1;
+    int buildingID = 1;
 %>
 
 <html>

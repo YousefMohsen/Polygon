@@ -1,7 +1,7 @@
 package entity;
 
 public class Rapport {
-    
+
     private String buildingName;
     private String address;
     private String zip;
@@ -46,7 +46,7 @@ public class Rapport {
     private String writer;
     private String collaborator;
     private String rapportNr;
-    
+
     private int commentRoof;
     private int pictureRoof;
     private int commentOuterwall;
@@ -659,6 +659,5 @@ public class Rapport {
     public void setRapportNr(String rapportNr) {
         this.rapportNr = rapportNr;
     }
-    
-    
+
 }

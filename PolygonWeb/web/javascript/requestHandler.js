@@ -1,9 +1,9 @@
-var deletionRequest = function () {  
+var deletionRequest = function () {
     var r = confirm("Please confirm the deletion of the building!");
     if (r == true) {
         document.getElementById("deletionForm").submit();
         alert("Deletion request sent to Polygon.");
-    } 
+    }
 };
 
 
