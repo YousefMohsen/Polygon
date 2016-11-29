@@ -11,6 +11,29 @@ import java.sql.SQLException;
 
 public class UserMapper {
 
+    public static User getUserViaID(int id) {
+        String SQL = "SELECT * From Polygon.User WHERE User.userId = ?;";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(SQL)) {
+            stmt.setInt(1, id);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String firstname = res.getString("firstname");
+                String lastname = res.getString("lastname");
+                String phone = res.getString("phone");
+                String email = res.getString("email");
+                int addressId = res.getInt("Address_addressId");
+                int uId = res.getInt("userId");
+                return new User(uId, firstname, lastname, phone, email, addressId);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+        // User doesnt exist
+        return null;
+
+    }
+
     //Henter login info
     public static Login getLogin(String username) {
         String sql = "SELECT * FROM Polygon.Login WHERE username = ?;";
@@ -23,7 +46,8 @@ public class UserMapper {
                 String password = res.getString("password");
                 int rank = res.getInt("rank");
                 int id = res.getInt("loginId");
-                return new Login(userName, password, rank, id);
+                int uId = res.getInt("User_userId");
+                return new Login(uId, userName, password, rank, id);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
@@ -48,7 +72,6 @@ public class UserMapper {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
-                System.out.println("test");
                 String firstname = res.getString("firstname");
                 String lastname = res.getString("lastname");
                 String phone = res.getString("phone");

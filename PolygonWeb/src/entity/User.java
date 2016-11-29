@@ -8,10 +8,11 @@ public class User {
     private String phone;
     private String email;
     private Address address;
+    private int addressId;
 
     public User() {
-    }
-
+    }   
+   
     public User(int id, String firstname, String lastname, String phone, String email, Address address) {
         this.id = id;
         this.firstname = firstname;
@@ -28,6 +29,15 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.address = address;
+    }
+
+    public User(int id,String firstname, String lastname, String phone, String email, int addressId) {   
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.addressId = addressId;
     }
 
     public int getId() {
