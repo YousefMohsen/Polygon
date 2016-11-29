@@ -22,13 +22,13 @@
             <div class="col-md-6">
                 <h4>Info om ejer af bygning:</h4>
                 <table class ="table">
-                    <tr><td>Fornavn</td><td><input  type="text" name="firstname" value="<%=u.getFirstname()%>"></td></tr>
-                    <tr><td>Efternavn</td><td><input  type="text" name="lastname" value="<%=u.getLastname()%>"></td></tr>
-                    <tr><td>Tlf. nr.</td><td><input  type="text" name="phone" value="<%=u.getPhone()%>"></td></tr>
-                    <tr><td>E-mail</td><td><input  type="text" name="email" value="<%=u.getEmail()%>"></td></tr>
-                    <tr><td>Adresse</td><td><input  type="text" name="userStreet" value="<%=u.getAddress().getAddressline()%>"></td></tr>
-                    <tr><td>Post nr.</td><td><input  type="text" name="userZip" value="<%=u.getAddress().getZipCode().getZip()%>"></td></tr>
-                    <tr><td>By</td><td><input  type="text" name="userCity" value="<%=u.getAddress().getZipCode().getCity()%>"></td></tr>
+                    <tr><td>Fornavn</td><td><%=u.getFirstname()%></td></tr>
+                    <tr><td>Efternavn</td><td><%=u.getLastname()%></td></tr>
+                    <tr><td>Tlf. nr.</td><td><%=u.getPhone()%></td></tr>
+                    <tr><td>E-mail</td><td><%=u.getEmail()%></td></tr>
+                    <tr><td>Adresse</td><td><%=u.getAddress().getAddressline()%></td></tr>
+                    <tr><td>Post nr.</td><td><%=u.getAddress().getZipCode().getZip()%></td></tr>
+                    <tr><td>By</td><td><%=u.getAddress().getZipCode().getCity()%></td></tr>
                 </table>
             </div>
             <div class="col-md-6">
