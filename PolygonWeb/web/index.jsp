@@ -5,7 +5,7 @@
         <title>Sundebygninger</title>   
     </head>
     <body>
-        <div class="container">
+        <div class="container loginScreen">
             <div class="row">
                 <div class="col-md-2">
                     <form class="form-horizontal" id="editBuilding.jsp" action='LoginServlet' method="POST">

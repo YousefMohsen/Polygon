@@ -32,6 +32,10 @@ public class DatabaseFacade {
         return UserMapper.getUser(buildingID);
     }
     
+    public static User getUserViaId(int id) {
+        return UserMapper.getUserViaID(id);
+    }
+    
     public static void updateUser(User u, int buildingID) {
         UserMapper.updateUser(u, buildingID);
     }

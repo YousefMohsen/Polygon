@@ -25,6 +25,10 @@ public class DomainFacade {
     public static User getUser(int id) {
         return DatabaseFacade.getUser(id);
     }
+    
+    public static User getUserViaId(int id) {
+        return DatabaseFacade.getUserViaId(id);
+    }
 
     public static Document getDocument(int id) {
         return DatabaseFacade.getDocument(id);

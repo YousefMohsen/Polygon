@@ -9,12 +9,31 @@ public class Login {
     String password;
     int rank;
     int id;
+    private int uId;
+
+   
 
     public Login(String username, String password, int rank, int id) {
         this.username = username;
         this.password = password;
         this.rank = rank;
         this.id = id;
+    }
+
+    public Login(int uId, String username, String password, int rank, int id) {
+        this.uId = uId;
+        this.username = username;
+        this.password = password;
+        this.rank = rank;
+        this.id = id;
+    }
+    
+     public int getuId() {
+        return uId;
+    }
+
+    public void setuId(int uId) {
+        this.uId = uId;
     }
 
     public String getUsername() {

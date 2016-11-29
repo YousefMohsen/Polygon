@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
-
+int buildingID;        
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,10 +32,13 @@ public class Servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");        
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();          
-            String origin = request.getParameter("switch");     
-            int buildingID = Integer.parseInt(request.getParameter("buildingID"));                 
-            switch (origin) {
+            String origin = request.getParameter("switch");   
+            switch (origin) {                
+                case "logout":
+                    request.getSession().invalidate();
+                    request.getRequestDispatcher("index.jsp").forward(request, response);              
                 case "editBuilding":      
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     session.setAttribute("ID", buildingID);                    
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
@@ -47,7 +50,8 @@ public class Servlet extends HttpServlet {
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);                       
                     break;
 
-                case "deletionRequest":                      
+                case "deletionRequest":       
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     DomainFacade.deletionRequest(buildingID);   
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);                     
                     break;

@@ -26,7 +26,7 @@ public class FrontController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String whereTOGO = request.getParameter("ID");         
+        String whereTOGO = request.getParameter("ID");  
         if (request.getSession() != null) {            
             request.getRequestDispatcher(whereTOGO).forward(request, response);
         } else {
