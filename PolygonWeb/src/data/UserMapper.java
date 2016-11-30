@@ -9,8 +9,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class contains and deals with all data about a user
+ */
 public class UserMapper {
 
+    /**
+     * This method returns a user with a specific ID from the database
+     *
+     * @param id int the ID of the user
+     * @return User object of entity class User or null
+     * @throws EXCEPTION
+     */
     public static User getUserViaID(int id) {
         String SQL = "SELECT * From Polygon.User WHERE User.userId = ?;";
         try (Connection con = DB.getConnection();
@@ -34,8 +44,15 @@ public class UserMapper {
 
     }
 
-    //Henter login info
+    /**
+     * This method returns information about login from the database
+     *
+     * @param username String the username of the user
+     * @return Login object of entity class Login or new user if doesn't exist
+     * @throws EXCEPTION
+     */
     public static Login getLogin(String username) {
+        //Henter login info
         String sql = "SELECT * FROM Polygon.Login WHERE username = ?;";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -56,8 +73,16 @@ public class UserMapper {
         return new Login("no", "no", 0, 0);
     }
 
-    //Henter info om en bruger fra DB ud fra et givet bygningsID
+    /**
+     * This method returns a User from the database belonging to a specific
+     * building
+     *
+     * @param buildingID int the ID of the building
+     * @return User object of entity class User or null
+     * @throws EXCEPTION
+     */
     public static User getUser(int buildingID) {
+        //Henter info om en bruger fra DB ud fra et givet bygningsID
         String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM User "
                 + "JOIN Building "
@@ -86,8 +111,16 @@ public class UserMapper {
         return null;
     }
 
-    //Opdaterer info om en bruger i DB ud fra et givet bygningsID
+    /**
+     * This method updates the information about a specific user in the database
+     *
+     * @param u User the user that is going to be updated
+     * @param buildingID int the ID of the building whose owner is going to be
+     * updated
+     * @throws EXCEPTION
+     */
     public static void updateUser(User u, int buildingID) {
+        //Opdaterer info om en bruger i DB ud fra et givet bygningsID
         String sql = "UPDATE User "
                 + "JOIN Building "
                 + "ON userId = User_userId "
@@ -124,8 +157,15 @@ public class UserMapper {
         }
     }
 
-    //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
+    /**
+     * This method returns a city with a specific zip code from the database
+     *
+     * @param zip int the zip code that matches the city
+     * @return city String a String with the name of the city or null
+     * @throws EXCEPTION
+     */
     public static String findCity(int zip) {
+        //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
         String sql = "SELECT city "
                 + "FROM Zipcode "
                 + "WHERE zip=?";
