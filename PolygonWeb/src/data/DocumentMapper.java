@@ -6,10 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class contains and deals with all data about a document
+ */
 public class DocumentMapper {
 
-    //Henter info om et dokument fra DB ud fra et givet bygningsID
+    /**
+     * This method returns a document from the database belonging to a specific
+     * building
+     *
+     * @param buildingID int the ID of the building
+     * @return Document object of entity class Document
+     * @throws EXCEPTION
+     */
     public static Document getDocument(int buildingID) {
+        //Henter info om et dokument fra DB ud fra et givet bygningsID
         String sql = "SELECT fileURL, note "
                 + "FROM Document "
                 + "JOIN Building "
@@ -34,8 +45,17 @@ public class DocumentMapper {
         return null;
     }
 
-    //Opdaterer info om et dokument i DB ud fra et givet bygningsID
+    /**
+     * This method updates the information about a specific document based on
+     * the building ID in the database
+     *
+     * @param d Document the document that is going to be updated
+     * @param buildingID int the Id of the building whose document is going to
+     * be updated
+     * @throws EXCEPTION
+     */
     public static void updateDocument(Document d, int buildingID) {
+        //Opdaterer info om et dokument i DB ud fra et givet bygningsID
         String sql = "UPDATE Document "
                 + "JOIN Building "
                 + "ON buildingId = Building_buildingId "
