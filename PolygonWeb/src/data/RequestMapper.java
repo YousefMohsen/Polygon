@@ -4,8 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * This class contains and deals with all data about a request
+ */
 public class RequestMapper {
 
+    /**
+     * This method sends a request for deletion or health check of a building
+     * and saves it in the database
+     *
+     * @param requestType int the type of request - 1 is a deletion request and
+     * 2 is a health check request
+     * @param buildingID int the ID of the building with the request
+     * @throws EXCEPTION
+     */
     public static void sendRequest(int requestType, int buildingID) {//1=deletion, 2=health check
         System.out.println(requestType + "hejh" + buildingID);
         String sql = "insert into Request_has_Building "
@@ -30,6 +42,15 @@ public class RequestMapper {
         }
     }
 
+    /**
+     * This method deletes a request for deletion or health check of a building
+     * from the database
+     *
+     * @param requestType int the type of request - 1 is a deletion request and
+     * 2 is a health check request
+     * @param buildingID int the ID of the building with the request
+     * @throws EXCEPTION
+     */
     public static void cancelRequest(int requestType, int buildingID) {//deletes a given request from table Request_has_Building 
 //1=deletion, 2=health check
 
