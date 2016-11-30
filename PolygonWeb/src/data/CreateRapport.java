@@ -81,7 +81,7 @@ public class CreateRapport {
         try {
             // convert the URL to a PDF document in a buffer
             byte[] outPdfBuffer = convertHtmlToPdf(buildingID);
-            String outFilePath = "C:\\Users\\Asger\\Desktop\\Datamatiker\\Polygon\\PolygonWeb\\web\\files\\buildingRapport_" + buildingName + buildingID + ".pdf";
+            String outFilePath = "C:\\Users\\Asger\\Desktop\\Datamatiker\\Polygon\\PolygonWeb\\web\\files\\pdf\\buildingRapport_" + buildingName + buildingID + ".pdf";
             // write the buffer to a file
             writeBytesToFile(outPdfBuffer, outFilePath);
             Desktop.getDesktop().open(new File(outFilePath));

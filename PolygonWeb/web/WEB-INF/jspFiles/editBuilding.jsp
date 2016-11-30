@@ -38,7 +38,7 @@
                     <tr><td>Post nr.</td><td><input  type="text" name="buildingZip" value="<%=b.getAddress().getZipCode().getZip()%>"></td></tr>
                     <tr><td>By</td><td><input  type="text" name="buildingCity" value="<%=b.getAddress().getZipCode().getCity()%>"></td></tr>
                             <%
-                                String rapportPath = "files/" + b.getReport();
+                                String rapportPath = "files/pdf/" + b.getReport();
                             %>
                     <tr><td><a href="<%= rapportPath%>" target="_blank">Rapport URL</a></td><td><input  type="text" name="reportURL" value="<%=b.getReport()%>"></td></tr>
                     <tr><td>Fil URL</td><td><input  type="text" name="fileURL" value="<%=d.getFileURL()%>"></td></tr>
