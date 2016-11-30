@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * The purpose of this class is to provide a database connection to the
+ * database.
+ */
 public final class DB {
 
     // JDBC driver name and database URL
@@ -14,6 +18,11 @@ public final class DB {
     static final String PASS = "Polygon16sundbygning!";
     private static Connection conn = null;
 
+    /**
+     * This method connects to the database
+     *
+     * @return a connection or null
+     */
     public static Connection getConnection() {
         try {
             //STEP 1: Register JDBC driver
@@ -28,6 +37,9 @@ public final class DB {
         return conn;
     }
 
+    /**
+     * This method closes the connection
+     */
     public void close() {
         try {
             conn.close();
