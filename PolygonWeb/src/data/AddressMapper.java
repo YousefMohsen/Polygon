@@ -2,6 +2,7 @@ package data;
 
 import entity.Address;
 import entity.ZipCode;
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
  */
 public class AddressMapper {
     
-     public static Address getUserAddress(int id) {
+     public static Address getUserAddress(int id) throws PolygonException {
         String SQL = "SELECT Zipcode_zipId, addressLine FROM userAddress WHERE addressId = ?;";
         try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, id);
@@ -32,7 +33,7 @@ public class AddressMapper {
         return null;
     }
 
-    public static ZipCode getZipCity(int zipId){
+    public static ZipCode getZipCity(int zipId) throws PolygonException{
         String SQL = "SELECT zip,city FROM Zipcode WHERE zipId = ?;";
         try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, zipId);
@@ -51,7 +52,7 @@ public class AddressMapper {
         return null;
     } 
      
-    public static int getZipId(int zip) {
+    public static int getZipId(int zip) throws PolygonException {
         String SQL = "select zipId FROM Zipcode WHERE zip = ?;";
         try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, zip);
@@ -67,7 +68,7 @@ public class AddressMapper {
         return 0;
     }
 
-    public static void updateAdress(int buildingAddressId, int addressId) {        
+    public static void updateAdress(int buildingAddressId, int addressId) throws PolygonException {        
         String SQL = "Update Address SET Address.zipcode_addressId = ? WHERE addressId = ?;";
         try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, addressId);

@@ -1,7 +1,10 @@
 package data;
 
+
 import entity.Request;
-import entity.User;
+
+
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,10 +22,14 @@ public class RequestMapper {
      * @param requestType int the type of request - 1 is a deletion request and
      * 2 is a health check request
      * @param buildingID int the ID of the building with the request
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void sendRequest(int requestType, int buildingID) {//1=deletion, 2=health check        
+
+    public static void sendRequest(int requestType, int buildingID) throws PolygonException {//1=deletion, 2=health check        
         String sql = "insert into Request_has_Building (Request_requestId,Building_buildingId) values(?,?);";
+
+   
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, requestType);
@@ -44,7 +51,7 @@ public class RequestMapper {
      * @param buildingId
      * @return 
      */
-    public static Request getRequest(int buildingId){
+    public static Request getRequest(int buildingId) throws PolygonException{
         System.out.println(buildingId);
         String sql = "SELECT Request_requestId FROM Request_has_Building WHERE Building_buildingID = ?;";
         try (Connection con = DB.getConnection();
@@ -60,8 +67,9 @@ public class RequestMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-        }
-        return null;
+            throw new PolygonException("Problem in sendRequest method: " + ex.getMessage());
+
+        }       
     }
 
     /**
@@ -71,9 +79,10 @@ public class RequestMapper {
      * @param requestType int the type of request - 1 is a deletion request and
      * 2 is a health check request
      * @param buildingID int the ID of the building with the request
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void cancelRequest(int requestType, int buildingID) {//deletes a given request from table Request_has_Building 
+    public static void cancelRequest(int requestType, int buildingID) throws PolygonException {//deletes a given request from table Request_has_Building 
 //1=deletion, 2=health check
 
         String sql = "Delete FROM Request_has_Building "
@@ -93,7 +102,7 @@ public class RequestMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-
+            throw new PolygonException("Problem in cancelRequest method: " + ex.getMessage());
         }
     }
 

@@ -1,5 +1,6 @@
 package data;
 
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public final class DB {
      *
      * @return a connection or null
      */
-    public static Connection getConnection() {
+    public static Connection getConnection() throws PolygonException {
         try {
             //STEP 1: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -33,6 +34,7 @@ public final class DB {
             System.out.println("Connected");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
+            throw new PolygonException("Problem in getConnection method: " + e.getMessage());
         }
         return conn;
     }

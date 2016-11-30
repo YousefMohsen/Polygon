@@ -43,15 +43,15 @@
             <div class="col-md-6">
                 <h4>Info om bygning:</h4>
                 <table class="table">
+
                     <tr><td>Building name</td><td><input  type="hidden" name="buildingName" value="<%=b.getBuildingName()%>"><%=b.getBuildingName()%></td></tr>
                     <tr><td>Address</td><td><input  type="hidden" name="buildingStreet" value="<%=b.getAddress().getAddressline()%>"><%=b.getAddress().getAddressline()%></td></tr>
                     <tr><td>Zip code</td><td><input  type="hidden" name="buildingZip" value="<%=b.getAddress().getZipCode().getZip()%>"><%=b.getAddress().getZipCode().getZip()%></td></tr>
                     <tr><td>City</td><td><input  type="hidden" name="buildingCity" value="<%=b.getAddress().getZipCode().getCity()%>"><%=b.getAddress().getZipCode().getCity()%></td></tr>
-                            <%String rapportPath = "files/" + b.getReport();%>
+                            <%String rapportPath = "files/pdf/" + b.getReport();%>
                     <tr><td>Rapport URL</td><td><input  type="hidden" name="reportURL" value="<%=b.getReport()%>"><a href="<%= rapportPath%>"><%=b.getReport()%></a></td></tr>
                     <tr><td>Files</td><td><a href="" name="fileURL" ><input  type="hidden" value="<%=d.getFileURL()%>" name="fileURL" >fuck</a></td></tr>
                     <tr><td>Note(About file)</td><td><input  type="text" name="note" value="<%=d.getNote()%>"></td></tr>
-                 
 
                 </table>
                 <input  type="hidden" name="buildingAddressId" value="<%=b.getAddressId()%>">

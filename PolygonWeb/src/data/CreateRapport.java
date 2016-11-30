@@ -3,6 +3,7 @@ package data;
 import com.evopdf.HtmlToPdfConverter;
 import com.evopdf.PdfPageOrientation;
 import com.evopdf.PdfPageSize;
+import exceptions.PolygonException;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -77,16 +78,23 @@ public class CreateRapport {
         }
     }
 
-    public void createPDF(int buildingID, String buildingName) {
+    /**
+     * Create PDF file of rapport
+     * @param buildingID
+     * @param buildingName
+     * @throws Exception
+     */
+    public void createPDF(int buildingID, String buildingName) throws Exception {
         try {
             // convert the URL to a PDF document in a buffer
             byte[] outPdfBuffer = convertHtmlToPdf(buildingID);
-            String outFilePath = "C:\\Users\\Asger\\Desktop\\Datamatiker\\Polygon\\PolygonWeb\\web\\files\\buildingRapport_" + buildingName + buildingID + ".pdf";
+            String outFilePath = "C:\\Users\\Asger\\Desktop\\Datamatiker\\Polygon\\PolygonWeb\\web\\files\\pdf\\buildingRapport_" + buildingName + buildingID + ".pdf";
             // write the buffer to a file
             writeBytesToFile(outPdfBuffer, outFilePath);
             Desktop.getDesktop().open(new File(outFilePath));
         } catch (Exception ex) {
             System.out.println(String.format("Conversion failed: %1$s", ex.getMessage()));
+            throw new Exception("Could not create pdf file: " + ex.getMessage());
         }
     }
 }
