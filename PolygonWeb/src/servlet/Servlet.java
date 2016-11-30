@@ -41,7 +41,7 @@ public class Servlet extends HttpServlet {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 case "editBuilding":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    session.setAttribute("ID", buildingID);
+                    request.setAttribute("ID", buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "createBuilding":
@@ -70,8 +70,7 @@ public class Servlet extends HttpServlet {
                     DomainFacade.healthCheckRequest(buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
-                case "Submit":
-                    System.out.println("submit check");
+                case "Submit":                  
                     int id = Integer.parseInt(request.getParameter("id"));
                     String buildingStreet = request.getParameter("buildingStreet");                    
                     int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));
@@ -79,11 +78,11 @@ public class Servlet extends HttpServlet {
                     String reportURL = request.getParameter("reportURL");
                     ZipCode buildingZ = new ZipCode(buildingZip, buildingCity);
                     Address buildingA = new Address(buildingStreet, buildingZ);
-                    Building b = new Building(id, buildingA, reportURL);
-                    DomainFacade.updateBuilding(b);
                     String fileURL = request.getParameter("fileURL");
                     String note = request.getParameter("note");
+                    Building b = new Building(id, buildingA, reportURL);
                     Document d = new Document(id, fileURL, note);
+                    DomainFacade.updateBuilding(b);
                     DomainFacade.updateDocument(d, b.getId());
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
