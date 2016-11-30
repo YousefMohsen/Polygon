@@ -2,6 +2,7 @@ package Domain;
 
 import entity.Building;
 import entity.User;
+import exceptions.PolygonException;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -13,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
-    public static void sendEmail(int buildingID) {
+    public static void sendEmail(int buildingID) throws PolygonException {
         Building building = DomainFacade.getBuilding(buildingID);
         User user = DomainFacade.getUser(buildingID);
         String fromEmail = "polygonrequests@gmail.com"; //requires valid gmail id
@@ -58,6 +59,7 @@ public class EmailSender {
         } catch (Exception ex) {
             System.out.println("Mail fail");
             System.out.println(ex);
+            throw new PolygonException("Problem in sendEmail method: " + ex.getMessage());
         }
     }
 

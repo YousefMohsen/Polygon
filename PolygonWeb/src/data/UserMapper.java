@@ -4,6 +4,7 @@ import entity.Address;
 import entity.Login;
 import entity.User;
 import entity.ZipCode;
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ public class UserMapper {
      * @return User object of entity class User or null
      * @throws EXCEPTION
      */
-    public static User getUserViaID(int id) {
+    public static User getUserViaID(int id) throws PolygonException {
         String SQL = "SELECT * From Polygon.User WHERE User.userId = ?;";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(SQL)) {
@@ -38,6 +39,7 @@ public class UserMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getUserViaID method: " + ex.getMessage());
         }
         // User doesnt exist
         return null;
@@ -49,9 +51,10 @@ public class UserMapper {
      *
      * @param username String the username of the user
      * @return Login object of entity class Login or new user if doesn't exist
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static Login getLogin(String username) {
+    public static Login getLogin(String username) throws PolygonException {
         //Henter login info
         String sql = "SELECT * FROM Polygon.Login WHERE username = ?;";
         try (Connection con = DB.getConnection();
@@ -68,6 +71,7 @@ public class UserMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getLogin method: " + ex.getMessage());
         }
         // User doesnt exist
         return new Login("no", "no", 0, 0);
@@ -79,9 +83,10 @@ public class UserMapper {
      *
      * @param buildingID int the ID of the building
      * @return User object of entity class User or null
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static User getUser(int buildingID) {
+    public static User getUser(int buildingID) throws PolygonException {
         //Henter info om en bruger fra DB ud fra et givet bygningsID
         String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM User "
@@ -107,6 +112,7 @@ public class UserMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getUser method: " + ex.getMessage());
         }
         return null;
     }
@@ -119,7 +125,7 @@ public class UserMapper {
      * updated
      * @throws EXCEPTION
      */
-    public static void updateUser(User u, int buildingID) {
+    public static void updateUser(User u, int buildingID) throws PolygonException {
         //Opdaterer info om en bruger i DB ud fra et givet bygningsID
         String sql = "UPDATE User "
                 + "JOIN Building "
@@ -154,6 +160,7 @@ public class UserMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
+            throw new PolygonException("Problem in updateUser method: " + ex.getMessage());
         }
     }
 
@@ -164,7 +171,7 @@ public class UserMapper {
      * @return city String a String with the name of the city or null
      * @throws EXCEPTION
      */
-    public static String findCity(int zip) {
+    public static String findCity(int zip) throws PolygonException {
         //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
         String sql = "SELECT city "
                 + "FROM Zipcode "
@@ -179,6 +186,7 @@ public class UserMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in findCity method: " + ex.getMessage());
         }
         return null;
     }

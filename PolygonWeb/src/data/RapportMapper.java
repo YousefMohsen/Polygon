@@ -1,6 +1,8 @@
 package data;
 
+import com.sun.xml.internal.ws.policy.PolicyException;
 import entity.Rapport;
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,9 +19,10 @@ public class RapportMapper {
      *
      * @param buildingID int the ID of the building
      * @return Report object of entity class Report
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static Rapport getRapport(int buildingID) {
+    public static Rapport getRapport(int buildingID) throws PolygonException {
         String sql1 = "SELECT Building.buildingName, Address.addressline, Zipcode.zip, Zipcode.city, Damage.*, BuildingInfo.*, Humidity.*, RapportInfo.*"
                 + "FROM Building "
                 + "JOIN Address ON Building.Address_addressId=Address.addressId "
@@ -66,6 +69,7 @@ public class RapportMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getRapport method, sql1: " + ex.getMessage());
         }
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql2)) {
@@ -122,6 +126,7 @@ public class RapportMapper {
             System.out.println("count: " + count);
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getRapport method, sql2: " + ex.getMessage());
         }
 
         try (Connection con = DB.getConnection();
@@ -168,6 +173,7 @@ public class RapportMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getRapport method, sql3: " + ex.getMessage());
         }
         return rapport;
     }
@@ -177,9 +183,10 @@ public class RapportMapper {
      *
      * @param buildingID int the ID of the building which the report belongs to
      * @param rapport Report object of entity class Report
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void createRapport(int buildingID, Rapport rapport) {
+    public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
 
         String sql = "INSERT INTO Damage (room,comments,roomDamaged,Damage.when,Damage.where,whatHappend,whatRepaired,DamageNr,other,Building_buildingId,categorized) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
                 + "INSERT INTO BuildingInfo (buildYear,area,BuildingInfo.use,Building_buildingId) VALUES (?,?,?,?);"
@@ -330,7 +337,7 @@ public class RapportMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-
+            throw new PolygonException("Problem in createRapport method: " + ex.getMessage());
         }
 
         String sqlDelete = "DELETE FROM BuildingExamination WHERE reviewing = '';"
@@ -347,7 +354,7 @@ public class RapportMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-
+            throw new PolygonException("Problem in getRapport method, sqlDelete: " + ex.getMessage());
         }
     }
 
@@ -355,9 +362,10 @@ public class RapportMapper {
      * This method deletes data about a report in the database
      *
      * @param buildingID int the ID of the building which the report belongs to
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void clearRapportData(int buildingID) {
+    public static void clearRapportData(int buildingID) throws PolygonException {
         String sqlDelete = "DELETE FROM BuildingExamination WHERE Building_buildingId = ?;"
                 + "DELETE FROM Conclusion WHERE Building_buildingId = ?;"
                 + "DELETE FROM Damage WHERE Building_buildingId = ?;"
@@ -382,7 +390,7 @@ public class RapportMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-
+            throw new PolygonException("Problem in clearRapportData method: " + ex.getMessage());
         }
     }
 }

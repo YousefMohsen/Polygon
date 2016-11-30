@@ -3,6 +3,7 @@ package data;
 import entity.Address;
 import entity.Building;
 import entity.ZipCode;
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,9 +23,10 @@ public class BuildingMapper {
      * @param zip int the zip code of the building
      * @param address String the address of the building
      * @param userID int identifies the owner of the building
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void createBuilding(int zip, String address, int userID) {
+    public static void createBuilding(int zip, String address, int userID) throws PolygonException {
         System.out.println(zip + address + userID);
         String sql = "insert into Building "
                 + "(Address_addressId,rapportURL,User_userId,hidden,buildingName) "
@@ -44,6 +46,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in createBuilding method: " + ex.getMessage());
         }
     }
 
@@ -51,9 +54,10 @@ public class BuildingMapper {
      * This method returns a list with all the buildings from the database
      *
      * @return ArrayList() of type Building
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static List<Building> getBuildings() {
+    public static List<Building> getBuildings() throws PolygonException {
         Connection con = DB.getConnection();
         String sql = "SELECT buildingId,Address_addressId,User_userId "
                 + "FROM Building; ";
@@ -74,6 +78,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getBuildings method: " + ex.getMessage());
         }
         return buildings;
     }
@@ -86,9 +91,10 @@ public class BuildingMapper {
      * @param userType int tells about if the user is an admin or a customer - 0
      * is a customer and 1 is admin
      * @return ArrayList() of type Building
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static List<Building> getBuildingsForUser(int userID, int userType) {//Returns a list for a given user
+    public static List<Building> getBuildingsForUser(int userID, int userType) throws PolygonException {//Returns a list for a given user
         List<Building> buildings = new ArrayList<>();
         String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building ";
         if (userType != 1) {
@@ -112,6 +118,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getBuildingsForUser method: " + ex.getMessage());
         }
         return buildings;
     }
@@ -122,9 +129,10 @@ public class BuildingMapper {
      *
      * @param buildingID int the ID of the building
      * @return Building object of entity class Building
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static Building getBuilding(int buildingID) {
+    public static Building getBuilding(int buildingID) throws PolygonException {
         //Henter info om en bygning fra DB ud fra et givet bygningsID
         String sql = "SELECT Building.rapportURL, Building.buildingName, Building.User_userId, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
@@ -150,6 +158,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getBuilding method: " + ex.getMessage());
         }
         return null;
     }
@@ -163,7 +172,7 @@ public class BuildingMapper {
      * @return Building object of entity class Building
      * @throws EXCEPTION
      */
-    private static Building getBuildingNoConnection(int buildingID, Connection con) {
+    private static Building getBuildingNoConnection(int buildingID, Connection con) throws PolygonException {
         //Henter info om en bygning fra DB ud fra et givet bygningsID
         String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
@@ -185,6 +194,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getBuildingNoConnection method: " + ex.getMessage());
         }
         return null;
     }
@@ -194,9 +204,10 @@ public class BuildingMapper {
      * database
      *
      * @param b Building the building that is going to be updated
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void updateBuilding(Building b) {
+    public static void updateBuilding(Building b) throws PolygonException {
         //Opdaterer info om en bygning i DB
         String sql = "UPDATE Building "
                 + "JOIN Address "
@@ -223,6 +234,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
+            throw new PolygonException("Problem in updateBuilding method: " + ex.getMessage());
         }
     }
 
@@ -233,9 +245,10 @@ public class BuildingMapper {
      * @param id int the ID of the ZipCode
      * @param con Connection a new connection
      * @return ZipCode object of entity class ZipCode
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static ZipCode loadZip(int id, Connection con) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
+    public static ZipCode loadZip(int id, Connection con) throws PolygonException { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "
                 + "WHERE zipId=?;";
@@ -251,6 +264,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in loadZip method: " + ex.getMessage());
         }
         return loadedZip;
     }
@@ -262,9 +276,10 @@ public class BuildingMapper {
      * @param id int the ID of the address
      * @param con Connection a new connection
      * @return Address object of entity class Address
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static Address loadAddress(int id, Connection con) { //afleverer et Address objekt med data fra det tilhørende addressID
+    public static Address loadAddress(int id, Connection con) throws PolygonException { //afleverer et Address objekt med data fra det tilhørende addressID
         String sql = "SELECT addressline,zipcode_addressId "
                 + "FROM Address "
                 + "WHERE addressId=?;";
@@ -280,6 +295,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in loadAddress method: " + ex.getMessage());
         }
         return loadedAddress;
     }
@@ -289,9 +305,10 @@ public class BuildingMapper {
      *
      * @param zip int the zip code that matches the city
      * @return city String a String with the name of the city
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static String findCity(int zip) {
+    public static String findCity(int zip) throws PolygonException {
         //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
         String sql = "SELECT city "
                 + "FROM Zipcode "
@@ -306,6 +323,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in findCity method: " + ex.getMessage());
         }
         return null;
 
@@ -317,9 +335,10 @@ public class BuildingMapper {
      * @param zip int the zip code that matches the zip ID
      * @param con Connection a new connection
      * @return zipID int a int with the ID
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static int findZipID(int zip, Connection con) {
+    public static int findZipID(int zip, Connection con) throws PolygonException {
         String sql = "select zipId from Zipcode where zip = ?;";
         int zipID = 0;
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -330,6 +349,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in findZipID method: " + ex.getMessage());
         }
         return zipID;
     }
@@ -342,9 +362,10 @@ public class BuildingMapper {
      * @param address the addressline of the new address
      * @param con Connection a new connection
      * @return addressID int a int with the ID
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static int insertAddress(int zip, String address, Connection con) {
+    public static int insertAddress(int zip, String address, Connection con) throws PolygonException {
         String sql = " insert into Address "
                 + "(addressline,zipcode_addressId) "
                 + "values (?,?);";
@@ -361,6 +382,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in insertAddress method, sql: " + ex.getMessage());
         }
         //get adressId of recent inserted address 
         try (PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
@@ -369,6 +391,7 @@ public class BuildingMapper {
                 adressID = res.getInt("MAX(addressId)");
             }
         } catch (SQLException ex) {
+            throw new PolygonException("Problem in insertAddress method, sqlGetAdrID: " + ex.getMessage());
         }
         return adressID;
     }
@@ -380,7 +403,7 @@ public class BuildingMapper {
      * @return ArrayList() of type Integer
      * @throws EXCEPTION
      */
-    private static List<Integer> getRequestList(Connection con) {
+    private static List<Integer> getRequestList(Connection con) throws PolygonException {
         ArrayList<Integer> requestIds = new ArrayList();
         String sql = "SELECT * FROM Request_has_Building "
                 + "where Request_requestId=1; ";
@@ -393,6 +416,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getRequestList method: " + ex.getMessage());
         }
 
         return requestIds;
@@ -403,8 +427,9 @@ public class BuildingMapper {
      * from the database
      *
      * @return ArrayList() of type Building
+     * @throws exceptions.PolygonException
      */
-    public static List<Building> getDeletionBuildings() {
+    public static List<Building> getDeletionBuildings() throws PolygonException {
         Connection con = DB.getConnection();
         List<Building> buildings = new ArrayList<>();
         for (int id : getRequestList(con)) {
@@ -417,9 +442,10 @@ public class BuildingMapper {
      * This method sets a building to be hidden in the database
      *
      * @param id int the ID of the building
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void hideBuilding(int id) {
+    public static void hideBuilding(int id) throws PolygonException {
         String sql = "UPDATE Building SET hidden=1 WHERE buildingId=?;";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -432,8 +458,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
+            throw new PolygonException("Problem in hideBuilding method: " + ex.getMessage());
         }
-
     }
-
 }

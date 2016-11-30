@@ -1,6 +1,7 @@
 package data;
 
 import entity.Document;
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,9 +18,10 @@ public class DocumentMapper {
      *
      * @param buildingID int the ID of the building
      * @return Document object of entity class Document
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static Document getDocument(int buildingID) {
+    public static Document getDocument(int buildingID) throws PolygonException {
         //Henter info om et dokument fra DB ud fra et givet bygningsID
         String sql = "SELECT fileURL, note "
                 + "FROM Document "
@@ -41,8 +43,8 @@ public class DocumentMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getDocument method: " + ex.getMessage());
         }
-        return null;
     }
 
     /**
@@ -52,9 +54,10 @@ public class DocumentMapper {
      * @param d Document the document that is going to be updated
      * @param buildingID int the Id of the building whose document is going to
      * be updated
+     * @throws exceptions.PolygonException
      * @throws EXCEPTION
      */
-    public static void updateDocument(Document d, int buildingID) {
+    public static void updateDocument(Document d, int buildingID) throws PolygonException {
         //Opdaterer info om et dokument i DB ud fra et givet bygningsID
         String sql = "UPDATE Document "
                 + "JOIN Building "
@@ -75,6 +78,7 @@ public class DocumentMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
+            throw new PolygonException("Problem in updateDocuemnt method: " + ex.getMessage());
         }
     }
 }
