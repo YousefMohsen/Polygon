@@ -1,5 +1,9 @@
 package entity;
 
+/**
+ * This class contains all intformation about a building. Building is instiated
+ * in the database layer and returned to presentation or vice versa.
+ */
 public class Building {
 
     private int id;

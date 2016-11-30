@@ -1,8 +1,8 @@
 package entity;
 
 /**
- *
- * @author joaci
+ * This class contains all intformation about Login. Login is instiated in the
+ * database layer and returned to presentation or vice versa.
  */
 public class Login {
 
@@ -11,8 +11,6 @@ public class Login {
     int rank;
     int id;
     private int uId;
-
-   
 
     public Login(String username, String password, int rank, int id) {
         this.username = username;
@@ -28,8 +26,8 @@ public class Login {
         this.rank = rank;
         this.id = id;
     }
-    
-     public int getuId() {
+
+    public int getuId() {
         return uId;
     }
 
