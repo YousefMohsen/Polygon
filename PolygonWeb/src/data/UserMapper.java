@@ -93,7 +93,7 @@ public class UserMapper {
                 + "JOIN Building "
                 + "ON userId = User_userId "
                 + "JOIN Address "
-                + "ON User.Address_addressId=Address.addressId "
+                + "ON userAddress_addressId=Address.addressId "
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "WHERE buildingId=?";
