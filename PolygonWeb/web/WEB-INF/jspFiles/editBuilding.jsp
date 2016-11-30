@@ -4,9 +4,9 @@
 <%@page import="Domain.DomainFacade"%>    
 
 <%
-    int idLength = session.getAttribute("ID").toString().length();
-    String temp = session.getAttribute("ID").toString().substring(0, idLength);
-    int buildingID = Integer.parseInt(temp);
+   
+    int buildingID = (Integer)request.getAttribute("ID");
+  
     Building b = DomainFacade.getBuilding(buildingID);
     User u = DomainFacade.getUser(buildingID);
     Document d = DomainFacade.getDocument(buildingID);
