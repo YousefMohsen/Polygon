@@ -71,7 +71,6 @@ public class Servlet extends HttpServlet {
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "Submit":
-                    System.out.println("submit check");
                     int id = Integer.parseInt(request.getParameter("id"));
                     String buildingStreet = request.getParameter("buildingStreet");                    
                     int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));
