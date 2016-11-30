@@ -6,8 +6,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class RapportMapper {
+/**
+ * This class contains and deals with all data about a report
+ */
+public class RapportMapper {
 
+    /**
+     * This method returns a report from the database belonging to a specific
+     * building
+     *
+     * @param buildingID int the ID of the building
+     * @return Report object of entity class Report
+     * @throws EXCEPTION
+     */
     public static Rapport getRapport(int buildingID) {
         String sql1 = "SELECT Building.buildingName, Address.addressline, Zipcode.zip, Zipcode.city, Damage.*, BuildingInfo.*, Humidity.*, RapportInfo.*"
                 + "FROM Building "
@@ -161,6 +172,13 @@ class RapportMapper {
         return rapport;
     }
 
+    /**
+     * This method creates a new report and saves it in the database
+     *
+     * @param buildingID int the ID of the building which the report belongs to
+     * @param rapport Report object of entity class Report
+     * @throws EXCEPTION
+     */
     public static void createRapport(int buildingID, Rapport rapport) {
 
         String sql = "INSERT INTO Damage (room,comments,roomDamaged,Damage.when,Damage.where,whatHappend,whatRepaired,DamageNr,other,Building_buildingId,categorized) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
@@ -333,6 +351,12 @@ class RapportMapper {
         }
     }
 
+    /**
+     * This method deletes data about a report in the database
+     *
+     * @param buildingID int the ID of the building which the report belongs to
+     * @throws EXCEPTION
+     */
     public static void clearRapportData(int buildingID) {
         String sqlDelete = "DELETE FROM BuildingExamination WHERE Building_buildingId = ?;"
                 + "DELETE FROM Conclusion WHERE Building_buildingId = ?;"
