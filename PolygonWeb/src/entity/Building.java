@@ -8,12 +8,22 @@ public class Building {
 
     private int id;
     private int hidden;
+    private int AddressId;
     private Address address;
     private String report;
     private int user;
     private String buildingName;
 
     public Building() {
+    }
+
+    public Building(int id, int AddressId, Address address, String report, String buildingName, int user) {
+        this.id = id;
+        this.AddressId = AddressId;
+        this.address = address;
+        this.report = report;
+        this.buildingName = buildingName;
+        this.user = user;
     }
 
     public Building(int id, Address address, String report, int user, String buildingName) {
@@ -43,6 +53,14 @@ public class Building {
         this.id = id;
         this.address = address;
         this.report = report;
+    }
+
+    public int getAddressId() {
+        return AddressId;
+    }
+
+    public void setAddressId(int AddressId) {
+        this.AddressId = AddressId;
     }
 
     public int getId() {

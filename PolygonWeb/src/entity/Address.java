@@ -13,6 +13,11 @@ public class Address {
     public Address() {
     }
 
+    public Address(int addressID, String addressline) {
+        this.addressID = addressID;
+        this.addressline = addressline;
+    }
+
     public Address(String addressline, ZipCode zipCode) {
         this.addressline = addressline;
         this.zipCode = zipCode;
@@ -52,5 +57,4 @@ public class Address {
     public String toString() {//delete
         return "Address{" + "addressID=" + addressID + ", addressline=" + addressline + ", zipCode=" + zipCode + '}';
     }
-
 }

@@ -42,6 +42,15 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.addressId = addressId;
+
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public int getId() {

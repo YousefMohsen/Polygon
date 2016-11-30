@@ -1,17 +1,34 @@
 package Domain;
 
 import data.DatabaseFacade;
-import data.UserMapper;
+import entity.Address;
 import entity.Document;
 import entity.Building;
 import entity.Login;
 import entity.Rapport;
+import entity.Request;
 import entity.User;
 import exceptions.PolygonException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DomainFacade {
+
+    public static Request getRequest(int buildingId) throws PolygonException {
+        return DatabaseFacade.getRequest(buildingId);
+    }
+
+    public static Address getAddress(int addressId) throws PolygonException {
+        return DatabaseFacade.getAddress(addressId);
+    }
+
+    public static int getZip(int zip) throws PolygonException {
+        return DatabaseFacade.getZip(zip);
+    }
+
+    public static void updateAddress(int buildingAddressId, int AddressId) throws PolygonException {
+        DatabaseFacade.updateAddress(buildingAddressId, AddressId);
+    }
 
     public static ArrayList<Building> getBuildings() throws PolygonException {
         return (ArrayList<Building>) DatabaseFacade.getBuildings();
@@ -24,7 +41,7 @@ public class DomainFacade {
     public static User getUser(int id) throws PolygonException {
         return DatabaseFacade.getUser(id);
     }
-    
+
     public static User getUserViaId(int id) throws PolygonException {
         return DatabaseFacade.getUserViaId(id);
     }
@@ -45,12 +62,12 @@ public class DomainFacade {
         DatabaseFacade.updateDocument(d, buildingID);
     }
 
-    public static void createBuilding(int zip, String address, int userID) throws PolygonException {
-        DatabaseFacade.createBuilding(zip, address, userID);
+    public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
+        DatabaseFacade.createBuilding(zip, address, userID, name);
     }
 
     public static Login getLogin(String username) throws PolygonException {
-        return UserMapper.getLogin(username);
+        return DatabaseFacade.getLogin(username);
     }
 
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
@@ -69,7 +86,7 @@ public class DomainFacade {
         DatabaseFacade.deletionRequest(buildingID);
     }
 
-    public static void cancelDeletionRequest(int buildingID) throws PolygonException{
+    public static void cancelDeletionRequest(int buildingID) throws PolygonException {
         DatabaseFacade.cancelDeletionRequest(buildingID);
     }
 
@@ -93,5 +110,4 @@ public class DomainFacade {
     public static void sendMail(int buildingID) throws PolygonException {
 
     }
-
 }

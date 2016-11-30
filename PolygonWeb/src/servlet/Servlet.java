@@ -1,15 +1,10 @@
 package servlet;
 
 import Domain.DomainFacade;
-import entity.Address;
-import entity.Building;
 import entity.Document;
-import entity.ZipCode;
 import exceptions.PolygonException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +32,7 @@ public class Servlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String origin = request.getParameter("switch");
-            System.out.println(origin);
+
             switch (origin) {
                 case "logout":
                     request.getSession().invalidate();
@@ -49,16 +44,17 @@ public class Servlet extends HttpServlet {
                     break;
                 case "createBuilding":
                     String address = request.getParameter("address");
+                    String name = request.getParameter("buildingName");
                     int zip = Integer.parseInt(request.getParameter("zip"));
-                    // String city = request.getParameter("city"); bliver ikke brugt                   
-                    DomainFacade.createBuilding(zip, address, (int) session.getAttribute("userID"));
+                    DomainFacade.createBuilding(zip, address, (int) session.getAttribute("userID"), name);
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
 
                 case "deletionRequest":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     DomainFacade.deletionRequest(buildingID);
-                    request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
+
+                    request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
 
                 case "acceptRequest":
@@ -73,20 +69,26 @@ public class Servlet extends HttpServlet {
                     DomainFacade.healthCheckRequest(buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
-                case "Submit":                  
+                case "Submit":
                     int id = Integer.parseInt(request.getParameter("id"));
-                    String buildingStreet = request.getParameter("buildingStreet");                    
-                    int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));
-                    String buildingCity = request.getParameter("buildingCity");
-                    String reportURL = request.getParameter("reportURL");
-                    ZipCode buildingZ = new ZipCode(buildingZip, buildingCity);
-                    Address buildingA = new Address(buildingStreet, buildingZ);
+//                    String buildingStreetId = request.getParameter("buildingStreet");                    
+//                    int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));                    
+//                    String reportURL = request.getParameter("reportURL");
+//                    String buildingName = request.getParameter("buildingName");
+//                    
+//                    int buildingAddressId = Integer.parseInt(request.getParameter("buildingAddressId"));
+//                    
+//                    int addressId = DomainFacade.getZip(buildingZip);                    
+//                    Address address1 = new Address(addressId,  buildingStreetId);
+//                    Building building = new Building(id, addressId, address1, reportURL, buildingName,(int)session.getAttribute("uId"));                    
+//                    
+//                    DomainFacade.updateBuilding(building);                 
+//                    DomainFacade.updateAddress(buildingAddressId,addressId);
+//                    
                     String fileURL = request.getParameter("fileURL");
                     String note = request.getParameter("note");
-                    Building b = new Building(id, buildingA, reportURL);
-                    Document d = new Document(id, fileURL, note);
-                    DomainFacade.updateBuilding(b);
-                    DomainFacade.updateDocument(d, b.getId());
+                    Document d = new Document(id, "URL", note);
+                    DomainFacade.updateDocument(d, id);
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
             }

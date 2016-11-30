@@ -5,16 +5,40 @@ import entity.Address;
 import entity.Building;
 import entity.Login;
 import entity.Rapport;
+import entity.Request;
 import entity.User;
 import entity.ZipCode;
 import exceptions.PolygonException;
 import java.sql.Connection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseFacade {
 
-    public static void createBuilding(int zip, String address, int userID) throws PolygonException {
-        BuildingMapper.createBuilding(zip, address, userID);
+    public static Request getRequest(int buildingId) throws PolygonException {
+        return RequestMapper.getRequest(buildingId);
+    }
+
+    public static Address getAddress(int addressId) throws PolygonException {
+        return AddressMapper.getUserAddress(addressId);
+    }
+
+    public static void updateAddress(int buildingAddressId, int AddressId) throws PolygonException {
+        AddressMapper.updateAdress(buildingAddressId, AddressId);
+    }
+
+    public static int getZip(int zip) throws PolygonException {
+        return AddressMapper.getZipId(zip);
+    }
+
+    public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
+        try {
+            BuildingMapper.createBuilding(zip, address, userID, name);
+        } catch (PolygonException ex) {
+            Logger.getLogger(DatabaseFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public static List<Building> getBuildings() throws PolygonException {
