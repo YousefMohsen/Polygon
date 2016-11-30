@@ -5,15 +5,32 @@ import entity.Address;
 import entity.Building;
 import entity.Login;
 import entity.Rapport;
+import entity.Request;
 import entity.User;
 import entity.ZipCode;
 import java.sql.Connection;
 import java.util.List;
 
 public class DatabaseFacade {
+    
+    public static Request getRequest(int buildingId){
+        return RequestMapper.getRequest(buildingId);
+    }
+    
+    public static Address getAddress(int addressId) {
+        return AddressMapper.getUserAddress(addressId);
+    }
+    
+    public static void updateAddress(int buildingAddressId, int AddressId) {
+        AddressMapper.updateAdress(buildingAddressId, AddressId);
+    }
+    
+    public static int getZip(int zip){
+        return AddressMapper.getZipId(zip);
+    }
 
-    public static void createBuilding(int zip, String address, int userID) {
-        BuildingMapper.createBuilding(zip, address, userID);
+    public static void createBuilding(int zip, String address, int userID,String name) {
+        BuildingMapper.createBuilding(zip, address, userID, name);
     }
 
     public static List<Building> getBuildings() {
@@ -103,4 +120,8 @@ public class DatabaseFacade {
     public static List<Building> getBuildingsForUser(int userID, int userRank) {
         return BuildingMapper.getBuildingsForUser(userID, userRank);
     }
+
+    
+
+    
 }

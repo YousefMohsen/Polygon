@@ -15,6 +15,9 @@ import java.util.List;
  * This class deals with all data about a building.
  */
 public class BuildingMapper {
+    
+    
+    
 
     /**
      * This method creates a new building and saves it in the database
@@ -22,10 +25,10 @@ public class BuildingMapper {
      * @param zip int the zip code of the building
      * @param address String the address of the building
      * @param userID int identifies the owner of the building
+     * @param name name of building
      * @throws EXCEPTION
      */
-    public static void createBuilding(int zip, String address, int userID) {
-        System.out.println(zip + address + userID);
+    public static void createBuilding(int zip, String address, int userID,String name) {       
         String sql = "insert into Building "
                 + "(Address_addressId,rapportURL,User_userId,hidden,buildingName) "
                 + "values(?,?,?,?,?);";
@@ -35,7 +38,7 @@ public class BuildingMapper {
             stmt.setString(2, "testURL");// fix rapport url!
             stmt.setInt(3, userID); //fix user ID
             stmt.setInt(4, 0); //0 = shown, 1=hidden
-            stmt.setString(5, "navnpaabygning");
+            stmt.setString(5, name);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -90,7 +93,7 @@ public class BuildingMapper {
      */
     public static List<Building> getBuildingsForUser(int userID, int userType) {//Returns a list for a given user
         List<Building> buildings = new ArrayList<>();
-        String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building ";
+        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building ";
         if (userType != 1) {
             sql += "where User_userId=? And hidden=0";
         } //if user is not an admin, then hide deleted buildings   
@@ -105,9 +108,11 @@ public class BuildingMapper {
                 int id = res.getInt("buildingId");
                 int addressId = res.getInt("Address_addressId");
                 int userId = res.getInt("User_userId");
+                String name = res.getString("buildingName");
                 newBuilding.setId(id);
                 newBuilding.setAddress(loadAddress(addressId, con));
                 newBuilding.setUser(userId);
+                newBuilding.setBuildingName(name);
                 buildings.add(newBuilding);
             }
         } catch (SQLException ex) {
@@ -126,7 +131,7 @@ public class BuildingMapper {
      */
     public static Building getBuilding(int buildingID) {
         //Henter info om en bygning fra DB ud fra et givet bygningsID
-        String sql = "SELECT Building.rapportURL, Building.buildingName, Building.User_userId, Address.addressline, Zipcode.zip, Zipcode.city "
+        String sql = "SELECT Building.Address_addressId, Building.rapportURL, Building.buildingName, Building.User_userId, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
                 + "JOIN Address "
                 + "ON Building.Address_addressId=Address.addressId "
@@ -145,8 +150,9 @@ public class BuildingMapper {
                 ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
                 Address address = new Address(res.getString("addressline"), zip);
                 String buildingName = res.getString("buildingName");
-
-                return new Building(buildingID, address, rapportURL, userID, buildingName);
+                int buildingAdressId = res.getInt("Address_addressId");
+                
+                return new Building(buildingID,buildingAdressId, address, rapportURL, buildingName, userID);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
@@ -189,6 +195,8 @@ public class BuildingMapper {
         return null;
     }
 
+
+    
     /**
      * This method updates the information about a specific building in the
      * database
@@ -198,23 +206,11 @@ public class BuildingMapper {
      */
     public static void updateBuilding(Building b) {
         //Opdaterer info om en bygning i DB
-        String sql = "UPDATE Building "
-                + "JOIN Address "
-                + "ON Building.Address_addressId=Address.addressId "
-                + "JOIN Zipcode "
-                + "ON Address.zipcode_addressId=Zipcode.zipId "
-                + "SET Building.rapportURL=?, "
-                + "Address.addressline=?, "
-                + "Zipcode.zip=?, "
-                + "Zipcode.city=? "
-                + "WHERE BuildingId=?";
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
+        String sql = "UPDATE Building SET  rapportURL = ?, buildingName= ? WHERE buildingId = ?";
+        try (Connection con = DB.getConnection();PreparedStatement stmt = con.prepareStatement(sql)) {          
             stmt.setString(1, b.getReport());
-            stmt.setString(2, b.getAddress().getAddressline());
-            stmt.setInt(3, b.getAddress().getZipCode().getZip());
-            stmt.setString(4, findCity(b.getAddress().getZipCode().getZip()));
-            stmt.setInt(5, b.getId());
+            stmt.setString(2, b.getBuildingName());
+            stmt.setInt(3, b.getId());             
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -311,6 +307,9 @@ public class BuildingMapper {
 
     }
 
+    
+   
+    
     /**
      * This method returns a zip ID with a specific zip code from the database
      *

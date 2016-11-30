@@ -1,7 +1,10 @@
 package data;
 
+import entity.Request;
+import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -18,28 +21,47 @@ public class RequestMapper {
      * @param buildingID int the ID of the building with the request
      * @throws EXCEPTION
      */
-    public static void sendRequest(int requestType, int buildingID) {//1=deletion, 2=health check
-        System.out.println(requestType + "hejh" + buildingID);
-        String sql = "insert into Request_has_Building "
-                + "(Request_requestId,Building_buildingId) "
-                + "values(?,?);";
-
+    public static void sendRequest(int requestType, int buildingID) {//1=deletion, 2=health check        
+        String sql = "insert into Request_has_Building (Request_requestId,Building_buildingId) values(?,?);";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-
             stmt.setInt(1, requestType);
             stmt.setInt(2, buildingID); //0 = shown, 1=hidden
-
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
             } else {
                 System.out.println("No change");
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param buildingId
+     * @return 
+     */
+    public static Request getRequest(int buildingId){
+        System.out.println(buildingId);
+        String sql = "SELECT Request_requestId FROM Request_has_Building WHERE Building_buildingID = ?;";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, buildingId);  
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                System.out.println(res.getInt("Request_requestId")+"HEJ");
+                int requestId = res.getInt("Request_requestId");
+                return new Request(requestId);
+            } else {
+                return null;
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-
         }
+        return null;
     }
 
     /**

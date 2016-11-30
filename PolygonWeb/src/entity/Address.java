@@ -12,6 +12,11 @@ public class Address {
 
     public Address() {
     }
+    
+    public Address(int addressID,  String addressline){
+        this.addressID = addressID;
+        this.addressline = addressline;
+    }
 
     public Address(String addressline, ZipCode zipCode) {
         this.addressline = addressline;

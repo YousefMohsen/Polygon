@@ -1,16 +1,33 @@
 package Domain;
 
 import data.DatabaseFacade;
-import data.UserMapper;
+import entity.Address;
 import entity.Document;
 import entity.Building;
 import entity.Login;
 import entity.Rapport;
+import entity.Request;
 import entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DomainFacade {
+    
+    public static Request getRequest(int buildingId){
+        return DatabaseFacade.getRequest(buildingId);
+    }
+    
+    public static Address getAddress(int addressId){
+        return DatabaseFacade.getAddress(addressId);
+    }
+    
+    public static int getZip(int zip){
+        return DatabaseFacade.getZip(zip);
+    }
+    
+    public static void updateAddress(int buildingAddressId, int AddressId) {
+        DatabaseFacade.updateAddress(buildingAddressId,AddressId);
+    }
 
     public static ArrayList<Building> getBuildings() {
         return (ArrayList<Building>) DatabaseFacade.getBuildings();
@@ -44,12 +61,12 @@ public class DomainFacade {
         DatabaseFacade.updateDocument(d, buildingID);
     }
 
-    public static void createBuilding(int zip, String address, int userID) {
-        DatabaseFacade.createBuilding(zip, address, userID);
+    public static void createBuilding(int zip, String address, int userID,String name) {
+        DatabaseFacade.createBuilding(zip, address, userID,name);
     }
 
     public static Login getLogin(String username) {
-        return UserMapper.getLogin(username);
+        return DatabaseFacade.getLogin(username);
     }
 
     public static void createRapport(int buildingID, Rapport rapport) {
@@ -92,5 +109,7 @@ public class DomainFacade {
     public static void sendMail(int buildingID) {
 
     }
+
+    
 
 }

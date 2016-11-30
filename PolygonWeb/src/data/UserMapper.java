@@ -23,8 +23,7 @@ public class UserMapper {
      */
     public static User getUserViaID(int id) {
         String SQL = "SELECT * From Polygon.User WHERE User.userId = ?;";
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(SQL)) {
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
             stmt.setInt(1, id);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
@@ -32,7 +31,7 @@ public class UserMapper {
                 String lastname = res.getString("lastname");
                 String phone = res.getString("phone");
                 String email = res.getString("email");
-                int addressId = res.getInt("Address_addressId");
+                int addressId = res.getInt("userAddress_addressId");
                 int uId = res.getInt("userId");
                 return new User(uId, firstname, lastname, phone, email, addressId);
             }
@@ -88,7 +87,7 @@ public class UserMapper {
                 + "JOIN Building "
                 + "ON userId = User_userId "
                 + "JOIN Address "
-                + "ON User.Address_addressId=Address.addressId "
+                + "ON User.userAddress_addressId=Address.addressId "
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "WHERE buildingId=?";
@@ -125,7 +124,7 @@ public class UserMapper {
                 + "JOIN Building "
                 + "ON userId = User_userId "
                 + "JOIN Address "
-                + "ON User.Address_addressId=Address.addressId "
+                + "ON User.userAddress_addressId=Address.addressId "
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "SET User.firstname=?, "

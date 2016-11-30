@@ -5,13 +5,13 @@
 <%        
     User u = DomainFacade.getUserViaId((int)session.getAttribute("uId"));      
     Login l = DomainFacade.getLogin((String)session.getAttribute("name"));   
+   
+        System.out.println(DomainFacade.getAddress(u.getAddressId()).getZipCode().getZip());
     ;%>
 <br>
 Firstname: <%out.println(u.getFirstname());%>
 <br>
 Lastname: <%out.println(u.getLastname());%>
-<br>
-Adress: <%out.println(u.getAddress());%>
 <br>
 Email: <%out.println(u.getEmail());%>
 <br>
@@ -20,4 +20,10 @@ Phone: <%out.println(u.getPhone());%>
 Username: <%out.println(l.getUsername());%>
 <br>
 Password: <%out.println(l.getPassword());%>
+<br>
+Address: <%out.println(DomainFacade.getAddress(u.getAddressId()).getAddressline());%>
+<br>
+Zip: <% out.println(DomainFacade.getAddress(u.getAddressId()).getZipCode().getZip());%>
+<br>
+City: <%out.println(DomainFacade.getAddress(u.getAddressId()).getZipCode().getCity());%>
 <%@ include file="jspFiles/footer.jsp" %>

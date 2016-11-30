@@ -16,6 +16,7 @@
                 <th>Zip</th>
                 <th>City</th>
                 <th>Address</th>
+                <th>Name</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");
                     out.println("<td>" + b.getAddress().getAddressline() + "</td>");
+                    out.println("<td>" + b.getBuildingName() + "</td>");
                 }
             %>
         </tbody>
@@ -33,17 +35,17 @@
 <form action="FrontController?ID=Servlet&switch=createBuilding" method="POST">  
     <table class="table table-bordered">
         <thead>
-            <tr>              
+            <tr>      
+                <th>BuildingName</th>
                 <th>Address</th>
-                <th>Zip</th>
-                <th>City</th>
+                <th>Zip</th>                          
             </tr>
         </thead>
         <tbody>
             <tr>                
+                <td> <input type="text" name="buildingName" value="" /> </td>  
                 <td> <input type="text" name="address" value="" /> </td>  
-                <td> <input type="text" name="zip" value="" />  </td>  
-                <td> <input type="text" name="city" value="" />  </td>  
+                <td> <input type="text" name="zip" value="" />  </td>            
             </tr>
         </tbody>
     </table>  
