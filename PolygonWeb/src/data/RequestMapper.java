@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * This class contains and deals with all data about a request
+ * This class deals with all data about a request.
  */
 public class RequestMapper {
 

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class contains and deals with all data about a user
+ * This class deals with all data about a user.
  */
 public class UserMapper {
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class contains and deals with all data about a building
+ * This class deals with all data about a building.
  */
 public class BuildingMapper {
 

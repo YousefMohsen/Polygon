@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class contains and deals with all data about a report
+ * This class deals with all data about a report.
  */
 public class RapportMapper {
 
