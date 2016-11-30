@@ -4,7 +4,6 @@ import Domain.DomainFacade;
 import entity.Address;
 import entity.Building;
 import entity.Document;
-import entity.User;
 import entity.ZipCode;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,6 +34,7 @@ public class Servlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String origin = request.getParameter("switch");
+            System.out.println(origin);
             switch (origin) {
                 case "logout":
                     request.getSession().invalidate();
@@ -71,26 +71,15 @@ public class Servlet extends HttpServlet {
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "Submit":
-
+                    System.out.println("submit check");
                     int id = Integer.parseInt(request.getParameter("id"));
-                    String firstname = request.getParameter("firstname");
-                    String lastname = request.getParameter("lastname");
-                    String phone = request.getParameter("phone");
-                    String email = request.getParameter("email");
-                    String userStreet = request.getParameter("userStreet");
-                    int userZip = Integer.parseInt(request.getParameter("userZip"));
-                    String userCity = request.getParameter("userCity");
-                    ZipCode userZ = new ZipCode(userZip, userCity);
-                    Address userA = new Address(userStreet, userZ);
-                    User u = new User(id, firstname, lastname, phone, email, userA);
-                    String buildingStreet = request.getParameter("buildingStreet");
+                    String buildingStreet = request.getParameter("buildingStreet");                    
                     int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));
                     String buildingCity = request.getParameter("buildingCity");
                     String reportURL = request.getParameter("reportURL");
                     ZipCode buildingZ = new ZipCode(buildingZip, buildingCity);
                     Address buildingA = new Address(buildingStreet, buildingZ);
                     Building b = new Building(id, buildingA, reportURL);
-                    DomainFacade.updateUser(u, b.getId());
                     DomainFacade.updateBuilding(b);
                     String fileURL = request.getParameter("fileURL");
                     String note = request.getParameter("note");
