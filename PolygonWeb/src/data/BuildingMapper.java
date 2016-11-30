@@ -11,8 +11,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains and deals with all data about a building
+ */
 public class BuildingMapper {
 
+    /**
+     * This method creates a new building and saves it in the database
+     *
+     * @param zip int the zip code of the building
+     * @param address String the address of the building
+     * @param userID int identifies the owner of the building
+     * @throws EXCEPTION
+     */
     public static void createBuilding(int zip, String address, int userID) {
         System.out.println(zip + address + userID);
         String sql = "insert into Building "
@@ -36,6 +47,12 @@ public class BuildingMapper {
         }
     }
 
+    /**
+     * This method returns a list with all the buildings from the database
+     *
+     * @return ArrayList() of type Building
+     * @throws EXCEPTION
+     */
     public static List<Building> getBuildings() {
         Connection con = DB.getConnection();
         String sql = "SELECT buildingId,Address_addressId,User_userId "
@@ -61,6 +78,16 @@ public class BuildingMapper {
         return buildings;
     }
 
+    /**
+     * This method returns a list with all the buildings from the database
+     * belonging to a specific user
+     *
+     * @param userID int identifies the owner of the buildings
+     * @param userType int tells about if the user is an admin or a customer - 0
+     * is a customer and 1 is admin
+     * @return ArrayList() of type Building
+     * @throws EXCEPTION
+     */
     public static List<Building> getBuildingsForUser(int userID, int userType) {//Returns a list for a given user
         List<Building> buildings = new ArrayList<>();
         String sql = "SELECT buildingId,Address_addressId,User_userId FROM Building ";
@@ -89,8 +116,16 @@ public class BuildingMapper {
         return buildings;
     }
 
-    //Henter info om en bygning fra DB ud fra et givet bygningsID
+    /**
+     * This method returns a building from the database belonging to a specific
+     * user
+     *
+     * @param buildingID int the ID of the building
+     * @return Building object of entity class Building
+     * @throws EXCEPTION
+     */
     public static Building getBuilding(int buildingID) {
+        //Henter info om en bygning fra DB ud fra et givet bygningsID
         String sql = "SELECT Building.rapportURL, Building.buildingName, Building.User_userId, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
                 + "JOIN Address "
@@ -119,8 +154,17 @@ public class BuildingMapper {
         return null;
     }
 
-    //Henter info om en bygning fra DB ud fra et givet bygningsID
+    /**
+     * This method returns a building from the database belonging to a specific
+     * user when there is no connection
+     *
+     * @param buildingID int the ID of the building
+     * @param con Connection a new connection
+     * @return Building object of entity class Building
+     * @throws EXCEPTION
+     */
     private static Building getBuildingNoConnection(int buildingID, Connection con) {
+        //Henter info om en bygning fra DB ud fra et givet bygningsID
         String sql = "SELECT Building.rapportURL, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM Building "
                 + "JOIN Address "
@@ -145,8 +189,15 @@ public class BuildingMapper {
         return null;
     }
 
-    //Opdaterer info om en bygning i DB
+    /**
+     * This method updates the information about a specific building in the
+     * database
+     *
+     * @param b Building the building that is going to be updated
+     * @throws EXCEPTION
+     */
     public static void updateBuilding(Building b) {
+        //Opdaterer info om en bygning i DB
         String sql = "UPDATE Building "
                 + "JOIN Address "
                 + "ON Building.Address_addressId=Address.addressId "
@@ -175,6 +226,15 @@ public class BuildingMapper {
         }
     }
 
+    /**
+     * This method returns an object of ZipCode with information from the
+     * database
+     *
+     * @param id int the ID of the ZipCode
+     * @param con Connection a new connection
+     * @return ZipCode object of entity class ZipCode
+     * @throws EXCEPTION
+     */
     public static ZipCode loadZip(int id, Connection con) { //afleverer et ZipCode objekt med data fra det tilhørende zipID
         String sql = "SELECT zip,city "
                 + "FROM Zipcode "
@@ -195,6 +255,15 @@ public class BuildingMapper {
         return loadedZip;
     }
 
+    /**
+     * This method returns an object of Address with information from the
+     * database
+     *
+     * @param id int the ID of the address
+     * @param con Connection a new connection
+     * @return Address object of entity class Address
+     * @throws EXCEPTION
+     */
     public static Address loadAddress(int id, Connection con) { //afleverer et Address objekt med data fra det tilhørende addressID
         String sql = "SELECT addressline,zipcode_addressId "
                 + "FROM Address "
@@ -215,8 +284,15 @@ public class BuildingMapper {
         return loadedAddress;
     }
 
-    //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
+    /**
+     * This method returns a city with a specific zip code from the database
+     *
+     * @param zip int the zip code that matches the city
+     * @return city String a String with the name of the city
+     * @throws EXCEPTION
+     */
     public static String findCity(int zip) {
+        //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)
         String sql = "SELECT city "
                 + "FROM Zipcode "
                 + "WHERE zip=?";
@@ -235,6 +311,14 @@ public class BuildingMapper {
 
     }
 
+    /**
+     * This method returns a zip ID with a specific zip code from the database
+     *
+     * @param zip int the zip code that matches the zip ID
+     * @param con Connection a new connection
+     * @return zipID int a int with the ID
+     * @throws EXCEPTION
+     */
     public static int findZipID(int zip, Connection con) {
         String sql = "select zipId from Zipcode where zip = ?;";
         int zipID = 0;
@@ -250,6 +334,16 @@ public class BuildingMapper {
         return zipID;
     }
 
+    /**
+     * This method inserts a new address in the database and returns an
+     * addressID of recent inserted address
+     *
+     * @param zip int the zip code of the new address
+     * @param address the addressline of the new address
+     * @param con Connection a new connection
+     * @return addressID int a int with the ID
+     * @throws EXCEPTION
+     */
     public static int insertAddress(int zip, String address, Connection con) {
         String sql = " insert into Address "
                 + "(addressline,zipcode_addressId) "
@@ -268,7 +362,7 @@ public class BuildingMapper {
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
-        //get adressId of recent inserted adress 
+        //get adressId of recent inserted address 
         try (PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
@@ -279,6 +373,13 @@ public class BuildingMapper {
         return adressID;
     }
 
+    /**
+     * This method returns a list with all the requests from the database
+     *
+     * @param con Connection a new connection
+     * @return ArrayList() of type Integer
+     * @throws EXCEPTION
+     */
     private static List<Integer> getRequestList(Connection con) {
         ArrayList<Integer> requestIds = new ArrayList();
         String sql = "SELECT * FROM Request_has_Building "
@@ -297,6 +398,12 @@ public class BuildingMapper {
         return requestIds;
     }
 
+    /**
+     * This method returns a list with all the buildings requested to be deleted
+     * from the database
+     *
+     * @return ArrayList() of type Building
+     */
     public static List<Building> getDeletionBuildings() {
         Connection con = DB.getConnection();
         List<Building> buildings = new ArrayList<>();
@@ -306,6 +413,12 @@ public class BuildingMapper {
         return buildings;
     }
 
+    /**
+     * This method sets a building to be hidden in the database
+     *
+     * @param id int the ID of the building
+     * @throws EXCEPTION
+     */
     public static void hideBuilding(int id) {
         String sql = "UPDATE Building SET hidden=1 WHERE buildingId=?;";
         try (Connection con = DB.getConnection();
