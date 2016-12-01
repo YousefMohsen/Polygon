@@ -4,21 +4,19 @@
 <!DOCTYPE html>
 
 <%
-//    String temp = session.getAttribute("ID").toString().substring(0, 1);
-//    int buildingID = Integer.parseInt(temp);
 //    String file = DomainFacade.getDocument(buildingID).getFileURL();
-    int buildingID = 1;
+    int buildingID = Integer.parseInt(request.getParameter("buildingID"));
 %>
 
 <html>
     <head>
-        <title>File Uploading</title>
+        <title>Upload af plantegning</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h3>Floor Plan Upload:</h3>
-        Select a file to upload: <br/>
+        <h3>Upload Plantegning</h3>
+        Vælg det billede du ønsker at uploade: <br/>
         <form action="UploadServlet" method="post" enctype="multipart/form-data">
             <input type="file" name="file" size="50"/>
             <br/>

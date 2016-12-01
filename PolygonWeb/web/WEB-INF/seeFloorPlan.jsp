@@ -1,12 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-        <img src="1.jpg" alt="floorPlan" style="width:128px;height:128px;">
-    </body>
-</html>
+<%@include file="jspFiles/header.jsp" %>
+<img src="1.jpg" alt="floorPlan" style="width:128px;height:128px;">
+<%@ include file="jspFiles/FloorPlan.jsp" %>
+<%@ include file="jspFiles/footer.jsp" %>

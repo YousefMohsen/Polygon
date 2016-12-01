@@ -38,7 +38,7 @@ public class UploadServlet extends HttpServlet {
             throws ServletException, IOException, PolygonException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("WEB-INF/FloorPlan.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
 //            HttpSession session = request.getSession();
 //            String buildingID = request.getParameter("buildingID");
 //            session.setAttribute("ID", buildingID);
@@ -100,6 +100,7 @@ public class UploadServlet extends HttpServlet {
             }
             os.close();
             out.println("<h3>File uploaded successfully!</h3>");
+            out.println("<a href=\"FrontController?ID=LinkServlet&page=buildingTable.jsp\" class=\"btn btn-default\">Back</a>");
         } catch (IOException | ServletException ex) {
             out.println("Exception -->" + ex.getMessage());
         } finally {
