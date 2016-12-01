@@ -186,6 +186,26 @@ public class BuildingMapper {
         return null;
     }
 
+    
+    
+    public static void recoverBuilding(int buildingID) throws PolygonException {
+     
+        String sql = "UPDATE Building SET  hidden =? WHERE buildingId = ?";
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, 0);
+            stmt.setInt(2, buildingID);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not inserted: " + ex.getMessage());
+            throw new PolygonException("Problem in updateBuilding method: " + ex.getMessage());
+        }
+    }
+
     /**
      * This method returns a building from the database belonging to a specific
      * user when there is no connection

@@ -111,4 +111,8 @@ public class DomainFacade {
         public static List<Building> getDeletedBuildings() throws PolygonException {
     return DatabaseFacade.getDeletedBuildings();
     }
+
+       public static void recoverBuilding(int buildingID) throws PolygonException  {
+     DatabaseFacade.recoverBuilding(buildingID);
+    }
 }

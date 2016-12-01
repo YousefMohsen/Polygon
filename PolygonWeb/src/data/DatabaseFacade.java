@@ -133,4 +133,10 @@ public class DatabaseFacade {
     public static List<Building> getDeletedBuildings() throws PolygonException {
     return BuildingMapper.getDeletedBuildings();
     }
+    
+       public static void recoverBuilding(int buildingID) throws PolygonException  {
+     BuildingMapper.recoverBuilding(buildingID);
+    }
+    
+    
 }

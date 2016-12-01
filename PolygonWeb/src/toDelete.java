@@ -18,10 +18,10 @@ import java.sql.SQLException;
  */
 public class toDelete {
       public static void main(String [] args) throws SQLException, ClassNotFoundException, PolygonException{
-    
-          for (Building b : BuildingMapper.getDeletedBuildings()) {
-              System.out.println("\n \n"+b.getBuildingName()+" -  "+b.getAddress().toString());
-          }
-    
+   
+          
+          BuildingMapper.recoverBuilding(1);
+          
+          
 }
 }
