@@ -31,8 +31,7 @@ public class DocumentMapper {
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
-            if (res.next()) {
-                System.out.println("document true");
+            if (res.next()) {                
                 String fileURL = res.getString("file");
                 String note = res.getString("note");
                 return new Document(buildingID, fileURL, note);

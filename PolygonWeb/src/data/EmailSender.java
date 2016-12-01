@@ -20,20 +20,15 @@ public class EmailSender {
 
     public static void sendEmail(int buildingID) throws PolygonException {
         Building building = DomainFacade.getBuilding(buildingID);
-        User user = DomainFacade.getUser(buildingID);
-        System.out.println(user);
-        System.out.println("forsøger at maile");
+        User user = DomainFacade.getUser(buildingID);   
         String fromEmail = "polygonrequests@gmail.com"; //requires valid gmail id
         String password = "Polygon16sundbygning!"; // correct password for gmail id
-
         String emailSubject = "Anmodning om et sunhedstjek";
-        String emailMessage = createMessege(user, building);
-        
-        String toEmail = "polygonrequests@gmail.com"; //receiver
-        System.out.println(emailMessage);
+        String emailMessage = createMessege(user, building);        
+        String toEmail = "polygonrequests@gmail.com"; //receiver      
 
         try {
-            System.out.println("TLSEmail Start");
+            
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
             props.put("mail.smtp.port", "587"); //TLS Port
@@ -52,17 +47,11 @@ public class EmailSender {
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fromEmail));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-
-            System.out.println("Mail Check 2");
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));          
 
             message.setSubject(emailSubject);
-            message.setText(emailMessage);
-
-            System.out.println("Mail Check 3");
-
-            Transport.send(message);
-            System.out.println("Mail Sent");
+            message.setText(emailMessage);           
+            Transport.send(message);            
         } catch (Exception ex) {
             System.out.println("Mail fail");
             System.out.println(ex);
@@ -70,8 +59,7 @@ public class EmailSender {
         }
     }
 
-    private static String createMessege(User u, Building b) {
-        System.out.println(u.getFirstname() + u.getLastname());
+    private static String createMessege(User u, Building b) {        
         String s = u.getFirstname() + " " + u.getLastname() + " ønsker et sunhedstjek af følgende bygning:\n"
                 + "\nAdresse: " + b.getAddress().getAddressline() + " " + b.getAddress().getZipCode().getZip() + " " + b.getAddress().getZipCode().getCity()
                 + "\n \nKontaktinfo: "

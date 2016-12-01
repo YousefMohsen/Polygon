@@ -27,7 +27,6 @@ public class BuildingMapper {
      * @throws exceptions.PolygonException
      */
     public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
-
         String sql = "insert into Building "
                 + "(Address_addressId,rapportURL,User_userId,hidden,buildingName,RapportInfo_rapportInfoId) "
                 + "values(?,?,?,?,?,?);";

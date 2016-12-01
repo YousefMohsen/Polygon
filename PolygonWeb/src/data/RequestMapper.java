@@ -23,8 +23,7 @@ public class RequestMapper {
      * @throws exceptions.PolygonException
      */
     public static void sendRequest(int requestType, int buildingID) throws PolygonException {//1=deletion, 2=health check        
-        String sql = "insert into Request_has_Building (Request_requestId,Building_buildingId) values(?,?);";
-       
+        String sql = "insert into Request_has_Building (Request_requestId,Building_buildingId) values(?,?);";       
         try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, requestType);
             stmt.setInt(2, buildingID); //0 = shown, 1=hidden
@@ -36,8 +35,7 @@ public class RequestMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-        }
-         System.out.println("request done");
+        }      
     }
 
     /**
@@ -48,15 +46,13 @@ public class RequestMapper {
      * @return Request object of entity class Request or null
      * @throws exceptions.PolygonException
      */
-    public static Request getRequest(int buildingId) throws PolygonException {
-        System.out.println(buildingId);
+    public static Request getRequest(int buildingId) throws PolygonException {        
         String sql = "SELECT Request_requestId FROM Request_has_Building WHERE Building_buildingID = ?;";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingId);
             ResultSet res = stmt.executeQuery();
-            if (res.next()) {
-                System.out.println(res.getInt("Request_requestId") + "HEJ");
+            if (res.next()) {                
                 int requestId = res.getInt("Request_requestId");
                 return new Request(requestId);
             } else {
@@ -80,16 +76,11 @@ public class RequestMapper {
      */
     public static void cancelRequest(int requestType, int buildingID) throws PolygonException {//deletes a given request from table Request_has_Building 
 //1=deletion, 2=health check
-
         String sql = "Delete FROM Request_has_Building "
                 + " WHERE Request_requestId=? And Building_buildingId =?; ";
-
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
-
+        try (Connection con = DB.getConnection();PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, requestType);
             stmt.setInt(2, buildingID); //0 = shown, 1=hidden
-
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element deleted");

@@ -28,10 +28,8 @@ public final class DB {
         try {
             //STEP 1: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
-            //STEP 2: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println("Connected");
+            //STEP 2: Open a connection            
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);            
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
             throw new PolygonException("Problem in getConnection method: " + e.getMessage());

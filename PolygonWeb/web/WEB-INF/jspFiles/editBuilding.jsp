@@ -3,8 +3,7 @@
 <%@page import="entity.Building"%>
 <%@page import="Domain.DomainFacade"%>    
 
-<%
-    System.out.println("what");
+<%    
     int buildingID = (Integer) request.getAttribute("buildingID");    
     int userId = (Integer) session.getAttribute("uId");
     Building b = DomainFacade.getBuilding(buildingID);
@@ -17,7 +16,7 @@
     try {
         requestId = DomainFacade.getRequest(buildingID).getId();
     } catch (Exception ex) {
-        System.out.println(ex);
+        System.out.println(ex+"error");
     }
     if (requestId == 1) {
         out.println("This building is appending approval for deletion");

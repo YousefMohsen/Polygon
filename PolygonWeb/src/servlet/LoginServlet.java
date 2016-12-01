@@ -27,21 +27,19 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, PolygonException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            Login login = DomainFacade.getLogin(request.getParameter("username"));
-            String username = login.getUsername();
-            int userID = login.getId();
-            int uId = login.getuId();
-            int rank = login.getRank();
-            if (login.getPassword().equals(request.getParameter("password"))) {
-                request.getSession().setAttribute("name", username);
-                request.getSession().setAttribute("userID", userID);
-                request.getSession().setAttribute("uId", uId);
-                request.getSession().setAttribute("rank", rank);
-                request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("index.jsp");
-            }
+        Login login = DomainFacade.getLogin(request.getParameter("username"));
+        String username = login.getUsername();
+        int userID = login.getId();
+        int uId = login.getuId();
+        int rank = login.getRank();
+        if (login.getPassword().equals(request.getParameter("password"))) {
+            request.getSession().setAttribute("name", username);
+            request.getSession().setAttribute("userID", userID);
+            request.getSession().setAttribute("uId", uId);
+            request.getSession().setAttribute("rank", rank);
+            request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("index.jsp");
         }
     }
 
