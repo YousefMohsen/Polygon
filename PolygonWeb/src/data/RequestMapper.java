@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * This class deals with all data about a request.
@@ -46,24 +47,28 @@ public class RequestMapper {
      * @return Request object of entity class Request or null
      * @throws exceptions.PolygonException
      */
-    public static Request getRequest(int buildingId) throws PolygonException {        
+   public static ArrayList<Request> getRequest(int buildingId) throws PolygonException {
+       ArrayList<Request> requestList = new ArrayList();
+        
         String sql = "SELECT Request_requestId FROM Request_has_Building WHERE Building_buildingID = ?;";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingId);
             ResultSet res = stmt.executeQuery();
-            if (res.next()) {                
+            while (res.next()) {
+                
+
                 int requestId = res.getInt("Request_requestId");
-                return new Request(requestId);
-            } else {
-                return null;
-            }
+                
+                requestList.add(new Request(requestId));
+               
+            } 
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
             throw new PolygonException("Problem in sendRequest method: " + ex.getMessage());
 
         }
-    }
+   return requestList; }
 
     /**
      * This method deletes a request for deletion or health check of a building

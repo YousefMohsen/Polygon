@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DomainFacade {
 
-    public static Request getRequest(int buildingId) throws PolygonException {
+    public static ArrayList<Request> getRequest(int buildingId) throws PolygonException {
         return DatabaseFacade.getRequest(buildingId);
     }
 

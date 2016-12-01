@@ -10,13 +10,14 @@ import entity.User;
 import entity.ZipCode;
 import exceptions.PolygonException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseFacade {
 
-    public static Request getRequest(int buildingId) throws PolygonException {
+    public static ArrayList<Request> getRequest(int buildingId) throws PolygonException {
         return RequestMapper.getRequest(buildingId);
     }
 

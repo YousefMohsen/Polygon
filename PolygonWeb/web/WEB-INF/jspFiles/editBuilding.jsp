@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="entity.Request"%>
+
 <%@page import="entity.Document"%>
 <%@page import="entity.User"%>
 <%@page import="entity.Building"%>
@@ -11,16 +14,30 @@
     Document d = DomainFacade.getDocument(buildingID);
 %>
 
+
 <%
-    int requestId = 10;
-    try {
-        requestId = DomainFacade.getRequest(buildingID).getId();
-    } catch (Exception ex) {
-        System.out.println(ex+"error");
-    }
-    if (requestId == 1) {
-        out.println("This building is appending approval for deletion");
+     List<Request> requestList = (List) DomainFacade.getRequest(buildingID);
+    
+
+     for( Request r : requestList){
+    int requestId = r.getId();
+   
+    if (requestId == 1) {//if building is appending approval for deletion
+    String str  = "<div class=\"alert alert-danger\">"
+  +"<strong>Info!</strong> This building is appending approval for deletion."
++"</div> ";
+   
+        out.println(str);
+    } else if(requestId == 2){//if building is appending approval for health check
+        String str  = "<div class=\"alert alert-info\">"
+  +"<strong>Info!</strong> This building is appending approval for health check."
++"</div> ";
+   
+        out.println(str);
     } 
+     }
+      
+
     
 %>
 
