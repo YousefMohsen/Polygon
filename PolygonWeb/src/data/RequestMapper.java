@@ -24,9 +24,8 @@ public class RequestMapper {
      */
     public static void sendRequest(int requestType, int buildingID) throws PolygonException {//1=deletion, 2=health check        
         String sql = "insert into Request_has_Building (Request_requestId,Building_buildingId) values(?,?);";
-
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
+       
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, requestType);
             stmt.setInt(2, buildingID); //0 = shown, 1=hidden
             int rowsAffected = stmt.executeUpdate();
@@ -38,6 +37,7 @@ public class RequestMapper {
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
         }
+         System.out.println("request done");
     }
 
     /**

@@ -91,8 +91,7 @@ public class DomainFacade {
     }
 
     public static void healthCheckRequest(int buildingID) throws PolygonException {
-        DatabaseFacade.healthCheckRequest(buildingID);
-        EmailSender.sendEmail(buildingID);
+        DatabaseFacade.healthCheckRequest(buildingID); 
     }
 
     public static List<Building> getDeletionBuildings() throws PolygonException {

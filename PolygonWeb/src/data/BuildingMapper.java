@@ -29,8 +29,8 @@ public class BuildingMapper {
     public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
 
         String sql = "insert into Building "
-                + "(Address_addressId,rapportURL,User_userId,hidden,buildingName) "
-                + "values(?,?,?,?,?);";
+                + "(Address_addressId,rapportURL,User_userId,hidden,buildingName,RapportInfo_rapportInfoId) "
+                + "values(?,?,?,?,?,?);";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, insertAddress(zip, address, con));
@@ -38,6 +38,7 @@ public class BuildingMapper {
             stmt.setInt(3, userID); //fix user ID
             stmt.setInt(4, 0); //0 = shown, 1=hidden
             stmt.setString(5, name);
+            stmt.setInt(6, 1);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -139,21 +140,18 @@ public class BuildingMapper {
                 + "ON Building.Address_addressId=Address.addressId "
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
-                + "WHERE buildingId=?";
-        System.out.println(sql);
+                + "WHERE buildingId=?";        
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
-
                 String rapportURL = res.getString("rapportURL");
                 int userID = res.getInt("User_userId");
                 ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
                 Address address = new Address(res.getString("addressline"), zip);
                 String buildingName = res.getString("buildingName");
                 int buildingAdressId = res.getInt("Address_addressId");
-
                 return new Building(buildingID, buildingAdressId, address, rapportURL, buildingName, userID);
             }
         } catch (SQLException ex) {

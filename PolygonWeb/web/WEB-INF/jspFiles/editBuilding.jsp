@@ -4,10 +4,11 @@
 <%@page import="Domain.DomainFacade"%>    
 
 <%
+    System.out.println("what");
     int buildingID = (Integer) request.getAttribute("buildingID");    
     int userId = (Integer) session.getAttribute("uId");
     Building b = DomainFacade.getBuilding(buildingID);
-    User u = DomainFacade.getUserViaId(userId);
+    User u = DomainFacade.getUser(userId);
     Document d = DomainFacade.getDocument(buildingID);
 %>
 
@@ -20,9 +21,7 @@
     }
     if (requestId == 1) {
         out.println("This building is appending approval for deletion");
-    } else if(requestId == 2){
-        out.println("This building is appending a health check");
-    }
+    } 
     
 %>
 

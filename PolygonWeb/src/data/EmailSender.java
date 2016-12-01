@@ -1,5 +1,6 @@
-package Domain;
+package data;
 
+import Domain.DomainFacade;
 import entity.Building;
 import entity.User;
 import exceptions.PolygonException;
@@ -20,12 +21,14 @@ public class EmailSender {
     public static void sendEmail(int buildingID) throws PolygonException {
         Building building = DomainFacade.getBuilding(buildingID);
         User user = DomainFacade.getUser(buildingID);
+        System.out.println(user);
+        System.out.println("forsøger at maile");
         String fromEmail = "polygonrequests@gmail.com"; //requires valid gmail id
         String password = "Polygon16sundbygning!"; // correct password for gmail id
 
         String emailSubject = "Anmodning om et sunhedstjek";
         String emailMessage = createMessege(user, building);
-
+        
         String toEmail = "polygonrequests@gmail.com"; //receiver
         System.out.println(emailMessage);
 
@@ -40,6 +43,7 @@ public class EmailSender {
             //create Authenticator object to pass in Session.getInstance argument
             Authenticator auth = new Authenticator() {
                 //override the getPasswordAuthentication method
+                @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(fromEmail, password);
                 }
@@ -67,6 +71,7 @@ public class EmailSender {
     }
 
     private static String createMessege(User u, Building b) {
+        System.out.println(u.getFirstname() + u.getLastname());
         String s = u.getFirstname() + " " + u.getLastname() + " ønsker et sunhedstjek af følgende bygning:\n"
                 + "\nAdresse: " + b.getAddress().getAddressline() + " " + b.getAddress().getZipCode().getZip() + " " + b.getAddress().getZipCode().getCity()
                 + "\n \nKontaktinfo: "

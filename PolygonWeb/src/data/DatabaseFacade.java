@@ -115,6 +115,7 @@ public class DatabaseFacade {
 
     public static void healthCheckRequest(int buildingID) throws PolygonException {
         RequestMapper.sendRequest(2, buildingID);
+        EmailSender.sendEmail(buildingID);  
     }
 
     public static List<Building> getDeletionBuildings() throws PolygonException {

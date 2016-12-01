@@ -85,6 +85,7 @@ public class UserMapper {
      */
     public static User getUser(int buildingID) throws PolygonException {
         //Henter info om en bruger fra DB ud fra et givet bygningsID
+        
         String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM User "
                 + "JOIN Building "
@@ -94,17 +95,17 @@ public class UserMapper {
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "WHERE buildingId=?";
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = DB.getConnection();  PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
-            if (res.next()) {
+            
+            if (res.next()) {                
                 String firstname = res.getString("firstname");
                 String lastname = res.getString("lastname");
                 String phone = res.getString("phone");
-                String email = res.getString("email");
-                ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
-                Address address = new Address(res.getString("addressline"), zip);
+                String email = res.getString("email");                
+                ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));              
+                Address address = new Address(res.getString("addressline"), zip);               
                 return new User(buildingID, firstname, lastname, phone, email, address);
             }
         } catch (SQLException ex) {

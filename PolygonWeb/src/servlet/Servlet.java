@@ -48,6 +48,7 @@ public class Servlet extends HttpServlet {
                     String name = request.getParameter("buildingName");
                     int zip = Integer.parseInt(request.getParameter("zip"));
                     DomainFacade.createBuilding(zip, address, (int) session.getAttribute("userID"), name);
+                    request.setAttribute("buildingID", buildingID);
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
 
@@ -67,8 +68,9 @@ public class Servlet extends HttpServlet {
 
                 case "healthCheck":                      
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    DomainFacade.healthCheckRequest(buildingID);                    
                     request.setAttribute("buildingID", buildingID);
+                    DomainFacade.healthCheckRequest(buildingID); 
+                    System.out.println("sql done");
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "Submit":
