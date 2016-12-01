@@ -1,5 +1,6 @@
 package Domain;
 
+import data.BuildingMapper;
 import data.DatabaseFacade;
 import entity.Address;
 import entity.Document;
@@ -30,9 +31,6 @@ public class DomainFacade {
         DatabaseFacade.updateAddress(buildingAddressId, AddressId);
     }
 
-    public static ArrayList<Building> getBuildings() throws PolygonException {
-        return (ArrayList<Building>) DatabaseFacade.getBuildings();
-    }
 
     public static Building getBuilding(int id) throws PolygonException {
         return DatabaseFacade.getBuilding(id);
@@ -108,5 +106,9 @@ public class DomainFacade {
 
     public static void sendMail(int buildingID) throws PolygonException {
 
+    }
+    
+        public static List<Building> getDeletedBuildings() throws PolygonException {
+    return DatabaseFacade.getDeletedBuildings();
     }
 }

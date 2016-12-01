@@ -93,15 +93,42 @@ public class BuildingMapper {
      */
     public static List<Building> getBuildingsForUser(int userID, int userType) throws PolygonException {//Returns a list for a given user
         List<Building> buildings = new ArrayList<>();
-        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building ";
-        if (userType != 1) {
-            sql += "where User_userId=? And hidden=0";
-        } //if user is not an admin, then hide deleted buildings   
+        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building where hidden=0";
+        if (userType != 1) {//if user is not an admin,then get only buildings belonging to the given user
+            sql += " AND User_userId=?";
+        }   
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);) {
             if (userType != 1) {
                 stmt.setInt(1, userID);
             }
+            ResultSet res = stmt.executeQuery();
+            while (res.next()) {
+                Building newBuilding = new Building();
+                int id = res.getInt("buildingId");
+                int addressId = res.getInt("Address_addressId");
+                int userId = res.getInt("User_userId");
+                String name = res.getString("buildingName");
+                newBuilding.setId(id);
+                newBuilding.setAddress(loadAddress(addressId, con));
+                newBuilding.setUser(userId);
+                newBuilding.setBuildingName(name);
+                buildings.add(newBuilding);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getBuildingsForUser method: " + ex.getMessage());
+        }
+        return buildings;
+    }
+    
+    public static List<Building> getDeletedBuildings() throws PolygonException {//Returns a list for a given user
+        List<Building> buildings = new ArrayList<>();
+        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building where hidden=1";
+
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);) {
+
             ResultSet res = stmt.executeQuery();
             while (res.next()) {
                 Building newBuilding = new Building();

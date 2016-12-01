@@ -42,9 +42,7 @@ public class DatabaseFacade {
 
     }
 
-    public static List<Building> getBuildings() throws PolygonException {
-        return BuildingMapper.getBuildings();
-    }
+
 
     public static Building getBuilding(int buildingID) throws PolygonException {
         return BuildingMapper.getBuilding(buildingID);
@@ -129,5 +127,10 @@ public class DatabaseFacade {
 
     public static List<Building> getBuildingsForUser(int userID, int userRank) throws PolygonException {
         return BuildingMapper.getBuildingsForUser(userID, userRank);
+    }
+    
+    
+    public static List<Building> getDeletedBuildings() throws PolygonException {
+    return BuildingMapper.getDeletedBuildings();
     }
 }

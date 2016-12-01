@@ -55,6 +55,9 @@ public class Servlet extends HttpServlet {
                     DomainFacade.deletionRequest(buildingID);
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
+                case "restoreBuilding":
+                 request.getRequestDispatcher("WEB-INF/hiddenBuildings.jsp").forward(request, response);
+                    break;
                 case "acceptRequest":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     DomainFacade.hideBuilding(buildingID);

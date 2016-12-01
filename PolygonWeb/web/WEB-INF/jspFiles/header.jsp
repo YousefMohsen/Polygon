@@ -38,8 +38,11 @@
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar menu nav1">       
                         <li> <a href="FrontController?ID=LinkServlet&page=buildingTable.jsp">Buildings</a></li>
-                        <%if (rank == 1) {%><li><a href="FrontController?ID=LinkServlet&page=users.jsp">Users</a></li> <%}%>
-                        <%if (rank == 1) {%><li><a href="FrontController?ID=LinkServlet&page=Request.jsp">Deletion requests</a></li><%}%>
+                        <%if (rank == 1) {%><li><a href="FrontController?ID=LinkServlet&page=users.jsp">Users</a></li> 
+                      <li><a href="FrontController?ID=LinkServlet&page=Request.jsp">Deletion requests</a></li>
+                        <li><a href="FrontController?ID=LinkServlet&page=hiddenBuildings.jsp">Deleted buildings</a></li>
+                      
+                      <%}%>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
