@@ -21,6 +21,7 @@
         </thead>
         <tbody>
             <%                for (Building b : buildings) {
+                
                     out.println("<tr class = \"menu_links\" onclick=\"document.location = 'FrontController?ID=Servlet&switch=editBuilding&buildingID=" + b.getId() + "';\">");
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");

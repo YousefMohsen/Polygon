@@ -40,7 +40,7 @@ public class Servlet extends HttpServlet {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 case "editBuilding":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    request.setAttribute("ID", buildingID);
+                    request.setAttribute("buildingID", buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "createBuilding":
@@ -65,9 +65,10 @@ public class Servlet extends HttpServlet {
                     request.getRequestDispatcher("WEB-INF/Request.jsp").forward(request, response);
                     break;
 
-                case "healthCheck":
+                case "healthCheck":                      
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    DomainFacade.healthCheckRequest(buildingID);
+                    DomainFacade.healthCheckRequest(buildingID);                    
+                    request.setAttribute("buildingID", buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "Submit":

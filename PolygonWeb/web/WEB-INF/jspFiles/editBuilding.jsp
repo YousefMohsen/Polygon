@@ -4,7 +4,7 @@
 <%@page import="Domain.DomainFacade"%>    
 
 <%
-    int buildingID = (Integer) request.getAttribute("ID");
+    int buildingID = (Integer) request.getAttribute("buildingID");    
     int userId = (Integer) session.getAttribute("uId");
     Building b = DomainFacade.getBuilding(buildingID);
     User u = DomainFacade.getUserViaId(userId);
