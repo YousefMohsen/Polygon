@@ -46,7 +46,6 @@
             <div class="col-md-6">
                 <h4>Info om bygning:</h4>
                 <table class="table">
-
                     <tr><td>Building name</td><td><input  type="hidden" name="buildingName" value="<%=b.getBuildingName()%>"><%=b.getBuildingName()%></td></tr>
                     <tr><td>Address</td><td><input  type="hidden" name="buildingStreet" value="<%=b.getAddress().getAddressline()%>"><%=b.getAddress().getAddressline()%></td></tr>
                     <tr><td>Zip code</td><td><input  type="hidden" name="buildingZip" value="<%=b.getAddress().getZipCode().getZip()%>"><%=b.getAddress().getZipCode().getZip()%></td></tr>

@@ -22,7 +22,7 @@ public class DocumentMapper {
      */
     public static Document getDocument(int buildingID) throws PolygonException {
         //Henter info om et dokument fra DB ud fra et givet bygningsID
-        String sql = "SELECT fileURL, note "
+        String sql = "SELECT file, note "
                 + "FROM Document "
                 + "JOIN Building "
                 + "ON buildingId = Building_buildingId "
@@ -33,7 +33,7 @@ public class DocumentMapper {
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 System.out.println("document true");
-                String fileURL = res.getString("fileURL");
+                String fileURL = res.getString("file");
                 String note = res.getString("note");
                 return new Document(buildingID, fileURL, note);
             } else {     //if building has no file or note
@@ -60,7 +60,7 @@ public class DocumentMapper {
         String sql = "UPDATE Document "
                 + "JOIN Building "
                 + "ON buildingId = Building_buildingId "
-                + "SET fileURL=?, "
+                + "SET file=?, "
                 + "note=? "
                 + "WHERE buildingId=?";
         try (Connection con = DB.getConnection();
