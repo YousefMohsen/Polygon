@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package exceptions;
 
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Asger
+ * This class handles exceptions.
  */
 public class PolygonException extends Exception {
 

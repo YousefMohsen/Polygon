@@ -21,7 +21,6 @@ public class RequestMapper {
      * 2 is a health check request
      * @param buildingID int the ID of the building with the request
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static void sendRequest(int requestType, int buildingID) throws PolygonException {//1=deletion, 2=health check        
         String sql = "insert into Request_has_Building (Request_requestId,Building_buildingId) values(?,?);";
@@ -42,9 +41,12 @@ public class RequestMapper {
     }
 
     /**
+     * This method returns a request from the database belonging to a specific
+     * building
      *
-     * @param buildingId
-     * @return
+     * @param buildingId int the ID of the building
+     * @return Request object of entity class Request or null
+     * @throws exceptions.PolygonException
      */
     public static Request getRequest(int buildingId) throws PolygonException {
         System.out.println(buildingId);
@@ -75,7 +77,6 @@ public class RequestMapper {
      * 2 is a health check request
      * @param buildingID int the ID of the building with the request
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static void cancelRequest(int requestType, int buildingID) throws PolygonException {//deletes a given request from table Request_has_Building 
 //1=deletion, 2=health check

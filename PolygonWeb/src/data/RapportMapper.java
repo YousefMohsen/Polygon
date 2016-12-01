@@ -1,6 +1,5 @@
 package data;
 
-import com.sun.xml.internal.ws.policy.PolicyException;
 import entity.Rapport;
 import exceptions.PolygonException;
 import java.sql.Connection;
@@ -20,7 +19,6 @@ public class RapportMapper {
      * @param buildingID int the ID of the building
      * @return Report object of entity class Report
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static Rapport getRapport(int buildingID) throws PolygonException {
         String sql1 = "SELECT Building.buildingName, Address.addressline, Zipcode.zip, Zipcode.city, Damage.*, BuildingInfo.*, Humidity.*, RapportInfo.*"
@@ -184,7 +182,6 @@ public class RapportMapper {
      * @param buildingID int the ID of the building which the report belongs to
      * @param rapport Report object of entity class Report
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
 
@@ -363,7 +360,6 @@ public class RapportMapper {
      *
      * @param buildingID int the ID of the building which the report belongs to
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static void clearRapportData(int buildingID) throws PolygonException {
         String sqlDelete = "DELETE FROM BuildingExamination WHERE Building_buildingId = ?;"

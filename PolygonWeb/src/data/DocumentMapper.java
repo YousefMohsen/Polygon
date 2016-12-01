@@ -19,7 +19,6 @@ public class DocumentMapper {
      * @param buildingID int the ID of the building
      * @return Document object of entity class Document
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static Document getDocument(int buildingID) throws PolygonException {
         //Henter info om et dokument fra DB ud fra et givet bygningsID
@@ -55,7 +54,6 @@ public class DocumentMapper {
      * @param buildingID int the Id of the building whose document is going to
      * be updated
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static void updateDocument(Document d, int buildingID) throws PolygonException {
         //Opdaterer info om et dokument i DB ud fra et givet bygningsID

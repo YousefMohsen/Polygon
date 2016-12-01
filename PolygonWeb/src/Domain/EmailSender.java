@@ -12,6 +12,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * This class deals with everything concerning sending an email to Polygon.
+ */
 public class EmailSender {
 
     public static void sendEmail(int buildingID) throws PolygonException {

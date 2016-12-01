@@ -1,8 +1,8 @@
 package entity;
 
 /**
- *
- * @author joaci
+ * This class contains all intformation about a request. Request is instiated in
+ * the database layer and returned to presentation or vice versa.
  */
 public class Request {
 

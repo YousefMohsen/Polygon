@@ -20,7 +20,7 @@ public class UserMapper {
      *
      * @param id int the ID of the user
      * @return User object of entity class User or null
-     * @throws EXCEPTION
+     * @throws exceptions.PolygonException
      */
     public static User getUserViaID(int id) throws PolygonException {
         String SQL = "SELECT * From Polygon.User WHERE User.userId = ?;";
@@ -51,7 +51,6 @@ public class UserMapper {
      * @param username String the username of the user
      * @return Login object of entity class Login or new user if doesn't exist
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static Login getLogin(String username) throws PolygonException {
         //Henter login info
@@ -83,7 +82,6 @@ public class UserMapper {
      * @param buildingID int the ID of the building
      * @return User object of entity class User or null
      * @throws exceptions.PolygonException
-     * @throws EXCEPTION
      */
     public static User getUser(int buildingID) throws PolygonException {
         //Henter info om en bruger fra DB ud fra et givet bygningsID
@@ -122,7 +120,7 @@ public class UserMapper {
      * @param u User the user that is going to be updated
      * @param buildingID int the ID of the building whose owner is going to be
      * updated
-     * @throws EXCEPTION
+     * @throws exceptions.PolygonException
      */
     public static void updateUser(User u, int buildingID) throws PolygonException {
         //Opdaterer info om en bruger i DB ud fra et givet bygningsID
@@ -168,7 +166,7 @@ public class UserMapper {
      *
      * @param zip int the zip code that matches the city
      * @return city String a String with the name of the city or null
-     * @throws EXCEPTION
+     * @throws exceptions.PolygonException
      */
     public static String findCity(int zip) throws PolygonException {
         //Finder og retunerer en by fra DB ud fra et givet post nr. (zip)

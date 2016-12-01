@@ -40,7 +40,7 @@ public final class DB {
     }
 
     /**
-     * This method closes the connection
+     * This method closes the connection.
      */
     public void close() {
         try {
