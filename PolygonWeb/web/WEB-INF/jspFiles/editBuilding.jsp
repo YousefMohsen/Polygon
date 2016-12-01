@@ -20,7 +20,10 @@
     }
     if (requestId == 1) {
         out.println("This building is appending approval for deletion");
+    } else if(requestId == 2){
+        out.println("This building is appending a health check");
     }
+    
 %>
 
 <form action="FrontController?ID=Servlet&switch=Submit" method="POST">
