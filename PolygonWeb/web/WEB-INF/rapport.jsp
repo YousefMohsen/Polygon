@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@page import="entity.Building"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Domain.DomainFacade"%>
@@ -22,7 +23,7 @@
             List<Rapport> r = null;
             int id = 0;
             List<Building> buildings = null;
-            if (request.getParameter("buildingID") != null) {
+            if (request.getParameter("buildingID") != null && Integer.parseInt(request.getParameter("buildingID")) != 0) {
                 try {
                     id = Integer.parseInt(request.getParameter("buildingID"));
                     if (request.getParameter("newRapport") != null) {
@@ -35,14 +36,18 @@
                     }
                 } catch (NumberFormatException e) {
                     System.out.println(e.getMessage());
-                    response.sendRedirect("buildingTable.jsp");
+                    response.sendRedirect("FrontController?ID=LinkServlet&page=buildingTable.jsp");
+                    return;
                 }
+            } else {
+                response.sendRedirect("FrontController?ID=LinkServlet&page=buildingTable.jsp");
+                return;
             }
             if (request.getAttribute("rapportData") != null) {
                 r = new ArrayList<>();
                 r = (List<Rapport>) request.getAttribute("rapportData");
             } else {
-                System.out.println("no data");
+                System.out.println("no data: rapportData == null");
             }
         %>
         <div id="container">
@@ -516,8 +521,11 @@
 <%
     if (request.getAttribute("rapportData") != null) {
         CreateRapport cr = new CreateRapport();
-        cr.createPDF(id, r.get(0).getBuildingName());
-        response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID=" + id);
-        return;
+        cr.createPDF(id, r.get(0).getBuildingName().replaceAll("\\s+", ""));
+        try {
+            response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID=" + id);
+        } catch(Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
     }
 %>

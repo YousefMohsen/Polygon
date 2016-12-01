@@ -6,8 +6,6 @@ import exceptions.PolygonException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +50,11 @@ public class rapportServlet extends HttpServlet {
                 return;
             }
             if (request.getParameter("goBack") != null) {
-                response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID=" + buildingID);
+                if(buildingID == 0) {
+                    response.sendRedirect("FrontController?ID=LinkServlet&page=buildingTable.jsp");
+                } else {
+                   response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID=" + buildingID);
+                }
                 return;
             }
             

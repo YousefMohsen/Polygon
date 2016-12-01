@@ -28,9 +28,8 @@ public class RapportMapper {
                 + "JOIN Damage ON Damage.Building_buildingId=buildingId "
                 + "JOIN BuildingInfo ON BuildingInfo.Building_buildingId=buildingId "
                 + "JOIN Humidity ON Humidity.Building_buildingId=buildingId "
-                + "JOIN Document ON Document.Building_buildingId=buildingId "
-                + "JOIN RapportInfo ON RapportInfo.Document_documentId=documentId "
-                + "WHERE buildingId=? AND documentId=(SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1)";
+                + "JOIN RapportInfo ON RapportInfo.Building_buildingId=buildingId "
+                + "WHERE buildingId=?";
 
         String sql2 = "SELECT * FROM BuildingExamination WHERE Building_buildingId = ?";
         String sql3 = "SELECT * FROM Conclusion WHERE Building_buildingId = ?";
@@ -51,7 +50,7 @@ public class RapportMapper {
                 rapport.setWhere(res.getString("where"));
                 rapport.setWhatHappend(res.getString("whatHappend"));
                 rapport.setWhatRepaired(res.getString("whatRepaired"));
-                rapport.setDamageType(res.getInt("DamageNr"));
+                rapport.setDamageType(res.getInt("damageNr"));
                 rapport.setOtherDamageType(res.getString("other"));
                 rapport.setCategorize(res.getInt("categorized"));
                 rapport.setBuildYear(res.getString("buildYear"));
@@ -185,7 +184,7 @@ public class RapportMapper {
      */
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
 
-        String sql = "INSERT INTO Damage (room,comments,roomDamaged,Damage.when,Damage.where,whatHappend,whatRepaired,DamageNr,other,Building_buildingId,categorized) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
+        String sql = "INSERT INTO Damage (room,comments,roomDamaged,Damage.when,Damage.where,whatHappend,whatRepaired,damageNr,other,Building_buildingId,categorized) VALUES (?,?,?,?,?,?,?,?,?,?,?);"
                 + "INSERT INTO BuildingInfo (buildYear,area,BuildingInfo.use,Building_buildingId) VALUES (?,?,?,?);"
                 + "INSERT INTO Humidity (scanning,humidityScan,point,description,Building_buildingId) VALUES (?,?,?,?,?);"
                 + "INSERT INTO BuildingExamination (reviewing,description,comments,picture,Building_buildingId) VALUES (?,?,?,?,?);"
@@ -204,8 +203,7 @@ public class RapportMapper {
                 + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                 + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
                 + "INSERT INTO Conclusion (room,recommendations,Building_buildingId) VALUES (?,?,?);"
-                + "INSERT INTO Document (fileURL,note,Building_buildingId) VALUES (?,?,?);"
-                + "INSERT INTO RapportInfo (date,author,cooperation,document_documentId, rapportNr) VALUES (NOW(),?,?, (SELECT documentId FROM Document ORDER BY documentId DESC LIMIT 1), ?);"
+                + "INSERT INTO RapportInfo (date,author,cooperation,rapportNr,Building_buildingId) VALUES (NOW(),?,?,?,?);"
                 + "UPDATE Building SET rapportURL=? WHERE buildingId=?;";
 
         try (Connection con = DB.getConnection();
@@ -314,16 +312,13 @@ public class RapportMapper {
             stmt.setString(83, rapport.getConclusionConclusion8());
             stmt.setInt(84, buildingID);
 
-            stmt.setString(85, "buildingRapport_" + rapport.getBuildingName() + buildingID + ".pdf");
-            stmt.setString(86, "rapport as pdf");
-            stmt.setInt(87, buildingID);
+            stmt.setString(85, rapport.getWriter());
+            stmt.setString(86, rapport.getCollaborator());
+            stmt.setString(87, rapport.getRapportNr());
+            stmt.setInt(88, buildingID);
 
-            stmt.setString(88, rapport.getWriter());
-            stmt.setString(89, rapport.getCollaborator());
-            stmt.setString(90, rapport.getRapportNr());
-
-            stmt.setString(91, "buildingRapport_" + rapport.getBuildingName() + buildingID + ".pdf");
-            stmt.setInt(92, buildingID);
+            stmt.setString(89, "buildingRapport_" + rapport.getBuildingName() + buildingID + ".pdf");
+            stmt.setInt(90, buildingID);
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -363,11 +358,11 @@ public class RapportMapper {
      */
     public static void clearRapportData(int buildingID) throws PolygonException {
         String sqlDelete = "DELETE FROM BuildingExamination WHERE Building_buildingId = ?;"
-                + "DELETE FROM Conclusion WHERE Building_buildingId = ?;"
-                + "DELETE FROM Damage WHERE Building_buildingId = ?;"
-                + "DELETE FROM BuildingInfo WHERE Building_buildingId = ?;"
-                + "DELETE FROM Humidity WHERE Building_buildingId = ?;"
-                + "DELETE FROM Document WHERE Building_buildingId = ?";
+                    + "DELETE FROM Conclusion WHERE Building_buildingId = ?;"
+                    + "DELETE FROM Damage WHERE Building_buildingId = ?;"
+                    + "DELETE FROM BuildingInfo WHERE Building_buildingId = ?;"
+                    + "DELETE FROM Humidity WHERE Building_buildingId = ?;"
+                    + "DELETE FROM RapportInfo WHERE Building_buildingId = ?";
 
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sqlDelete)) {
