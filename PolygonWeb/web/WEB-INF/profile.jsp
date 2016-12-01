@@ -2,12 +2,10 @@
 <%@page import="Domain.DomainFacade"%>
 <%@page import="entity.User"%>
 <%@ include file="jspFiles/header.jsp" %>
-<%        
-    User u = DomainFacade.getUserViaId((int)session.getAttribute("uId"));      
-    Login l = DomainFacade.getLogin((String)session.getAttribute("name"));   
-   
-        System.out.println(DomainFacade.getAddress(u.getAddressId()).getZipCode().getZip());
-    ;%>
+<%
+    User u = DomainFacade.getUserViaId((int) session.getAttribute("uId"));
+    Login l = DomainFacade.getLogin((String) session.getAttribute("name"));
+;%>
 <br>
 Firstname: <%out.println(u.getFirstname());%>
 <br>
