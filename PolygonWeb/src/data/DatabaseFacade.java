@@ -16,6 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseFacade {
+    
+    public static ArrayList<User> getUsers() throws PolygonException{
+        return UserMapper.getUsers();
+    }
 
     public static ArrayList<Request> getRequest(int buildingId) throws PolygonException {
         return RequestMapper.getRequest(buildingId);
@@ -90,6 +94,10 @@ public class DatabaseFacade {
         return BuildingMapper.loadZip(id, con);
     }
 
+    public static Login getLogin(int userId) throws PolygonException {
+        return UserMapper.getLogin(userId);
+    }
+    
     public static Login getLogin(String username) throws PolygonException {
         return UserMapper.getLogin(username);
     }

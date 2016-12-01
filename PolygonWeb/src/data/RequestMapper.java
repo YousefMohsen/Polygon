@@ -51,22 +51,16 @@ public class RequestMapper {
        ArrayList<Request> requestList = new ArrayList();
         
         String sql = "SELECT Request_requestId FROM Request_has_Building WHERE Building_buildingID = ?;";
-        try (Connection con = DB.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingId);
             ResultSet res = stmt.executeQuery();
-            while (res.next()) {
-                
-
-                int requestId = res.getInt("Request_requestId");
-                
-                requestList.add(new Request(requestId));
-               
+            while (res.next()) {     
+                int requestId = res.getInt("Request_requestId");                
+                requestList.add(new Request(requestId));               
             } 
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
             throw new PolygonException("Problem in sendRequest method: " + ex.getMessage());
-
         }
    return requestList; }
 

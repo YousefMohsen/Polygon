@@ -9,11 +9,35 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class deals with all data about a user.
  */
 public class UserMapper {
+
+    public static ArrayList<User> getUsers() throws PolygonException {
+        String SQL = "SELECT * From Polygon.User;";
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
+            ArrayList<User> userList = new ArrayList<>();
+            ResultSet res = stmt.executeQuery();
+            while (res.next()) {                
+                String firstname = res.getString("firstname");
+                String lastname = res.getString("lastname");
+                String phone = res.getString("phone");
+                String email = res.getString("email");
+                int addressId = res.getInt("userAddress_addressId");
+                int uId = res.getInt("userId");
+                Login login = getLogin(uId);
+                userList.add(new User(uId, firstname, lastname, phone, email, addressId, login));           
+            }           
+            return userList;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } return null;
+    }
 
     /**
      * This method returns a user with a specific ID from the database
@@ -34,7 +58,8 @@ public class UserMapper {
                 String email = res.getString("email");
                 int addressId = res.getInt("userAddress_addressId");
                 int uId = res.getInt("userId");
-                return new User(uId, firstname, lastname, phone, email, addressId);
+                Login login = getLogin(uId);
+                return new User(uId, firstname, lastname, phone, email, addressId, login);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
@@ -74,6 +99,37 @@ public class UserMapper {
         // User doesnt exist
         return new Login("no", "no", 0, 0);
     }
+    
+    /**
+     * This method returns information about login from the database
+     *
+     * @param userId int the userId of the user
+     * @return Login object of entity class Login or new user if doesn't exist
+     * @throws exceptions.PolygonException
+     */
+    public static Login getLogin(int userId) throws PolygonException {
+        //Henter login info
+        String sql = "SELECT * FROM Polygon.Login WHERE User_userId = ?;";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                String userName = res.getString("username");
+                String password = res.getString("password");
+                int rank = res.getInt("rank");
+                int id = res.getInt("loginId");
+                int uId = res.getInt("User_userId");
+                return new Login(uId, userName, password, rank, id);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getLogin method: " + ex.getMessage());
+        }
+        // User doesnt exist
+        return new Login("no", "no", 0, 0);
+    }
+    
 
     /**
      * This method returns a User from the database belonging to a specific
@@ -85,7 +141,7 @@ public class UserMapper {
      */
     public static User getUser(int buildingID) throws PolygonException {
         //Henter info om en bruger fra DB ud fra et givet bygningsID
-        
+
         String sql = "SELECT User.firstname, User.lastname, User.phone, User.email, Address.addressline, Zipcode.zip, Zipcode.city "
                 + "FROM User "
                 + "JOIN Building "
@@ -95,17 +151,17 @@ public class UserMapper {
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
                 + "WHERE buildingId=?";
-        try (Connection con = DB.getConnection();  PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
-            
-            if (res.next()) {                
+
+            if (res.next()) {
                 String firstname = res.getString("firstname");
                 String lastname = res.getString("lastname");
                 String phone = res.getString("phone");
-                String email = res.getString("email");                
-                ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));              
-                Address address = new Address(res.getString("addressline"), zip);               
+                String email = res.getString("email");
+                ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
+                Address address = new Address(res.getString("addressline"), zip);
                 return new User(buildingID, firstname, lastname, phone, email, address);
             }
         } catch (SQLException ex) {

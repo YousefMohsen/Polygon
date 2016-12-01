@@ -4,7 +4,7 @@
 <%@ include file="jspFiles/header.jsp" %>
 <%
     User u = DomainFacade.getUserViaId((int) session.getAttribute("uId"));
-    Login l = DomainFacade.getLogin((String) session.getAttribute("name"));
+    Login l = DomainFacade.getLogin((int) session.getAttribute("uId"));
 ;%>
 <br>
 Firstname: <%out.println(u.getFirstname());%>

@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DomainFacade {
+    
+    public static ArrayList<User> getUsers() throws PolygonException{
+        return DatabaseFacade.getUsers();
+    }
 
     public static ArrayList<Request> getRequest(int buildingId) throws PolygonException {
         return DatabaseFacade.getRequest(buildingId);
@@ -66,10 +70,14 @@ public class DomainFacade {
         DatabaseFacade.createBuilding(zip, address, userID, name);
     }
 
+    public static Login getLogin(int userId) throws PolygonException {
+        return DatabaseFacade.getLogin(userId);
+    }
+
     public static Login getLogin(String username) throws PolygonException {
         return DatabaseFacade.getLogin(username);
     }
-
+    
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
         DatabaseFacade.createRapport(buildingID, rapport);
     }

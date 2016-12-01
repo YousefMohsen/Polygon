@@ -1,3 +1,3 @@
 <%@include file="jspFiles/header.jsp" %>
-not much here yet
+<%@include file="jspFiles/userTable.jsp" %>
 <%@ include file="jspFiles/footer.jsp" %>

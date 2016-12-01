@@ -13,6 +13,7 @@ public class User {
     private String email;
     private Address address;
     private int addressId;
+    private Login login;
 
     public User() {
     }
@@ -35,13 +36,15 @@ public class User {
         this.address = address;
     }
 
-    public User(int id, String firstname, String lastname, String phone, String email, int addressId) {
+    public User(int id, String firstname, String lastname, String phone, String email, int addressId, Login login) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
         this.email = email;
         this.addressId = addressId;
+        this.login = login;
+        
 
     }
 
