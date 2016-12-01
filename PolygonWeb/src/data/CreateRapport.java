@@ -3,7 +3,6 @@ package data;
 import com.evopdf.HtmlToPdfConverter;
 import com.evopdf.PdfPageOrientation;
 import com.evopdf.PdfPageSize;
-import exceptions.PolygonException;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,7 +12,7 @@ public class CreateRapport {
 
     private byte[] convertHtmlToPdf(int buildingID) throws Exception {
         String serverIP = "127.0.0.1";
-        int port = 40001;
+        int port = 80;//40001;
 
         // create the HTML to PDF converter
         HtmlToPdfConverter htmlToPdfConverter = new HtmlToPdfConverter(serverIP, port);
