@@ -7,36 +7,34 @@
 <%@page import="Domain.DomainFacade"%>    
 
 <%    
-    int buildingID = (Integer) request.getAttribute("buildingID");    
-    int userId = (Integer) session.getAttribute("uId");
+    int buildingID = (Integer) request.getAttribute("buildingID");        
     Building b = DomainFacade.getBuilding(buildingID);
-    User u = DomainFacade.getUser(userId);
+    User u = DomainFacade.getUser(buildingID);
     Document d = DomainFacade.getDocument(buildingID);
 %>
 
 
 <%
      List<Request> requestList = (List) DomainFacade.getRequest(buildingID);
-    
 
-     for( Request r : requestList){
-    int requestId = r.getId();
-   
-    if (requestId == 1) {//if building is appending approval for deletion
-    String str  = "<div class=\"alert alert-danger\">"
-  +"<strong>Info!</strong> This building is appending approval for deletion."
-+"</div> ";
-   
-        out.println(str);
-    } else if(requestId == 2){//if building is appending approval for health check
-        String str  = "<div class=\"alert alert-info\">"
-  +"<strong>Info!</strong> This building is appending approval for health check."
-+"</div> ";
-   
-        out.println(str);
-    } 
-     }
-      
+         for (Request r : requestList) {
+             int requestId = r.getId();
+
+             if (requestId == 1) {//if building is appending approval for deletion
+                 String str = "<div class=\"alert alert-danger\">"
+                         + "<strong>Info!</strong> This building is appending approval for deletion."
+                         + "</div> ";
+
+                 out.println(str);
+             } else if (requestId == 2) {//if building is appending approval for health check
+                 String str = "<div class=\"alert alert-info\">"
+                         + "<strong>Info!</strong> This building is appending approval for health check."
+                         + "</div> ";
+
+                 out.println(str);
+             }
+         }
+
 
     
 %>

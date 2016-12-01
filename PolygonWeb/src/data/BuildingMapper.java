@@ -33,8 +33,9 @@ public class BuildingMapper {
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, insertAddress(zip, address, con));
-            stmt.setString(2, "Ingen rapport tilføjede");// fix rapport url!
-            stmt.setInt(3, userID); //fix user ID
+            stmt.setString(2, "Ingen rapport tilføjet");// fix rapport url!
+            System.out.println(userID);
+            stmt.setInt(3, userID); //fix user ID 
             stmt.setInt(4, 0); //0 = shown, 1=hidden
             stmt.setString(5, name);            
             int rowsAffected = stmt.executeUpdate();
