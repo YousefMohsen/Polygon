@@ -3,7 +3,6 @@ package data;
 import com.evopdf.HtmlToPdfConverter;
 import com.evopdf.PdfPageOrientation;
 import com.evopdf.PdfPageSize;
-import exceptions.PolygonException;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;

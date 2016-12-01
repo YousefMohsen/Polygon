@@ -33,14 +33,13 @@ public class Servlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String origin = request.getParameter("switch");
-
             switch (origin) {
                 case "logout":
                     request.getSession().invalidate();
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 case "editBuilding":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    request.setAttribute("ID", buildingID);
+                    request.setAttribute("buildingID", buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "createBuilding":
@@ -48,26 +47,24 @@ public class Servlet extends HttpServlet {
                     String name = request.getParameter("buildingName");
                     int zip = Integer.parseInt(request.getParameter("zip"));
                     DomainFacade.createBuilding(zip, address, (int) session.getAttribute("userID"), name);
+                    request.setAttribute("buildingID", buildingID);
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
-
                 case "deletionRequest":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     DomainFacade.deletionRequest(buildingID);
-
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
-
                 case "acceptRequest":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     DomainFacade.hideBuilding(buildingID);
                     DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
                     request.getRequestDispatcher("WEB-INF/Request.jsp").forward(request, response);
                     break;
-
-                case "healthCheck":
+                case "healthCheck":                      
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    DomainFacade.healthCheckRequest(buildingID);
+                    request.setAttribute("buildingID", buildingID);
+                    DomainFacade.healthCheckRequest(buildingID);                     
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "Submit":

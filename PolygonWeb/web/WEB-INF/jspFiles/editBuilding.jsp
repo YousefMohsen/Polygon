@@ -1,26 +1,41 @@
+<%@page import="java.util.List"%>
+<%@page import="entity.Request"%>
+
 <%@page import="entity.Document"%>
 <%@page import="entity.User"%>
 <%@page import="entity.Building"%>
 <%@page import="Domain.DomainFacade"%>    
 
 <%
-    int buildingID = (Integer) request.getAttribute("ID");
-    int userId = (Integer) session.getAttribute("uId");
+    int buildingID = (Integer) request.getAttribute("buildingID");
     Building b = DomainFacade.getBuilding(buildingID);
-    User u = DomainFacade.getUserViaId(userId);
+    User u = DomainFacade.getUser(buildingID);
     Document d = DomainFacade.getDocument(buildingID);
 %>
 
+
 <%
-    int requestId = 10;
-    try {
-        requestId = DomainFacade.getRequest(buildingID).getId();
-    } catch (Exception ex) {
-        System.out.println(ex);
+    List<Request> requestList = (List) DomainFacade.getRequest(buildingID);
+
+    for (Request r : requestList) {
+        int requestId = r.getId();
+
+        if (requestId == 1) {//if building is appending approval for deletion
+            String str = "<div class=\"alert alert-danger\">"
+                    + "<strong>Info!</strong> This building is appending approval for deletion."
+                    + "</div> ";
+
+            out.println(str);
+        } else if (requestId == 2) {//if building is appending approval for health check
+            String str = "<div class=\"alert alert-info\">"
+                    + "<strong>Info!</strong> This building is appending approval for health check."
+                    + "</div> ";
+
+            out.println(str);
+        }
     }
-    if (requestId == 1) {
-        out.println("This building is appending approval for deletion");
-    }
+
+
 %>
 
 <form action="FrontController?ID=Servlet&switch=Submit" method="POST">
@@ -43,14 +58,13 @@
             <div class="col-md-6">
                 <h4>Info om bygning:</h4>
                 <table class="table">
-
                     <tr><td>Building name</td><td><input  type="hidden" name="buildingName" value="<%=b.getBuildingName()%>"><%=b.getBuildingName()%></td></tr>
                     <tr><td>Address</td><td><input  type="hidden" name="buildingStreet" value="<%=b.getAddress().getAddressline()%>"><%=b.getAddress().getAddressline()%></td></tr>
                     <tr><td>Zip code</td><td><input  type="hidden" name="buildingZip" value="<%=b.getAddress().getZipCode().getZip()%>"><%=b.getAddress().getZipCode().getZip()%></td></tr>
                     <tr><td>City</td><td><input  type="hidden" name="buildingCity" value="<%=b.getAddress().getZipCode().getCity()%>"><%=b.getAddress().getZipCode().getCity()%></td></tr>
                             <%String rapportPath = "files/pdf/" + b.getReport();%>
-                    <tr><td>Rapport URL</td><td><input  type="hidden" name="reportURL" value="<%=b.getReport()%>"><a href="<%= rapportPath%>"><%=b.getReport()%></a></td></tr>
-                    <tr><td>Files</td><td><a href="" name="fileURL" ><input  type="hidden" value="<%=d.getFileURL()%>" name="fileURL" >fuck</a></td></tr>
+                    <tr><td>Rapport URL</td><td><input  type="hidden" name="reportURL" value="<%=b.getReport()%>"><a href="<%= rapportPath%>" target="_blank"><%=b.getReport()%></a></td></tr>
+                    <tr><td>Files</td><td><a href="" name="fileURL" ><input  type="hidden" value="<%=d.getFileURL()%>" name="fileURL" ><%=d.getFileURL()%></a></td></tr>
                     <tr><td>Note (About file)</td><td><input  type="text" name="note" value="<%=d.getNote()%>"></td></tr>
 
                 </table>

@@ -27,17 +27,17 @@ public class BuildingMapper {
      * @throws exceptions.PolygonException
      */
     public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
-
         String sql = "insert into Building "
                 + "(Address_addressId,rapportURL,User_userId,hidden,buildingName) "
                 + "values(?,?,?,?,?);";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, insertAddress(zip, address, con));
-            stmt.setString(2, "testURL");// fix rapport url!
-            stmt.setInt(3, userID); //fix user ID
+            stmt.setString(2, "Ingen rapport tilføjet");// fix rapport url!
+            System.out.println(userID);
+            stmt.setInt(3, userID); //fix user ID 
             stmt.setInt(4, 0); //0 = shown, 1=hidden
-            stmt.setString(5, name);
+            stmt.setString(5, name);            
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -139,21 +139,18 @@ public class BuildingMapper {
                 + "ON Building.Address_addressId=Address.addressId "
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
-                + "WHERE buildingId=?";
-        System.out.println(sql);
+                + "WHERE buildingId=?";        
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
-
                 String rapportURL = res.getString("rapportURL");
                 int userID = res.getInt("User_userId");
                 ZipCode zip = new ZipCode(res.getInt("zip"), res.getString("city"));
                 Address address = new Address(res.getString("addressline"), zip);
                 String buildingName = res.getString("buildingName");
                 int buildingAdressId = res.getInt("Address_addressId");
-
                 return new Building(buildingID, buildingAdressId, address, rapportURL, buildingName, userID);
             }
         } catch (SQLException ex) {

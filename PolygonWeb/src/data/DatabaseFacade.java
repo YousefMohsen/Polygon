@@ -10,13 +10,18 @@ import entity.User;
 import entity.ZipCode;
 import exceptions.PolygonException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseFacade {
+    
+    public static ArrayList<User> getUsers() throws PolygonException{
+        return UserMapper.getUsers();
+    }
 
-    public static Request getRequest(int buildingId) throws PolygonException {
+    public static ArrayList<Request> getRequest(int buildingId) throws PolygonException {
         return RequestMapper.getRequest(buildingId);
     }
 
@@ -89,6 +94,10 @@ public class DatabaseFacade {
         return BuildingMapper.loadZip(id, con);
     }
 
+    public static Login getLogin(int userId) throws PolygonException {
+        return UserMapper.getLogin(userId);
+    }
+    
     public static Login getLogin(String username) throws PolygonException {
         return UserMapper.getLogin(username);
     }
@@ -115,6 +124,7 @@ public class DatabaseFacade {
 
     public static void healthCheckRequest(int buildingID) throws PolygonException {
         RequestMapper.sendRequest(2, buildingID);
+        EmailSender.sendEmail(buildingID);
     }
 
     public static List<Building> getDeletionBuildings() throws PolygonException {
