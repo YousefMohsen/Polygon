@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <img src="UploadServlet?buildingID=2" style="width:128px;height:128px;">
+        <img src="ShowImageServlet?buildingID=2" style="width:128px;height:128px;">
         <div class="col-md-6">
                 <h4>Info om bygning:</h4>
                 <table class="table">
