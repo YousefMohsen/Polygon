@@ -63,8 +63,6 @@
                     <tr><td>City</td><td><input  type="hidden" name="buildingCity" value="<%=b.getAddress().getZipCode().getCity()%>"><%=b.getAddress().getZipCode().getCity()%></td></tr>
                             <%String rapportPath = "files/pdf/" + b.getReport();%>
                     <tr><td>Rapport URL</td><td><input  type="hidden" name="reportURL" value="<%=b.getReport()%>"><a href="<%= rapportPath%>" target="_blank"><%=b.getReport()%></a></td></tr>
-                    <!--<tr><td>Filer</td><td><a href="" name="fileURL" ><input  type="hidden" value="<//%=d.getFile());%>" name="fileURL" ><//%=d.getFile()%></a></td></tr>-->
-                    <!--<tr><td>Note (About file)</td><td><input  type="text" name="note" value="<//%= d.getNote()%>"></td></tr>-->
                 </table>
                 <input  type="hidden" name="buildingAddressId" value="<%=b.getAddressId()%>">
             </div>

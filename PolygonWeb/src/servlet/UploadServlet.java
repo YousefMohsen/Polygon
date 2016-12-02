@@ -3,14 +3,9 @@ package servlet;
 import Domain.DomainFacade;
 import entity.Document;
 import exceptions.PolygonException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,11 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet(name = "UploadServlet", urlPatterns = {"/UploadServlet"})
-@MultipartConfig (maxFileSize = 16177215)
+@MultipartConfig(maxFileSize = 16177215)
 public class UploadServlet extends HttpServlet {
 
     /**
@@ -75,9 +69,11 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         int buildingID = Integer.parseInt(request.getParameter("buildingID"));
         InputStream inputStream = null; // input stream of the upload file
-         
+
         // obtains the upload file part in this multipart request
         Part filePart = request.getPart("file");
         if (filePart != null) {
@@ -85,49 +81,21 @@ public class UploadServlet extends HttpServlet {
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
             System.out.println(filePart.getContentType());
-             
+
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
         }
-            Document d = new Document(inputStream,"Skriv en note her", buildingID);
-            
-            try {
-                DomainFacade.createDocument(d);
-            } catch (PolygonException ex) {
-                Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
-//        response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter out = response.getWriter();
-//        try {
-//            String buildingID = request.getParameter("buildingID");
-//            // get access to file that is uploaded from client
-//            Part p = request.getPart("file");
-//            InputStream is = p.getInputStream();
-//
-//            // get filename to use on the server
-//            String outputfile = this.getServletContext().getRealPath("/floorPlan/");  // get path on the server
-//            FileOutputStream os = new FileOutputStream (outputfile + buildingID + ".jpg");
-//
-//            String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-//            File uploads = new File("");
-//            FileOutputStream os = new FileOutputStream(buildingID + ".jpg");
-//
-//             write bytes taken from uploaded file to target file
-//            int ch = is.read();
-//            while (ch != -1) {
-//                os.write(ch);
-//                ch = is.read();
-//            }
-//            os.close();
-//            out.println("<h3>File uploaded successfully!</h3>");
-//            out.println("<a href=\"FrontController?ID=LinkServlet&page=buildingTable.jsp\" class=\"btn btn-default\">Tilbage</a>");
-//        } catch (IOException | ServletException ex) {
-//            out.println("Exception -->" + ex.getMessage());
-//        } finally {
-//            out.close();
-//        }
+
+        String note = request.getParameter("note");
+
+        Document d = new Document(inputStream, note, buildingID);
+
+        try {
+            DomainFacade.createDocument(d);
+        } catch (PolygonException ex) {
+            Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
     }
 
     /**
