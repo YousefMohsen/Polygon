@@ -93,7 +93,6 @@ public class UploadServlet extends HttpServlet {
             
             try {
                 DomainFacade.createDocument(d);
-                System.out.println("DEN PRØVER!!!!!!");
             } catch (PolygonException ex) {
                 Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

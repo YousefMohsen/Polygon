@@ -26,6 +26,11 @@ public class Document {
         this.buildingId = buildingId;
     }
 
+    public Document(String note, int buildingId) {
+        this.note = note;
+        this.buildingId = buildingId;
+    }
+
     public int getId() {
         return id;
     }

@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 
 <%
-//    String file = DomainFacade.getDocument(buildingID).getFileURL();
     int buildingID = Integer.parseInt(request.getParameter("buildingID"));
+    //Document d = DomainFacade.getDocument(buildingID);
 %>
 
 <html>
