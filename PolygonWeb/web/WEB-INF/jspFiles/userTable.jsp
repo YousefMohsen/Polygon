@@ -138,9 +138,9 @@
  <label class="col-md-1 control-label" for="textinput">Rank</label>  
    <div class="col-md-4">
  <select name="rank">
-    <option name="1">1</option>
-    <option name="2">3</option>
-    <option name="3">5</option>
+    <option name="1" value="1">Admin</option>
+    <option name="3" value="3">Employee</option>
+    <option name="5" value="5">Customer</option>
 </select>
        </div>
 </div>

@@ -1,5 +1,6 @@
 package servlet;
 
+import exceptions.PolygonException;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,11 +25,13 @@ public class FrontController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String whereTOGO = request.getParameter("ID");
+        
         if (request.getSession() != null) {
             request.getRequestDispatcher(whereTOGO).forward(request, response);
         } else {
             response.sendRedirect("index.jsp");
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

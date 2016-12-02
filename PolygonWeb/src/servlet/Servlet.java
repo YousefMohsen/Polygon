@@ -1,10 +1,8 @@
 package servlet;
 
 import Domain.DomainFacade;
-import entity.Document;
 import exceptions.PolygonException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,62 +26,65 @@ public class Servlet extends HttpServlet {
      * @throws exceptions.PolygonException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, PolygonException {
+            throws ServletException, IOException {
+        System.out.println("servlet");
+        try { 
+        System.out.println("servlet1");
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            String origin = request.getParameter("switch");
-            switch (origin) {
-                case "logout":
-                    request.getSession().invalidate();
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                case "editBuilding":
-                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    request.setAttribute("buildingID", buildingID);
-                    request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
-                    break;
-                case "createBuilding":
-                    String address = request.getParameter("address");
-                    String name = request.getParameter("buildingName");
-                    int zip = Integer.parseInt(request.getParameter("zip"));
-                    DomainFacade.createBuilding(zip, address, (int) session.getAttribute("userID"), name);
-                    request.setAttribute("buildingID", buildingID);
-                    request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
-                    break;
-                case "createUser":                  
-                    String firstname = request.getParameter("firstname");                 
-                    String lastname = request.getParameter("lastname");
-                    String uaddress = request.getParameter("address");
-                    String uname = request.getParameter("username");
-                    String phone = request.getParameter("phone");
-                    String email = request.getParameter("email");                    
-                    String password = request.getParameter("password");
-                    int uzip = Integer.parseInt(request.getParameter("zip"));  
-                    int rank = Integer.parseInt(request.getParameter("rank"));                    
-                    int userId = DomainFacade.createUser(firstname,lastname,phone,email,uaddress,uzip);             
-                    DomainFacade.createLogin(uname,password,rank,userId);                  
-                    request.setAttribute("buildingID", buildingID);
-                    request.getRequestDispatcher("WEB-INF/users.jsp").forward(request, response);
-                    break;
-                case "deletionRequest":
-                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    DomainFacade.deletionRequest(buildingID);
-                    request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
-                    break;
-                case "acceptRequest":
-                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    DomainFacade.hideBuilding(buildingID);
-                    DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
-                    request.getRequestDispatcher("WEB-INF/Request.jsp").forward(request, response);
-                    break;
-                case "healthCheck":                      
-                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
-                    request.setAttribute("buildingID", buildingID);
-                    DomainFacade.healthCheckRequest(buildingID);                     
-                    request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
-                    break;
-                case "Submit":
-                    //int id = Integer.parseInt(request.getParameter("id"));
+
+        HttpSession session = request.getSession();
+        String origin = request.getParameter("switch");
+        switch (origin) {
+            case "logout":
+                request.getSession().invalidate();
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            case "editBuilding":
+                buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                request.setAttribute("buildingID", buildingID);
+                request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
+                break;
+            case "createBuilding":
+                String address = request.getParameter("address");
+                String name = request.getParameter("buildingName");
+                int zip = Integer.parseInt(request.getParameter("zip"));
+                DomainFacade.createBuilding(zip, address, (int) session.getAttribute("userID"), name);
+                request.setAttribute("buildingID", buildingID);
+                request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+                break;
+            case "createUser":
+                String firstname = request.getParameter("firstname");
+                String lastname = request.getParameter("lastname");
+                String uaddress = request.getParameter("address");
+                String uname = request.getParameter("username");
+                String phone = request.getParameter("phone");
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                int uzip = Integer.parseInt(request.getParameter("zip"));
+                int rank = Integer.parseInt(request.getParameter("rank"));
+                int userId = DomainFacade.createUser(firstname, lastname, phone, email, uaddress, uzip);
+                DomainFacade.createLogin(uname, password, rank, userId);
+                request.setAttribute("buildingID", buildingID);
+                request.getRequestDispatcher("WEB-INF/users.jsp").forward(request, response);
+                break;
+            case "deletionRequest":
+                buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                DomainFacade.deletionRequest(buildingID);
+                request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+                break;
+            case "acceptRequest":
+                buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                DomainFacade.hideBuilding(buildingID);
+                DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
+                request.getRequestDispatcher("WEB-INF/Request.jsp").forward(request, response);
+                break;
+            case "healthCheck":
+                buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                request.setAttribute("buildingID", buildingID);
+                DomainFacade.healthCheckRequest(buildingID);
+                request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
+                break;
+            case "Submit":
+                //int id = Integer.parseInt(request.getParameter("id"));
 //                    String buildingStreetId = request.getParameter("buildingStreet");                    
 //                    int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));                    
 //                    String reportURL = request.getParameter("reportURL");
@@ -98,14 +99,19 @@ public class Servlet extends HttpServlet {
 //                    DomainFacade.updateBuilding(building);                 
 //                    DomainFacade.updateAddress(buildingAddressId,addressId);
 //                    
-                    //String fileURL = request.getParameter("fileURL");
-                    //String note = request.getParameter("note");
-                    //Document d = new Document(id, "URL", note);
-                    //DomainFacade.updateDocument(d, id);
-                    request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
-                    break;
+                //String fileURL = request.getParameter("fileURL");
+                //String note = request.getParameter("note");
+                //Document d = new Document(id, "URL", note);
+                //DomainFacade.updateDocument(d, id);
+                request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+                break;
+
             }
+        } catch(Exception e) {
+            response.sendRedirect("error.jsp");
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -120,11 +126,7 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (PolygonException ex) {
-            System.out.println(ex.getMessage());
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -138,11 +140,7 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (PolygonException ex) {
-            System.out.println(ex.getMessage());
-        }
+        processRequest(request, response);
     }
 
     /**
