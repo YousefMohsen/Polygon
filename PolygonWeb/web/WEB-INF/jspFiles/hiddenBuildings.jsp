@@ -5,7 +5,9 @@
 
 <%  List<Building> buildings = (List)DomainFacade.getDeletedBuildings(); 
 
-
+if(buildings.size()<=0){%> <div class="alert alert-info">
+  <strong>Info!</strong> Ingen slettede bygninger!
+</div><%}
 %>
 
 
