@@ -9,6 +9,7 @@ import entity.Rapport;
 import entity.Request;
 import entity.User;
 import exceptions.PolygonException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,10 +55,10 @@ public class DomainFacade {
         DatabaseFacade.createDocument(d);
     }
 
-//    public static Document getDocument(int id) throws PolygonException {
-//        return DatabaseFacade.getDocument(id);
-//    }
-//
+    public static Document getDocument(int id) throws PolygonException, IOException {
+        return DatabaseFacade.getDocument(id);
+    }
+
 //    public static void updateDocument(Document d, int buildingID) throws PolygonException {
 //        DatabaseFacade.updateDocument(d, buildingID);
 //    }

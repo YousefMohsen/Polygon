@@ -9,6 +9,7 @@ import entity.Request;
 import entity.User;
 import entity.ZipCode;
 import exceptions.PolygonException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +75,10 @@ public class DatabaseFacade {
         DocumentMapper.createDocument(d);
     }
     
-//    public static Document getDocument(int buildingID) throws PolygonException {
-//        return DocumentMapper.getDocument(buildingID);
-//    }
-//
+    public static Document getDocument(int buildingID) throws PolygonException, IOException {
+        return DocumentMapper.getDocument(buildingID);
+    }
+
 //    public static void updateDocument(Document d, int buildingID) throws PolygonException {
 //        DocumentMapper.updateDocument(d, buildingID);
 //    }

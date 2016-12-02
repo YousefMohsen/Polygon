@@ -5,7 +5,7 @@
 
 <%
     int buildingID = Integer.parseInt(request.getParameter("buildingID"));
-    //Document d = DomainFacade.getDocument(buildingID);
+    Document d = DomainFacade.getDocument(buildingID);
 %>
 
 <html>
@@ -15,6 +15,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <div class="col-md-6">
+                <h4>Info om bygning:</h4>
+                <table class="table">
+                    <tr><td>Filer</td><td><a href="" name="file" ><input  type="hidden" value="<%=d.getFile()%>" name="file" ><%=d.getFile()%></a></td></tr>
+                    <tr><td>Note (About file)</td><td><input  type="text" name="note" value="<%= d.getNote()%>"></td></tr>
+                </table>
+                <!--<input  type="hidden" name="buildingAddressId" value="<//%=b.getAddressId()%>">-->
+            </div>
         <h3>Upload Plantegning</h3>
         Vælg det billede du ønsker at uploade: <br/>
         <form action="UploadServlet" method="post" enctype="multipart/form-data">

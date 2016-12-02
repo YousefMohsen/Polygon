@@ -4,11 +4,8 @@ import entity.Document;
 import exceptions.PolygonException;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,8 +40,8 @@ public class DocumentMapper {
                 String note = res.getString("note");
                 return new Document(file, note, buildingID);
             } else {     //if building has no file or note
-                System.out.println("document false");
-                return new Document(" ", " ", buildingID);
+                System.out.println("INTET DOKUMENT!!!");
+                return new Document("Skriv en note her", buildingID);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
@@ -85,7 +82,6 @@ public class DocumentMapper {
 //            throw new PolygonException("Problem in updateDocuemnt method: " + ex.getMessage());
 //        }
 //    }
-
     public static void createDocument(Document d) throws PolygonException {
         //Indsætter filen, noten og ID'et i DB   
         String sql = "INSERT INTO Document "
@@ -106,6 +102,6 @@ public class DocumentMapper {
             System.out.println("Element not inserted: " + ex.getMessage());
             throw new PolygonException("Problem in createDocuemnt method: " + ex.getMessage());
         }
-        
+
     }
 }
