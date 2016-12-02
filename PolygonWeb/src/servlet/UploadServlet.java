@@ -1,5 +1,7 @@
 package servlet;
 
+import Domain.DomainFacade;
+import entity.Document;
 import exceptions.PolygonException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet(name = "UploadServlet", urlPatterns = {"/UploadServlet"})
-@MultipartConfig
+@MultipartConfig (maxFileSize = 16177215)
 public class UploadServlet extends HttpServlet {
 
     /**
@@ -40,9 +42,6 @@ public class UploadServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
 //            HttpSession session = request.getSession();
-//            String buildingID = request.getParameter("buildingID");
-//            session.setAttribute("ID", buildingID);
-//            request.setAttribute("ID", buildingID);
         }
     }
 
@@ -76,6 +75,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int buildingID = Integer.parseInt(request.getParameter("buildingID"));
         InputStream inputStream = null; // input stream of the upload file
          
         // obtains the upload file part in this multipart request
@@ -89,9 +89,16 @@ public class UploadServlet extends HttpServlet {
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
         }
-        
-        
-        
+            Document d = new Document(inputStream,"Skriv en note her", buildingID);
+            
+            try {
+                DomainFacade.createDocument(d);
+                System.out.println("DEN PRØVER!!!!!!");
+            } catch (PolygonException ex) {
+                Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
 //        response.setContentType("text/html;charset=UTF-8");
 //        PrintWriter out = response.getWriter();
 //        try {
@@ -116,7 +123,7 @@ public class UploadServlet extends HttpServlet {
 //            }
 //            os.close();
 //            out.println("<h3>File uploaded successfully!</h3>");
-//            out.println("<a href=\"FrontController?ID=LinkServlet&page=buildingTable.jsp\" class=\"btn btn-default\">Back</a>");
+//            out.println("<a href=\"FrontController?ID=LinkServlet&page=buildingTable.jsp\" class=\"btn btn-default\">Tilbage</a>");
 //        } catch (IOException | ServletException ex) {
 //            out.println("Exception -->" + ex.getMessage());
 //        } finally {

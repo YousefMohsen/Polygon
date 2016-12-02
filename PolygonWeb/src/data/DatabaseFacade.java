@@ -70,13 +70,17 @@ public class DatabaseFacade {
         UserMapper.updateUser(u, buildingID);
     }
 
-    public static Document getDocument(int buildingID) throws PolygonException {
-        return DocumentMapper.getDocument(buildingID);
+    public static void createDocument(Document d) throws PolygonException {
+        DocumentMapper.createDocument(d);
     }
-
-    public static void updateDocument(Document d, int buildingID) throws PolygonException {
-        DocumentMapper.updateDocument(d, buildingID);
-    }
+    
+//    public static Document getDocument(int buildingID) throws PolygonException {
+//        return DocumentMapper.getDocument(buildingID);
+//    }
+//
+//    public static void updateDocument(Document d, int buildingID) throws PolygonException {
+//        DocumentMapper.updateDocument(d, buildingID);
+//    }
 
     public static int insertAddress(int zip, String address, Connection con) throws PolygonException {
         return BuildingMapper.insertAddress(zip, address, con);

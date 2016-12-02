@@ -20,7 +20,7 @@
         <form action="UploadServlet" method="post" enctype="multipart/form-data">
             <input type="file" name="file" size="50"/>
             <br/>
-            <input type="submit" value="Upload File"/>
+            <input type="submit" value="Upload Billede"/>
             <input type="hidden" name="buildingID" value="<%=buildingID%>" />
         </form>
     </body>

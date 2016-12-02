@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DomainFacade {
-    
-    public static ArrayList<User> getUsers() throws PolygonException{
+
+    public static ArrayList<User> getUsers() throws PolygonException {
         return DatabaseFacade.getUsers();
     }
 
@@ -50,9 +50,17 @@ public class DomainFacade {
         return DatabaseFacade.getUserViaId(id);
     }
 
-    public static Document getDocument(int id) throws PolygonException {
-        return DatabaseFacade.getDocument(id);
+    public static void createDocument(Document d) throws PolygonException {
+        DatabaseFacade.createDocument(d);
     }
+
+//    public static Document getDocument(int id) throws PolygonException {
+//        return DatabaseFacade.getDocument(id);
+//    }
+//
+//    public static void updateDocument(Document d, int buildingID) throws PolygonException {
+//        DatabaseFacade.updateDocument(d, buildingID);
+//    }
 
     public static void updateBuilding(Building b) throws PolygonException {
         DatabaseFacade.updateBuilding(b);
@@ -60,10 +68,6 @@ public class DomainFacade {
 
     public static void updateUser(User u, int buildingID) throws PolygonException {
         DatabaseFacade.updateUser(u, buildingID);
-    }
-
-    public static void updateDocument(Document d, int buildingID) throws PolygonException {
-        DatabaseFacade.updateDocument(d, buildingID);
     }
 
     public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
@@ -77,7 +81,7 @@ public class DomainFacade {
     public static Login getLogin(String username) throws PolygonException {
         return DatabaseFacade.getLogin(username);
     }
-    
+
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
         DatabaseFacade.createRapport(buildingID, rapport);
     }
@@ -99,7 +103,7 @@ public class DomainFacade {
     }
 
     public static void healthCheckRequest(int buildingID) throws PolygonException {
-        DatabaseFacade.healthCheckRequest(buildingID); 
+        DatabaseFacade.healthCheckRequest(buildingID);
     }
 
     public static List<Building> getDeletionBuildings() throws PolygonException {

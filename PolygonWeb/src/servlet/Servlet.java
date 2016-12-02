@@ -68,7 +68,7 @@ public class Servlet extends HttpServlet {
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "Submit":
-                    int id = Integer.parseInt(request.getParameter("id"));
+                    //int id = Integer.parseInt(request.getParameter("id"));
 //                    String buildingStreetId = request.getParameter("buildingStreet");                    
 //                    int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));                    
 //                    String reportURL = request.getParameter("reportURL");
@@ -83,10 +83,10 @@ public class Servlet extends HttpServlet {
 //                    DomainFacade.updateBuilding(building);                 
 //                    DomainFacade.updateAddress(buildingAddressId,addressId);
 //                    
-                    String fileURL = request.getParameter("fileURL");
-                    String note = request.getParameter("note");
-                    Document d = new Document(id, "URL", note);
-                    DomainFacade.updateDocument(d, id);
+                    //String fileURL = request.getParameter("fileURL");
+                    //String note = request.getParameter("note");
+                    //Document d = new Document(id, "URL", note);
+                    //DomainFacade.updateDocument(d, id);
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
             }
