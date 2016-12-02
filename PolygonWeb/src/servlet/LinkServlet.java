@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +22,7 @@ public class LinkServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String whereTOGO = request.getParameter("page");        
+        String whereTOGO = request.getParameter("page");  
         request.getRequestDispatcher("WEB-INF/" + whereTOGO).forward(request, response);        
     }
 

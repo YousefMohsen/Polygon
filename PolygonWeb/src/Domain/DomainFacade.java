@@ -74,6 +74,10 @@ public class DomainFacade {
     public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
         DatabaseFacade.createBuilding(zip, address, userID, name);
     }
+    
+    public static int createUser(String firstname, String lastname,String phone,String email, String uaddress, int uzip) throws PolygonException {
+        return DatabaseFacade.createUser(firstname,lastname,phone,email,uaddress,uzip);
+    }
 
     public static Login getLogin(int userId) throws PolygonException {
         return DatabaseFacade.getLogin(userId);
@@ -122,4 +126,10 @@ public class DomainFacade {
     public static void sendMail(int buildingID) throws PolygonException {
 
     }
+
+    public static void createLogin(String login, String password, int rank, int userId) throws PolygonException {
+        DatabaseFacade.createLogin(login,password,rank,userId);
+    }
+
+    
 }

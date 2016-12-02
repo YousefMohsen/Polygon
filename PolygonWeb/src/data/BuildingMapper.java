@@ -32,7 +32,7 @@ public class BuildingMapper {
                 + "values(?,?,?,?,?);";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, insertAddress(zip, address, con));
+            stmt.setInt(1, insertAddress(zip, address));
             stmt.setString(2, "Ingen rapport tilføjet");// fix rapport url!
             System.out.println(userID);
             stmt.setInt(3, userID); //fix user ID 
@@ -318,10 +318,10 @@ public class BuildingMapper {
      * @return zipID int a int with the ID
      * @throws exceptions.PolygonException
      */
-    public static int findZipID(int zip, Connection con) throws PolygonException {
+    public static int findZipID(int zip) throws PolygonException {
         String sql = "select zipId from Zipcode where zip = ?;";
         int zipID = 0;
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = DB.getConnection();PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, zip);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
@@ -340,19 +340,16 @@ public class BuildingMapper {
      *
      * @param zip int the zip code of the new address
      * @param address the addressline of the new address
-     * @param con Connection a new connection
      * @return addressID int a int with the ID
      * @throws exceptions.PolygonException
      */
-    public static int insertAddress(int zip, String address, Connection con) throws PolygonException {
-        String sql = " insert into Address "
-                + "(addressline,zipcode_addressId) "
-                + "values (?,?);";
+    public static int insertAddress(int zip, String address) throws PolygonException {
+        String sql = " insert into Address (addressline,zipcode_addressId) values (?,?);";
         String sqlGetAdrID = "SELECT MAX(addressId) FROM Address;";
         int adressID = 0;
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = DB.getConnection();PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, address);
-            stmt.setInt(2, findZipID(zip, con));
+            stmt.setInt(2, findZipID(zip));
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -364,7 +361,7 @@ public class BuildingMapper {
             throw new PolygonException("Problem in insertAddress method, sql: " + ex.getMessage());
         }
         //get adressId of recent inserted address 
-        try (PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
+        try (Connection con = DB.getConnection();PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 adressID = res.getInt("MAX(addressId)");

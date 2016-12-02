@@ -1,5 +1,7 @@
 package data;
 
+import static data.BuildingMapper.findZipID;
+import static data.BuildingMapper.insertAddress;
 import entity.Address;
 import entity.Login;
 import entity.User;
@@ -130,6 +132,27 @@ public class UserMapper {
         return new Login("no", "no", 0, 0);
     }
     
+    public static void createLogin(String login, String password, int rank, int userId) throws PolygonException{            
+        String SQL = "INSERT INTO `Polygon`.`Login` (`username`, `password`, `rank`, `User_userId`) VALUES (?,?,?,?);";
+        PreparedStatement stmt;
+        try (Connection con = DB.getConnection()) {
+            stmt = con.prepareStatement(SQL);
+            stmt.setString(1,login);
+            stmt.setString(2,password);
+            stmt.setInt(3, rank);                                 
+            stmt.setInt(4, userId);                                 
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+    }   catch (SQLException ex) {
+            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
 
     /**
      * This method returns a User from the database belonging to a specific
@@ -244,4 +267,80 @@ public class UserMapper {
         }
         return null;
     }
+
+    /** 
+     * This method will create a new user
+     * @param firstname
+     * @param lastname
+     * @param phone
+     * @param email
+     * @param uaddress
+     * @param uzip
+     * @return userId
+     * @throws PolygonException 
+     */
+    public static int createUser(String firstname, String lastname,String phone,String email, String uaddress, int uzip) throws PolygonException {       
+        String sql = "insert into User(`firstname`, `lastname`, `phone`, `email`, `userAddress_addressId`) values(?,?,?,?,?);";
+        PreparedStatement stmt;
+        try (Connection con = DB.getConnection()) {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1,firstname);
+            stmt.setString(2,lastname);
+            stmt.setString(3, phone);
+            stmt.setString(4, email);
+            stmt.setInt(5, insertAddress(uzip, uaddress));                      
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        sql = "SELECT userId FROM User WHERE email=?";
+        try (Connection con = DB.getConnection()) {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                return res.getInt("userId");               
+            } else {
+                System.out.println("No change");
+            }
+    }   catch (SQLException ex) {
+            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } return -1;
+}
+    
+    public static int insertAddress(int zip, String address) throws PolygonException {
+        String sql = " insert into userAddress (addressline,zipcode_zipId) values (?,?);";
+        String sqlGetAdrID = "SELECT MAX(addressId) FROM Address;";
+        int adressID = 0;
+        try (Connection con = DB.getConnection();PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, address);
+            stmt.setInt(2, findZipID(zip));
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in insertAddress method, sql: " + ex.getMessage());
+        }
+        //get adressId of recent inserted address 
+        try (Connection con = DB.getConnection();PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                adressID = res.getInt("MAX(addressId)");
+            }
+        } catch (SQLException ex) {
+            throw new PolygonException("Problem in insertAddress method, sqlGetAdrID: " + ex.getMessage());
+        }
+        return adressID;
+    }
+    
+    
 }

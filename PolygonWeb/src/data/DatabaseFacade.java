@@ -38,13 +38,12 @@ public class DatabaseFacade {
         return AddressMapper.getZipId(zip);
     }
 
-    public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
-        try {
-            BuildingMapper.createBuilding(zip, address, userID, name);
-        } catch (PolygonException ex) {
-            Logger.getLogger(DatabaseFacade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {      
+            BuildingMapper.createBuilding(zip, address, userID, name);        
+    }
+    
+    public static int createUser(String firstname, String lastname,String phone,String email, String uaddress, int uzip) throws PolygonException {
+        return UserMapper.createUser(firstname,lastname,phone,email,uaddress,uzip);
     }
 
     public static List<Building> getBuildings() throws PolygonException {
@@ -83,12 +82,12 @@ public class DatabaseFacade {
 //        DocumentMapper.updateDocument(d, buildingID);
 //    }
 
-    public static int insertAddress(int zip, String address, Connection con) throws PolygonException {
-        return BuildingMapper.insertAddress(zip, address, con);
+    public static int insertAddress(int zip, String address) throws PolygonException {
+        return BuildingMapper.insertAddress(zip, address);
     }
 
-    public static int findZipID(int zip, Connection con) throws PolygonException {
-        return BuildingMapper.findZipID(zip, con);
+    public static int findZipID(int zip) throws PolygonException {
+        return BuildingMapper.findZipID(zip);
     }
 
     public static Address loadAddress(int id, Connection con) throws PolygonException {
@@ -143,4 +142,10 @@ public class DatabaseFacade {
     public static List<Building> getBuildingsForUser(int userID, int userRank) throws PolygonException {
         return BuildingMapper.getBuildingsForUser(userID, userRank);
     }
+
+    public static void createLogin(String login, String password, int rank, int userId) throws PolygonException {
+        UserMapper.createLogin(login, password, rank, userId);
+    }
+
+    
 }

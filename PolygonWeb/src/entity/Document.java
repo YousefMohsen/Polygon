@@ -39,8 +39,12 @@ public class Document {
         this.id = id;
     }
 
-    public InputStream getFile() {
+    public InputStream getFile() {        
         return file;
+    }
+    
+    public String fileToString(){
+        return file.toString();
     }
 
     public void setFile(InputStream file) {

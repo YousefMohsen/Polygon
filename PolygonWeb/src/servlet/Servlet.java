@@ -50,6 +50,21 @@ public class Servlet extends HttpServlet {
                     request.setAttribute("buildingID", buildingID);
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
+                case "createUser":                  
+                    String firstname = request.getParameter("firstname");                 
+                    String lastname = request.getParameter("lastname");
+                    String uaddress = request.getParameter("address");
+                    String uname = request.getParameter("username");
+                    String phone = request.getParameter("phone");
+                    String email = request.getParameter("email");                    
+                    String password = request.getParameter("password");
+                    int uzip = Integer.parseInt(request.getParameter("zip"));  
+                    int rank = Integer.parseInt(request.getParameter("rank"));                    
+                    int userId = DomainFacade.createUser(firstname,lastname,phone,email,uaddress,uzip);             
+                    DomainFacade.createLogin(uname,password,rank,userId);                  
+                    request.setAttribute("buildingID", buildingID);
+                    request.getRequestDispatcher("WEB-INF/users.jsp").forward(request, response);
+                    break;
                 case "deletionRequest":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     DomainFacade.deletionRequest(buildingID);

@@ -34,8 +34,7 @@ public class UploadServlet extends HttpServlet {
             throws ServletException, IOException, PolygonException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
-//            HttpSession session = request.getSession();
+      
         }
     }
 
