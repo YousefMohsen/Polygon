@@ -62,7 +62,7 @@
                     <tr><td>Zip code</td><td><input  type="hidden" name="buildingZip" value="<%=b.getAddress().getZipCode().getZip()%>"><%=b.getAddress().getZipCode().getZip()%></td></tr>
                     <tr><td>City</td><td><input  type="hidden" name="buildingCity" value="<%=b.getAddress().getZipCode().getCity()%>"><%=b.getAddress().getZipCode().getCity()%></td></tr>
                             <%String rapportPath = "files/pdf/" + b.getReport();%>
-                    <tr><td>Rapport URL</td><td><input  type="hidden" name="reportURL" value="<%=b.getReport()%>"><a href="<%= rapportPath%>" target="_blank"><%=b.getReport()%></a></td></tr>
+                    <% if(!b.getReport().equals("notnull")) { %><tr><td>Rapport</td><td><input  type="hidden" name="reportURL" value="<%= b.getReport() %>"><a href="<%= rapportPath%>" target="_blank"><%=b.getReport()%></a></td></tr><% } %>
                 </table>
                 <input  type="hidden" name="buildingAddressId" value="<%=b.getAddressId()%>">
             </div>
