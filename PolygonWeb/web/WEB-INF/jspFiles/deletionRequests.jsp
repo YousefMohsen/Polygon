@@ -5,6 +5,10 @@
 <%
     DomainFacade df = new DomainFacade();
     List<Building> buildings = df.getDeletionBuildings();
+    
+if(buildings.size()<=0){%> <div class="alert alert-info">
+  <strong>Info!</strong> Ingen anmodninger fundet!
+</div><%}
 %>
 <div class="row top-buffer"> </div>
 <table class="table table-bordered table-hover tableHovers">

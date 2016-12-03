@@ -46,9 +46,7 @@ public class DatabaseFacade {
         return UserMapper.createUser(firstname,lastname,phone,email,uaddress,uzip);
     }
 
-    public static List<Building> getBuildings() throws PolygonException {
-        return BuildingMapper.getBuildings();
-    }
+
 
     public static Building getBuilding(int buildingID) throws PolygonException {
         return BuildingMapper.getBuilding(buildingID);
@@ -143,9 +141,22 @@ public class DatabaseFacade {
         return BuildingMapper.getBuildingsForUser(userID, userRank);
     }
 
+
     public static void createLogin(String login, String password, int rank, int userId) throws PolygonException {
         UserMapper.createLogin(login, password, rank, userId);
     }
+
+
+    
+    
+    public static List<Building> getDeletedBuildings() throws PolygonException {
+    return BuildingMapper.getDeletedBuildings();
+    }
+    
+       public static void recoverBuilding(int buildingID) throws PolygonException  {
+     BuildingMapper.recoverBuilding(buildingID);
+    }
+    
 
     
 }

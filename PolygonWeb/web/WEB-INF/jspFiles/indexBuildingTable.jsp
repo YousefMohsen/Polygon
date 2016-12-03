@@ -6,7 +6,9 @@
 <%
     int userId = (int) session.getAttribute("userID");
     List<Building> buildings = DomainFacade.getBuildingsForUser(userId, (int) session.getAttribute("rank"));
-
+if(buildings.size()<=0){%> <div class="alert alert-info">
+  <strong>Info!</strong> Ingen bygninger fundet!
+</div><%}
 %>
 <form action="" method="POST">
     <div class="row top-buffer"> </div>
