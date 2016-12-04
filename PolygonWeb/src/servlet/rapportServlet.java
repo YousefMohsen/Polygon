@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "rapportServlet", urlPatterns = {"/rapportServlet"})
 public class rapportServlet extends HttpServlet {
@@ -212,8 +213,10 @@ public class rapportServlet extends HttpServlet {
             ListRap.add(DomainFacade.getRapport(buildingID));
             request.setAttribute("rapportData", ListRap);
             request.getRequestDispatcher("FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport").forward(request, response);
-        } catch (PolygonException ex) {
-            System.out.println(ex.getMessage());
+        } catch(ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
     }
 

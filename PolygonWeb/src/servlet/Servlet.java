@@ -3,6 +3,7 @@ package servlet;
 import Domain.DomainFacade;
 import exceptions.PolygonException;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,6 @@ public class Servlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws exceptions.PolygonException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -119,7 +119,9 @@ public class Servlet extends HttpServlet {
                 break;
 
             }
-        } catch(Exception e) {
+        } catch(ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
             response.sendRedirect("error.jsp");
         }
         

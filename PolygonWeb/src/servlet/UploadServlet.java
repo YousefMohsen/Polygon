@@ -6,14 +6,13 @@ import exceptions.PolygonException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet(name = "UploadServlet", urlPatterns = {"/UploadServlet"})
@@ -28,14 +27,10 @@ public class UploadServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws exceptions.PolygonException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, PolygonException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-      
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,11 +45,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             processRequest(request, response);
-        } catch (PolygonException ex) {
-            Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -68,33 +59,35 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        int buildingID = Integer.parseInt(request.getParameter("buildingID"));
-        InputStream inputStream = null; // input stream of the upload file
-
-        // obtains the upload file part in this multipart request
-        Part filePart = request.getPart("file");
-        if (filePart != null) {
-            // prints out some information for debugging
-            System.out.println(filePart.getName());
-            System.out.println(filePart.getSize());
-            System.out.println(filePart.getContentType());
-
-            // obtains input stream of the upload file
-            inputStream = filePart.getInputStream();
-        }
-
-        String note = request.getParameter("note");
-
-        Document d = new Document(inputStream, note, buildingID);
-
         try {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            int buildingID = Integer.parseInt(request.getParameter("buildingID"));
+            InputStream inputStream = null; // input stream of the upload file
+
+            // obtains the upload file part in this multipart request
+            Part filePart = request.getPart("file");
+            if (filePart != null) {
+                // prints out some information for debugging
+                System.out.println(filePart.getName());
+                System.out.println(filePart.getSize());
+                System.out.println(filePart.getContentType());
+
+                // obtains input stream of the upload file
+                inputStream = filePart.getInputStream();
+            }
+
+            String note = request.getParameter("note");
+
+            Document d = new Document(inputStream, note, buildingID);
+
             DomainFacade.createDocument(d);
-        } catch (PolygonException ex) {
-            Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
+        } catch(ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
-        request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
     }
 
     /**
