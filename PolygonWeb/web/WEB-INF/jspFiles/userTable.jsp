@@ -1,3 +1,5 @@
+<%@page import="java.sql.Connection"%>
+<%@page import="data.DB"%>
 <%@page import="entity.Address"%>
 <%@page import="entity.Building"%>
 <%@page import="entity.Login"%>
@@ -23,30 +25,49 @@
         <%
             ArrayList<User> userList = new ArrayList<>();
             userList = DomainFacade.getUsers();
-
+            
+            ArrayList<Login> loginData = new ArrayList();
+            loginData = DomainFacade.getAllLogin();
+            
+            ArrayList<Address> addressList = new ArrayList();
+            addressList = DomainFacade.getAllAddress();
+            
+            ArrayList<Building> buildingList = new ArrayList();
+            buildingList = DomainFacade.getBuildings();
+            
             for (int i = 0; i < userList.size(); i++) {
-                Login l = DomainFacade.getLogin(userList.get(i).getId());                      
-                Address address = DomainFacade.getAddress(userList.get(i).getId());
-                    String b = "";
-                    for (Building building : DomainFacade.getBuildingsForUser(userList.get(i).getId(), l.getRank())) {
-                        b += "<a href='FrontController?ID=Servlet&switch=editBuilding&buildingID=" + building.getId() + "'>" + building.getBuildingName() + "</a><br />";
+                Address address = null;
+                for (Address ad : addressList) {
+                        if(ad.getAddressID() == userList.get(i).getId()) {
+                            address = ad;
+                        }
                     }
-                    out.println();
-                    out.println("<tr>");
-                    out.println("<td>" + l.getRank() + "</td>");
-                    out.println("<td>" + address.getZipCode().getCity() + "</td>");
-                    out.println("<td>" + address.getAddressline() + "</td>");
-                    if(l.getRank() == 5){
-                        out.println("<td><button type=\"button\" class=\"btn btn-primary btn-sm\" title=\"Buildings\" data-toggle=\"popover\" data-html='true' data-placement=\"top\" "
-                            + "data-content=\"  <a href=''>" + b + "</a>       \">"
-                            + DomainFacade.getBuildingsForUser(userList.get(i).getId(), l.getRank()).size() + " Buildings" + "</a></td>");
+                String b = "";
+                int userBuildingsCount = 0;
+                if(loginData.get(i).getRank() == 5) {
+                    for (Building building : buildingList) {
+                        if(building.getUser() == userList.get(i).getId()) {
+                            b += "<a href='FrontController?ID=Servlet&switch=editBuilding&buildingID=" + building.getId() + "'>" + building.getBuildingName() + "</a><br />";
+                            userBuildingsCount++;
+                        }
                     }
-                    if(l.getRank() != 5){out.println("<td></td> ");}
-                    out.println("<td>" + userList.get(i).getFirstname() + "</td>");
-                    out.println("<td>" + userList.get(i).getLastname() + "</td>");
-                    out.println("<td>" + l.getUsername() + "</td>");
-                    out.println("<td>" + l.getPassword() + "</td>");
-                    out.println("</tr>");
+                }
+                out.println();
+                out.println("<tr>");
+                out.println("<td>" + loginData.get(i).getRank() + "</td>");
+                out.println("<td>" + address.getZipCode().getCity() + "</td>");
+                out.println("<td>" + address.getAddressline() + "</td>");
+                if(loginData.get(i).getRank() == 5){
+                    out.println("<td><button type=\"button\" class=\"btn btn-primary btn-sm\" title=\"Buildings\" data-toggle=\"popover\" data-html='true' data-placement=\"top\" "
+                        + "data-content=\"  <a href=''>" + b + "</a> \">"
+                        + userBuildingsCount + " Buildings" + "</a></td>");
+                }
+                if(loginData.get(i).getRank() != 5){out.println("<td></td> ");}
+                out.println("<td>" + userList.get(i).getFirstname() + "</td>");
+                out.println("<td>" + userList.get(i).getLastname() + "</td>");
+                out.println("<td>" + loginData.get(i).getUsername() + "</td>");
+                out.println("<td>" + loginData.get(i).getPassword()+ "</td>");
+                out.println("</tr>");
             }            
         %>
     </tbody>  

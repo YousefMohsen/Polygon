@@ -27,6 +27,10 @@ public class DatabaseFacade {
     public static Address getAddress(int addressId) throws PolygonException {
         return AddressMapper.getUserAddress(addressId);
     }
+    
+    public static ArrayList<Address> getAllAddress() throws PolygonException {
+        return AddressMapper.getAllAddress();
+    }
 
     public static void updateAddress(int buildingAddressId, int AddressId) throws PolygonException {
         AddressMapper.updateAdress(buildingAddressId, AddressId);
@@ -99,6 +103,10 @@ public class DatabaseFacade {
     public static Login getLogin(String username) throws PolygonException {
         return UserMapper.getLogin(username);
     }
+    
+    public static ArrayList<Login> getAllLogin() throws PolygonException {
+        return UserMapper.getAllLogin();
+    }
 
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
         RapportMapper.createRapport(buildingID, rapport);
@@ -135,6 +143,10 @@ public class DatabaseFacade {
 
     public static List<Building> getBuildingsForUser(int userID, int userRank) throws PolygonException {
         return BuildingMapper.getBuildingsForUser(userID, userRank);
+    }
+    
+    public static ArrayList<Building> getBuildings() throws PolygonException {
+        return BuildingMapper.getBuildings();
     }
 
     public static void createLogin(String login, String password, int rank, int userId) throws PolygonException {

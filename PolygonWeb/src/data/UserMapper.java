@@ -19,9 +19,14 @@ public class UserMapper {
 
     public static ArrayList<User> getUsers() throws PolygonException {
         String SQL = "SELECT * From Polygon.User;";
-        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(SQL)) {
+        ResultSet res = null;
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            conn = DB.getConnection();
+            stmt = conn.prepareStatement(SQL);
             ArrayList<User> userList = new ArrayList<>();
-            ResultSet res = stmt.executeQuery();
+            res = stmt.executeQuery();
             while (res.next()) {                
                 String firstname = res.getString("firstname");
                 String lastname = res.getString("lastname");
@@ -35,6 +40,10 @@ public class UserMapper {
             return userList;
         } catch (SQLException ex) {
             throw new PolygonException("Problem in getUsers method: " + ex.getMessage());
+        } finally {
+            try { if (res != null) res.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
     }
 
@@ -100,6 +109,40 @@ public class UserMapper {
     }
     
     /**
+     * This method returns an ArrayList of all users.
+     * @return an ArrayList of all users
+     * @throws PolygonException
+     */
+    public static ArrayList<Login> getAllLogin() throws PolygonException {
+        String sql = "SELECT * FROM Polygon.Login;";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        try { 
+            conn = DB.getConnection();
+            stmt = conn.prepareStatement(sql);
+            res = stmt.executeQuery();
+            ArrayList<Login> loginList = new ArrayList();
+            while (res.next()) {
+                String userName = res.getString("username");
+                String password = res.getString("password");
+                int rank = res.getInt("rank");
+                int id = res.getInt("loginId");
+                int uId = res.getInt("User_userId");
+                loginList.add(new Login(uId, userName, password, rank, id));
+            }
+            return loginList;
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getAllLogin method: " + ex.getMessage());
+        }  finally {
+            try { if (res != null) res.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+    }
+    
+    /**
      * This method returns information about login from the database
      *
      * @param userId int the userId of the user
@@ -148,8 +191,6 @@ public class UserMapper {
             throw new PolygonException("Problem in createLogin method: " + ex.getMessage());
         }
     }
-    
-    
 
     /**
      * This method returns a User from the database belonging to a specific

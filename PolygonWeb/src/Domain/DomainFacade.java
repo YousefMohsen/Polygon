@@ -26,6 +26,10 @@ public class DomainFacade {
     public static Address getAddress(int addressId) throws PolygonException {
         return DatabaseFacade.getAddress(addressId);
     }
+    
+    public static ArrayList<Address> getAllAddress() throws PolygonException {
+        return DatabaseFacade.getAllAddress();
+    }
 
     public static int getZip(int zip) throws PolygonException {
         return DatabaseFacade.getZip(zip);
@@ -84,6 +88,10 @@ public class DomainFacade {
         return DatabaseFacade.getLogin(username);
     }
 
+    public static ArrayList<Login> getAllLogin() throws PolygonException {
+        return DatabaseFacade.getAllLogin();
+    }
+    
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
         DatabaseFacade.createRapport(buildingID, rapport);
     }
@@ -120,24 +128,23 @@ public class DomainFacade {
         return DatabaseFacade.getBuildingsForUser(userID, userRank);
     }
 
+    public static ArrayList<Building> getBuildings() throws PolygonException {
+        return DatabaseFacade.getBuildings();
+    }
+    
     public static void sendMail(int buildingID) throws PolygonException {
 
     }
-
 
     public static void createLogin(String login, String password, int rank, int userId) throws PolygonException {
         DatabaseFacade.createLogin(login,password,rank,userId);
     }
 
-    
-
-    
-        public static List<Building> getDeletedBuildings() throws PolygonException {
-    return DatabaseFacade.getDeletedBuildings();
+    public static List<Building> getDeletedBuildings() throws PolygonException {
+        return DatabaseFacade.getDeletedBuildings();
     }
 
-       public static void recoverBuilding(int buildingID) throws PolygonException  {
-     DatabaseFacade.recoverBuilding(buildingID);
+    public static void recoverBuilding(int buildingID) throws PolygonException  {
+        DatabaseFacade.recoverBuilding(buildingID);
     }
-
 }

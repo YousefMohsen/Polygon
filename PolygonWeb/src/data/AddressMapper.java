@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * This class deals with all data about an address.
@@ -36,10 +37,45 @@ public class AddressMapper {
             return new Address(addressLine, getZipCity(zipId));
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getUserAddress method: " + ex.getMessage());
         }
-        return null;
     }
-
+    
+    /**
+     * This method return an ArrayList of all address.
+     * @return return an ArrayList of all address
+     * @throws PolygonException
+     */
+    public static ArrayList<Address> getAllAddress() throws PolygonException {
+        String SQL = "SELECT * FROM userAddress;";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        try {
+            conn = DB.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            res = stmt.executeQuery();
+            int addressId;
+            ZipCode zipId;
+            String addressLine;
+            ArrayList<Address> addressList = new ArrayList();
+            while (res.next()) {
+                addressId = res.getInt("addressId");
+                zipId = getZipCity(res.getInt("Zipcode_zipId"));
+                addressLine = res.getString("addressLine");
+                addressList.add(new Address(addressId, addressLine, zipId));
+            }
+            return addressList;
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getAllAddress method: " + ex.getMessage());
+        } finally {
+            try { if (res != null) res.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+    }
+    
     /**
      * This method returns a specific zip code and city from the database based
      * on a zipID
@@ -63,8 +99,8 @@ public class AddressMapper {
             return new ZipCode(zip, city);
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getZipCity method: " + ex.getMessage());
         }
-        return null;
     }
 
     /**
@@ -87,8 +123,8 @@ public class AddressMapper {
             return zipId;
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getZipId method: " + ex.getMessage());
         }
-        return 0;
     }
 
     /**
@@ -112,7 +148,7 @@ public class AddressMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
+            throw new PolygonException("Problem in updateAdress method: " + ex.getMessage());
         }
     }
-
 }

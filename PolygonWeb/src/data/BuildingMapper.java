@@ -54,30 +54,38 @@ public class BuildingMapper {
      * @return ArrayList() of type Building
      * @throws exceptions.PolygonException
      */
-    public static List<Building> getBuildings() throws PolygonException {
-        Connection con = DB.getConnection();
-        String sql = "SELECT buildingId,Address_addressId,User_userId "
-                + "FROM Building; ";
-        List<Building> buildings = new ArrayList<>();
-        try (
-                Statement stmt = con.createStatement()) {
-            ResultSet res = stmt.executeQuery(sql);
+    public static ArrayList<Building> getBuildings() throws PolygonException {
+        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building WHERE hidden=0;";
+        ArrayList<Building> buildings = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;        
+        try {
+            conn = DB.getConnection();
+            stmt = conn.prepareStatement(sql);
+            res = stmt.executeQuery();
             while (res.next()) {
                 Building newBuilding = new Building();
                 int id = res.getInt("buildingId");
                 int addressId = res.getInt("Address_addressId");
                 int userId = res.getInt("User_userId");
+                String buildingName = res.getString("buildingName");
 
                 newBuilding.setId(id);
-                newBuilding.setAddress(loadAddress(addressId, con));
+                newBuilding.setAddress(loadAddress(addressId, conn));
                 newBuilding.setUser(userId);
+                newBuilding.setBuildingName(buildingName);
                 buildings.add(newBuilding);
             }
+            return buildings;
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
             throw new PolygonException("Problem in getBuildings method: " + ex.getMessage());
+        } finally {
+            try { if (res != null) res.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
-        return buildings;
     }
 
     /**
