@@ -1,11 +1,13 @@
 package servlet;
 
+import exceptions.PolygonException;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LinkServlet", urlPatterns = {"/LinkServlet"})
 public class LinkServlet extends HttpServlet {
@@ -21,9 +23,16 @@ public class LinkServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String whereTOGO = request.getParameter("page");  
-        request.getRequestDispatcher("WEB-INF/" + whereTOGO).forward(request, response);        
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            String whereTOGO = request.getParameter("page");  
+            request.getRequestDispatcher("WEB-INF/" + whereTOGO).forward(request, response);   
+            
+        } catch(ServletException | IOException | NumberFormatException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

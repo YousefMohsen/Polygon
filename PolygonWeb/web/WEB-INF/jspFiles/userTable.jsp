@@ -1,3 +1,4 @@
+<%@page import="entity.Address"%>
 <%@page import="entity.Building"%>
 <%@page import="entity.Login"%>
 <%@page import="Domain.DomainFacade"%>
@@ -25,6 +26,7 @@
 
             for (int i = 0; i < userList.size(); i++) {
                 Login l = DomainFacade.getLogin(userList.get(i).getId());                      
+                Address address = DomainFacade.getAddress(userList.get(i).getId());
                     String b = "";
                     for (Building building : DomainFacade.getBuildingsForUser(userList.get(i).getId(), l.getRank())) {
                         b += "<a href='FrontController?ID=Servlet&switch=editBuilding&buildingID=" + building.getId() + "'>" + building.getBuildingName() + "</a><br />";
@@ -32,8 +34,8 @@
                     out.println();
                     out.println("<tr>");
                     out.println("<td>" + l.getRank() + "</td>");
-                    out.println("<td>" + DomainFacade.getAddress(userList.get(i).getId()).getZipCode().getCity() + "</td>");
-                    out.println("<td>" + DomainFacade.getAddress(userList.get(i).getId()).getAddressline() + "</td>");
+                    out.println("<td>" + address.getZipCode().getCity() + "</td>");
+                    out.println("<td>" + address.getAddressline() + "</td>");
                     if(l.getRank() == 5){
                         out.println("<td><button type=\"button\" class=\"btn btn-primary btn-sm\" title=\"Buildings\" data-toggle=\"popover\" data-html='true' data-placement=\"top\" "
                             + "data-content=\"  <a href=''>" + b + "</a>       \">"

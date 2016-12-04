@@ -19,10 +19,13 @@ public final class DB {
     static final String PASS = "Polygon16sundbygning!";
     private static Connection conn = null;
 
+    
+
     /**
      * This method connects to the database
      *
      * @return a connection or null
+     * @throws exceptions.PolygonException
      */
     public static Connection getConnection() throws PolygonException {
         try {
@@ -39,12 +42,13 @@ public final class DB {
 
     /**
      * This method closes the connection.
+     * @throws exceptions.PolygonException
      */
-    public void close() {
+    public void close() throws PolygonException {
         try {
             conn.close();
         } catch (SQLException ex) {
-            /* Ignored */
+            throw new PolygonException("Problem in getConnection method: " + ex.getMessage());
         }
     }
 }

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
 public class FrontController extends HttpServlet {
@@ -22,14 +23,20 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String whereTOGO = request.getParameter("ID");
-        
-        if (request.getSession() != null) {
-            request.getRequestDispatcher(whereTOGO).forward(request, response);
-        } else {
-            response.sendRedirect("index.jsp");
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("UTF-8");
+            String whereTOGO = request.getParameter("ID");
+
+            if (request.getSession() != null) {
+                request.getRequestDispatcher(whereTOGO).forward(request, response);
+            } else {
+                response.sendRedirect("index.jsp");
+            }
+        } catch(ServletException | IOException | NumberFormatException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
 
     }

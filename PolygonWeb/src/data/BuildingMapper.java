@@ -143,7 +143,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
-            throw new PolygonException("Problem in getBuildingsForUser method: " + ex.getMessage());
+            throw new PolygonException("Problem in getDeletedBuildings method: " + ex.getMessage());
         }
         return buildings;
     }
@@ -201,7 +201,7 @@ public class BuildingMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
-            throw new PolygonException("Problem in updateBuilding method: " + ex.getMessage());
+            throw new PolygonException("Problem in recoverBuilding method: " + ex.getMessage());
         }
     }
 
@@ -360,7 +360,6 @@ public class BuildingMapper {
      * This method returns a zip ID with a specific zip code from the database
      *
      * @param zip int the zip code that matches the zip ID
-     * @param con Connection a new connection
      * @return zipID int a int with the ID
      * @throws exceptions.PolygonException
      */

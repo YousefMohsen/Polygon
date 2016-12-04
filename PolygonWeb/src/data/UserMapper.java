@@ -1,7 +1,6 @@
 package data;
 
 import static data.BuildingMapper.findZipID;
-import static data.BuildingMapper.insertAddress;
 import entity.Address;
 import entity.Login;
 import entity.User;
@@ -12,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class deals with all data about a user.
@@ -37,8 +34,8 @@ public class UserMapper {
             }           
             return userList;
         } catch (SQLException ex) {
-            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
-        } return null;
+            throw new PolygonException("Problem in getUsers method: " + ex.getMessage());
+        }
     }
 
     /**
@@ -148,7 +145,7 @@ public class UserMapper {
                 System.out.println("No change");
             }
     }   catch (SQLException ex) {
-            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PolygonException("Problem in createLogin method: " + ex.getMessage());
         }
     }
     
@@ -296,11 +293,11 @@ public class UserMapper {
                 System.out.println("No change");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PolygonException("Problem in createUser method, sql: " + ex.getMessage());
         }  
-        sql = "SELECT userId FROM User WHERE email=?";
+        String sql2 = "SELECT userId FROM User WHERE email=?";
         try (Connection con = DB.getConnection()) {
-            stmt = con.prepareStatement(sql);
+            stmt = con.prepareStatement(sql2);
             stmt.setString(1, email);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
@@ -309,7 +306,7 @@ public class UserMapper {
                 System.out.println("No change");
             }
     }   catch (SQLException ex) {
-            Logger.getLogger(UserMapper.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PolygonException("Problem in createUser method, sql2: " + ex.getMessage());
         } return -1;
 }
     

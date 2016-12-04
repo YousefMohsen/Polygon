@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DatabaseFacade {
     
@@ -45,8 +43,6 @@ public class DatabaseFacade {
     public static int createUser(String firstname, String lastname,String phone,String email, String uaddress, int uzip) throws PolygonException {
         return UserMapper.createUser(firstname,lastname,phone,email,uaddress,uzip);
     }
-
-
 
     public static Building getBuilding(int buildingID) throws PolygonException {
         return BuildingMapper.getBuilding(buildingID);
@@ -141,22 +137,15 @@ public class DatabaseFacade {
         return BuildingMapper.getBuildingsForUser(userID, userRank);
     }
 
-
     public static void createLogin(String login, String password, int rank, int userId) throws PolygonException {
         UserMapper.createLogin(login, password, rank, userId);
     }
-
-
-    
     
     public static List<Building> getDeletedBuildings() throws PolygonException {
-    return BuildingMapper.getDeletedBuildings();
+        return BuildingMapper.getDeletedBuildings();
     }
     
-       public static void recoverBuilding(int buildingID) throws PolygonException  {
-     BuildingMapper.recoverBuilding(buildingID);
-    }
-    
-
-    
+    public static void recoverBuilding(int buildingID) throws PolygonException  {
+        BuildingMapper.recoverBuilding(buildingID);
+    }   
 }

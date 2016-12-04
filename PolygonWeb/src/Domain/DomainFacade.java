@@ -1,6 +1,5 @@
 package Domain;
 
-import data.BuildingMapper;
 import data.DatabaseFacade;
 import entity.Address;
 import entity.Document;
