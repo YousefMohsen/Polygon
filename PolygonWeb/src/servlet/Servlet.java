@@ -100,8 +100,9 @@ public class Servlet extends HttpServlet {
                 case "newsletter":
                     String subject = request.getParameter("subject");
                     String messege = request.getParameter("mailMessege");
+                     DomainFacade.sendNewsletter(subject,messege);
                     request.getRequestDispatcher("WEB-INF/Newsletter.jsp").forward(request, response);
-                  //  out.println(messege+"  "+subject);
+                
                     break;
                     
                 case "Submit":

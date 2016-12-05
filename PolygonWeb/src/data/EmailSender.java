@@ -74,8 +74,11 @@ public class EmailSender {
     }
     
     public static void sendNewsletter(String subject,String messege) throws PolygonException{
-    ArrayList<String> mailList = DatabaseFacade.getMails();
-  
+    ArrayList<String> mailList = new ArrayList();
+    mailList.add("encantairaq7@live.dk");
+    mailList.add("polygonrequests@gmail.com");
+    //ArrayList<String> mailList = DatabaseFacade.getMails();
+   
         for (String toEmail : mailList) {
            sendANewsletter(subject,messege,toEmail); 
         }
