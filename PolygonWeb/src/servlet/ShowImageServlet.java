@@ -34,10 +34,10 @@ public class ShowImageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, PolygonException {
 
-        //int builidingId = Integer.parseInt(request.getParameter("buildingID"));
-        Document d = DomainFacade.getDocument(2);
+        int builidingId = Integer.parseInt(request.getParameter("buildingID"));
+        Document d = DomainFacade.getDocument(builidingId);
+        System.out.println("HEJSA!!! " + builidingId);
         InputStream is = d.getFile();
-        System.out.println("!!!!!!! " + d != null);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         int next = is.read();
         while (next > -1) {
