@@ -36,7 +36,7 @@ public class ShowImageServlet extends HttpServlet {
 
         int builidingId = Integer.parseInt(request.getParameter("buildingID"));
         Document d = DomainFacade.getDocument(builidingId);
-        System.out.println("HEJSA!!! " + builidingId);
+        
         InputStream is = d.getFile();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         int next = is.read();

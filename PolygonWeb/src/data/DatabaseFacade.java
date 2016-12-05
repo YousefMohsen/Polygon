@@ -13,12 +13,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DatabaseFacade {
-    
-    public static ArrayList<User> getUsers() throws PolygonException{
+
+    public static ArrayList<User> getUsers() throws PolygonException {
         return UserMapper.getUsers();
     }
 
@@ -39,12 +37,7 @@ public class DatabaseFacade {
     }
 
     public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
-        try {
-            BuildingMapper.createBuilding(zip, address, userID, name);
-        } catch (PolygonException ex) {
-            Logger.getLogger(DatabaseFacade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        BuildingMapper.createBuilding(zip, address, userID, name);
     }
 
     public static List<Building> getBuildings() throws PolygonException {
@@ -74,14 +67,14 @@ public class DatabaseFacade {
     public static void createDocument(Document d) throws PolygonException {
         DocumentMapper.createDocument(d);
     }
-    
+
     public static Document getDocument(int buildingID) throws PolygonException, IOException {
         return DocumentMapper.getDocument(buildingID);
     }
 
-//    public static void updateDocument(Document d, int buildingID) throws PolygonException {
-//        DocumentMapper.updateDocument(d, buildingID);
-//    }
+    public static void updateDocumentNote(Document d) throws PolygonException {
+        DocumentMapper.updateDocumentNote(d);
+    }
 
     public static int insertAddress(int zip, String address, Connection con) throws PolygonException {
         return BuildingMapper.insertAddress(zip, address, con);
@@ -102,7 +95,7 @@ public class DatabaseFacade {
     public static Login getLogin(int userId) throws PolygonException {
         return UserMapper.getLogin(userId);
     }
-    
+
     public static Login getLogin(String username) throws PolygonException {
         return UserMapper.getLogin(username);
     }

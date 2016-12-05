@@ -59,9 +59,9 @@ public class DomainFacade {
         return DatabaseFacade.getDocument(id);
     }
 
-//    public static void updateDocument(Document d, int buildingID) throws PolygonException {
-//        DatabaseFacade.updateDocument(d, buildingID);
-//    }
+    public static void updateDocumentNote(Document d) throws PolygonException {
+        DatabaseFacade.updateDocumentNote(d);
+    }
 
     public static void updateBuilding(Building b) throws PolygonException {
         DatabaseFacade.updateBuilding(b);
