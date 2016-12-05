@@ -1,13 +1,10 @@
 
-import Domain.DomainFacade;
-import Domain.EmailSender;
 import data.BuildingMapper;
-import data.DocumentMapper;
 import data.RequestMapper;
 import entity.Building;
-import java.net.Authenticator;
+import entity.Request;
+import exceptions.PolygonException;
 import java.sql.SQLException;
-
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,13 +17,11 @@ import java.sql.SQLException;
  * @author Yousinho
  */
 public class toDelete {
- public static void main(String [] args) {
-  
-     EmailSender mail = new EmailSender();
-     
-
-     DomainFacade.sendMail(9);
-     
-     }
-    
+      public static void main(String [] args) throws SQLException, ClassNotFoundException, PolygonException{
+   
+          
+          BuildingMapper.recoverBuilding(1);
+          
+          
+}
 }

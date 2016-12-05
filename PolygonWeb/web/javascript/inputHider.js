@@ -7,10 +7,9 @@ function lock() {
 function unlock() {
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].disabled = false;
-        console.log("test");
     }
 }
 
-window.onload = function() {
-  lock();
+window.onload = function () {
+    lock();
 };

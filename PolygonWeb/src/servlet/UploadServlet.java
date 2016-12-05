@@ -1,13 +1,11 @@
 package servlet;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import Domain.DomainFacade;
+import entity.Document;
+import exceptions.PolygonException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.util.Scanner;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet(name = "UploadServlet", urlPatterns = {"/UploadServlet"})
-@MultipartConfig
+@MultipartConfig(maxFileSize = 16177215)
 public class UploadServlet extends HttpServlet {
 
     /**
@@ -33,12 +31,6 @@ public class UploadServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-//            HttpSession session = request.getSession();
-//            String buildingID = request.getParameter("buildingID");
-//            session.setAttribute("ID", buildingID);
-//            request.setAttribute("ID", buildingID);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,7 +45,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            processRequest(request, response);
     }
 
     /**
@@ -67,37 +59,34 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         try {
-            String buildingID = request.getParameter("buildingID");
-//            // get access to file that is uploaded from client
-            Part p = request.getPart("file");
-            InputStream is = p.getInputStream();
-//
-//            // get filename to use on the server
-//            String outputfile = this.getServletContext().getRealPath("/floorPlan/");  // get path on the server
-//            FileOutputStream os = new FileOutputStream (outputfile + buildingID + ".jpg");
-            
-//            String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-//            File uploads = new File("");
-            FileOutputStream os = new FileOutputStream(buildingID + ".jpg");
-            
-            
-            // write bytes taken from uploaded file to target file
-            int ch = is.read();
-            while (ch != -1) {
-                 os.write(ch);
-                 ch = is.read();
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            int buildingID = Integer.parseInt(request.getParameter("buildingID"));
+            InputStream inputStream = null; // input stream of the upload file
+
+            // obtains the upload file part in this multipart request
+            Part filePart = request.getPart("file");
+            if (filePart != null) {
+                // prints out some information for debugging
+                System.out.println(filePart.getName());
+                System.out.println(filePart.getSize());
+                System.out.println(filePart.getContentType());
+
+                // obtains input stream of the upload file
+                inputStream = filePart.getInputStream();
             }
-            os.close();
-            out.println("<h3>File uploaded successfully!</h3>");
-        }
-        catch(IOException | ServletException ex) {
-           out.println("Exception -->" + ex.getMessage());
-        }
-        finally { 
-            out.close();
+
+            String note = request.getParameter("note");
+
+            Document d = new Document(inputStream, note, buildingID);
+
+            DomainFacade.createDocument(d);
+            request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
+        } catch(ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
     }
 

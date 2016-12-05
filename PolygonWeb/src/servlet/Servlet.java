@@ -1,13 +1,9 @@
 package servlet;
 
 import Domain.DomainFacade;
-import entity.Address;
-import entity.Building;
-import entity.Document;
-import entity.User;
-import entity.ZipCode;
+import exceptions.PolygonException;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +14,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
 public class Servlet extends HttpServlet {
 
-    DomainFacade df = new DomainFacade();
+    int buildingID;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,90 +27,105 @@ public class Servlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       // System.out.println("servlet");
+        try { 
+        System.out.println("servlet1");
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            String origin = request.getParameter("origin");         
-            int buildingID  = Integer.parseInt(request.getParameter("buildingID"));;           
-
-            switch (origin) {
+        HttpSession session = request.getSession();
+        String origin = request.getParameter("switch");
+        switch (origin) {
+  
+//
+//        try (PrintWriter out = response.getWriter()) {
+//            HttpSession session = request.getSession();
+//            String origin = request.getParameter("switch");
+//            switch (origin) {
+                case "logout":
+                    request.getSession().invalidate();
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
                 case "editBuilding":
-                    out.println(origin+" "+buildingID );
-                    session.setAttribute("ID", buildingID);
-              response.sendRedirect("editBuilding.jsp");
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                    request.setAttribute("buildingID", buildingID);
+                    request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "createBuilding":
-                      
                     String address = request.getParameter("address");
+                    String name = request.getParameter("buildingName");
                     int zip = Integer.parseInt(request.getParameter("zip"));
-                    String city = request.getParameter("city");
-        int userID =  Integer.parseInt( session.getAttribute("userID").toString());
-
-                  DomainFacade.createBuilding(zip, address,userID);
-                  response.sendRedirect("index.jsp");
+                    DomainFacade.createBuilding(zip, address, (int) session.getAttribute("userID"), name);
+                    request.setAttribute("buildingID", buildingID);
+                    request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                     break;
-                
-                  case "deletionRequest":
-                      buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                     case "createUser":
+                String firstname = request.getParameter("firstname");
+                String lastname = request.getParameter("lastname");
+                String uaddress = request.getParameter("address");
+                String uname = request.getParameter("username");
+                String phone = request.getParameter("phone");
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                int uzip = Integer.parseInt(request.getParameter("zip"));
+                int rank = Integer.parseInt(request.getParameter("rank"));
+                int userId = DomainFacade.createUser(firstname, lastname, phone, email, uaddress, uzip);
+                DomainFacade.createLogin(uname, password, rank, userId);
+                request.setAttribute("buildingID", buildingID);
+                request.getRequestDispatcher("WEB-INF/users.jsp").forward(request, response);
+                break;
+                case "deletionRequest":
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     DomainFacade.deletionRequest(buildingID);
-                    session.setAttribute("ID", buildingID);
-                    request.setAttribute("ID", buildingID);
-             
-                    response.sendRedirect("editBuilding.jsp");
-            
-                      break;
-                      
-               case "acceptRequest":
-                   buildingID = Integer.parseInt(request.getParameter("buildingID"));
-            DomainFacade.hideBuilding(buildingID);
-            DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
-            response.sendRedirect("Request.jsp");
-                      break;
-                      
-                         case "healthCheck":
-        buildingID = Integer.parseInt(request.getParameter("buildingID"));
-   
-   
-DomainFacade.healthCheckRequest(buildingID);
-
-response.sendRedirect("editBuilding.jsp");
-                      break;
-                      
-                
+                    request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+                    break;
+                case "restoreBuilding":
+            buildingID = Integer.parseInt(request.getParameter("buildingID"));
+          DomainFacade.recoverBuilding(buildingID);
+            request.getRequestDispatcher("WEB-INF/hiddenBuildings.jsp").forward(request, response);
+                    break;
+                case "acceptRequest":
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                    DomainFacade.hideBuilding(buildingID);
+                    DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
+                    request.getRequestDispatcher("WEB-INF/Request.jsp").forward(request, response);
+                    break;
+                case "healthCheck":                      
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                    request.setAttribute("buildingID", buildingID);
+                    DomainFacade.healthCheckRequest(buildingID);                     
+                    request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
+                    break;
                 case "Submit":
                     int id = Integer.parseInt(request.getParameter("id"));
-                    
-                    String firstname = request.getParameter("firstname");
-                    String lastname = request.getParameter("lastname");
-                    String phone = request.getParameter("phone");
-                    String email = request.getParameter("email");
-                    String userStreet = request.getParameter("userStreet");
-                    int userZip = Integer.parseInt(request.getParameter("userZip"));
-                    String userCity = request.getParameter("userCity");
-                    ZipCode userZ = new ZipCode(userZip, userCity);
-                    Address userA = new Address(userStreet, userZ);
-                    User u = new User(id, firstname, lastname, phone, email, userA);
-                    
-                    String buildingStreet = request.getParameter("buildingStreet");
-                    int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));
-                    String buildingCity = request.getParameter("buildingCity");
-                    String reportURL = request.getParameter("reportURL");
-                    ZipCode buildingZ = new ZipCode(buildingZip, buildingCity);
-                    Address buildingA = new Address(buildingStreet, buildingZ);
-                    Building b = new Building(id, buildingA, reportURL);
-                    
-                    DomainFacade.updateUser(u, b.getId());
-                    DomainFacade.updateBuilding(b);
-                    
-                    String fileURL = request.getParameter("fileURL");
-                    String note = request.getParameter("note");
-                    Document d = new Document(id, fileURL, note);
-                    DomainFacade.updateDocument(d, b.getId());
-                    
-                    response.sendRedirect("index.jsp");
-                    break;
+
+//                    String buildingStreetId = request.getParameter("buildingStreet");                    
+//                    int buildingZip = Integer.parseInt(request.getParameter("buildingZip"));                    
+//                    String reportURL = request.getParameter("reportURL");
+//                    String buildingName = request.getParameter("buildingName");
+//                    
+//                    int buildingAddressId = Integer.parseInt(request.getParameter("buildingAddressId"));
+//                    
+//                    int addressId = DomainFacade.getZip(buildingZip);                    
+//                    Address address1 = new Address(addressId,  buildingStreetId);
+//                    Building building = new Building(id, addressId, address1, reportURL, buildingName,(int)session.getAttribute("uId"));                    
+//                    
+//                    DomainFacade.updateBuilding(building);                 
+//                    DomainFacade.updateAddress(buildingAddressId,addressId);
+//                    
+                //String fileURL = request.getParameter("fileURL");
+                //String note = request.getParameter("note");
+                //Document d = new Document(id, "URL", note);
+                //DomainFacade.updateDocument(d, id);
+                request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+                break;
+
             }
+        } catch(ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

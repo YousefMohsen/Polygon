@@ -1,5 +1,9 @@
 package entity;
 
+/**
+ * This class contains all intformation about a user. User is instiated in the
+ * database layer and returned to presentation or vice versa.
+ */
 public class User {
 
     private int id;
@@ -8,6 +12,8 @@ public class User {
     private String phone;
     private String email;
     private Address address;
+    private int addressId;
+    private Login login;
 
     public User() {
     }
@@ -28,6 +34,26 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.address = address;
+    }
+
+    public User(int id, String firstname, String lastname, String phone, String email, int addressId, Login login) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.addressId = addressId;
+        this.login = login;
+        
+
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public int getId() {

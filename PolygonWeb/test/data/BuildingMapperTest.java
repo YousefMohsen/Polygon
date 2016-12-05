@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,37 +9,32 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Janus
- */
 public class BuildingMapperTest {
-    
+
     public BuildingMapperTest() {
     }
-    
+
     private Connection testDatabase;
     private static String USER = "polygon";
     private static String USERPW = "Polygon16sundbygning!";
     private static String DBNAME = "buildingsTest";
-    
+
     @Before
-    public void setUp() { try {
-            String url = String.format("jdbc:mysql://vetterlain.dk/buildingsTest");
+    public void setUp() {
+        try {
+            String url = String.format("jdbc:mysql://vetterlain.dk/Polygon");
             Class.forName("com.mysql.jdbc.Driver");
-            
-            testDatabase =  DriverManager.getConnection(url, USER, USERPW);
-            try( Statement stmt = testDatabase.createStatement()){
-                stmt.execute( "drop table if exists Building");
-                stmt.execute( "create table Building like testbuilding");
-                stmt.execute( "insert into Building select * from testbuilding");
+
+            testDatabase = DriverManager.getConnection(url, USER, USERPW);
+            try (Statement stmt = testDatabase.createStatement()) {
+                stmt.execute("drop table if exists building");
+                stmt.execute("create table building like testbuilding");
+                stmt.execute("insert into building select * from testbuilding");
             }
             DB.setConnection(testDatabase);
-            System.out.println("test connection");
-            
-        } catch ( ClassNotFoundException | SQLException ex ) {
+        } catch (ClassNotFoundException | SQLException ex) {
             testDatabase = null;
-            System.out.println( "Could not open connection to database: " + ex.getMessage() );
+            System.out.println("Could not open connection to database: " + ex.getMessage());;
         }
     }
 
@@ -58,7 +49,7 @@ public class BuildingMapperTest {
      * Test of getBuildings method, of class BuildingMapper.
      */
     @Test
-    public void testGetBuildings() {
+    public void testGetBuildings() throws PolygonException{
         System.out.println("bygningid: "+BuildingMapper.getBuildings().get(0).getId());
         
     }
@@ -132,5 +123,5 @@ public class BuildingMapperTest {
     @Test
     public void testHideBuilding() {
     }
-    
+
 }

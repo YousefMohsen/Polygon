@@ -1,12 +1,16 @@
 package entity;
 
+/**
+ * This class contains all intformation about a report. Report is instiated in
+ * the database layer and returned to presentation or vice versa.
+ */
 public class Rapport {
-    
+
     private String buildingName;
     private String address;
     private String zip;
-    private int buildYear;
-    private double buildingArea;
+    private String buildYear;
+    private String buildingArea;
     private String buildingUse;
     private String descriptionRoof;
     private String descriptionOuterwall;
@@ -45,7 +49,8 @@ public class Rapport {
     private String conclusionConclusion8;
     private String writer;
     private String collaborator;
-    
+    private String rapportNr;
+
     private int commentRoof;
     private int pictureRoof;
     private int commentOuterwall;
@@ -67,12 +72,11 @@ public class Rapport {
     private int pictureOther2;
     private int humidityYesNo;
     private int categorize;
-    private int rapportNr;
 
     public Rapport() {
     }
 
-    public Rapport(String buildingName, String address, String zip, int buildYear, double buildingArea, String buildingUse, String descriptionRoof, String descriptionOuterwall, String room, String when, String where, String whatHappend, String whatRepaired, String otherDamageType, String descriptionWall, String descriptionCeiling, String descriptionFloor, String descriptionWindows, String otherReview, String descriptionOther, String otherReview2, String descriptionOther2, String descriptionScanning, String descriptionMeasuring, String descriptionHumidity, String conclusionRoom1, String conclusionConclusion1, String conclusionRoom2, String conclusionConclusion2, String conclusionRoom3, String conclusionConclusion3, String conclusionRoom4, String conclusionConclusion4, String conclusionRoom5, String conclusionConclusion5, String conclusionRoom6, String conclusionConclusion6, String conclusionRoom7, String conclusionConclusion7, String conclusionRoom8, String conclusionConclusion8, String writer, String collaborator, int commentRoof, int pictureRoof, int commentOuterwall, int pictureOuterwall, int commentRoom, int yesNoRoomDamage, int damageType, int commentWall, int pictureWall, int commentCeiling, int pictureCeiling, int commentFloor, int pictureFloor, int commentWindows, int pictureWindows, int commentOther, int pictureOther, int commentOther2, int pictureOther2, int humidityYesNo, int categorize, int rapportNr) {
+    public Rapport(String buildingName, String address, String zip, String buildYear, String buildingArea, String buildingUse, String descriptionRoof, String descriptionOuterwall, String room, String when, String where, String whatHappend, String whatRepaired, String otherDamageType, String descriptionWall, String descriptionCeiling, String descriptionFloor, String descriptionWindows, String otherReview, String descriptionOther, String otherReview2, String descriptionOther2, String descriptionScanning, String descriptionMeasuring, String descriptionHumidity, String conclusionRoom1, String conclusionConclusion1, String conclusionRoom2, String conclusionConclusion2, String conclusionRoom3, String conclusionConclusion3, String conclusionRoom4, String conclusionConclusion4, String conclusionRoom5, String conclusionConclusion5, String conclusionRoom6, String conclusionConclusion6, String conclusionRoom7, String conclusionConclusion7, String conclusionRoom8, String conclusionConclusion8, String writer, String collaborator, int commentRoof, int pictureRoof, int commentOuterwall, int pictureOuterwall, int commentRoom, int yesNoRoomDamage, int damageType, int commentWall, int pictureWall, int commentCeiling, int pictureCeiling, int commentFloor, int pictureFloor, int commentWindows, int pictureWindows, int commentOther, int pictureOther, int commentOther2, int pictureOther2, int humidityYesNo, int categorize, String rapportNr) {
         this.buildingName = buildingName;
         this.address = address;
         this.zip = zip;
@@ -164,19 +168,19 @@ public class Rapport {
         this.zip = zip;
     }
 
-    public int getBuildYear() {
+    public String getBuildYear() {
         return buildYear;
     }
 
-    public void setBuildYear(int buildYear) {
+    public void setBuildYear(String buildYear) {
         this.buildYear = buildYear;
     }
 
-    public double getBuildingArea() {
+    public String getBuildingArea() {
         return buildingArea;
     }
 
-    public void setBuildingArea(double buildingArea) {
+    public void setBuildingArea(String buildingArea) {
         this.buildingArea = buildingArea;
     }
 
@@ -652,13 +656,12 @@ public class Rapport {
         this.categorize = categorize;
     }
 
-    public int getRapportNr() {
+    public String getRapportNr() {
         return rapportNr;
     }
 
-    public void setRapportNr(int rapportNr) {
+    public void setRapportNr(String rapportNr) {
         this.rapportNr = rapportNr;
     }
-    
-    
+
 }

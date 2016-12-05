@@ -25,8 +25,7 @@ public class ZipCitySqlInserter {
                 pstmt.setInt(1,(Integer.parseInt(ZIP_CITY[i])));
                 pstmt.setString(2,ZIP_CITY[i+1].substring(1,ZIP_CITY[i+1].length()));                
             pstmt.executeUpdate();
-            }
-            
+            }        
             
         } catch (SQLException ex) {
             System.out.println(ex);

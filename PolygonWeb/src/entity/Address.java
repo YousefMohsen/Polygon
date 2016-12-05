@@ -1,5 +1,9 @@
 package entity;
 
+/**
+ * This class contains all information about address. Address is instiated in
+ * the database layer and returned to presentation or vice versa.
+ */
 public class Address {
 
     private int addressID;
@@ -7,6 +11,11 @@ public class Address {
     private ZipCode zipCode;
 
     public Address() {
+    }
+
+    public Address(int addressID, String addressline) {
+        this.addressID = addressID;
+        this.addressline = addressline;
     }
 
     public Address(String addressline, ZipCode zipCode) {
@@ -46,7 +55,6 @@ public class Address {
 
     @Override
     public String toString() {//delete
-        return "Address{" + "addressID=" + addressID + ", addressline=" + addressline + ", zipCode=" + zipCode + '}';
+        return  addressline +" "+  zipCode.getZip()+" " + zipCode.getCity() ;
     }
-
 }

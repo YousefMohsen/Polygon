@@ -1,55 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import Domain.DomainFacade;
 import static data.DatabaseFacade.getBuildings;
 import entity.Address;
 import entity.Building;
+import exceptions.PolygonException;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Janus
- */
 public class DatabaseFacadeTest {
-    
+
     public DatabaseFacadeTest() {
         //DB.getConnection();
-         
+
     }
-    
+
     @Before
     public void setUp() {
-        
+
     }
 
     /**
      * Test of getBuildings method, of class DatabaseFacade.
      */
     @Test
-    public void testGetBuildings() {
+    public void testGetBuildings() throws PolygonException{
         int expResultSize = 14;
         List<Building> result = getBuildings();
-        assertEquals( expResultSize, result.size() );
+        assertEquals(expResultSize, result.size());
     }
 
     /**
      * Test of getBuilding method, of class DatabaseFacade.
      */
     @Test
-    public void testGetBuilding() {
+    public void testGetBuilding()throws PolygonException {
         //Creating test result
-        Address testAddress = new Address("Klampenborgvej 1",null);
+        Address testAddress = new Address("Klampenborgvej 1", null);
         //testing if the building recieved has the same adressline as the test adress
         List<Building> result = getBuildings();
-       assertEquals(result.get(2).getAddress().getAddressline(), testAddress.getAddressline());
+        assertEquals(result.get(2).getAddress().getAddressline(), testAddress.getAddressline());
     }
 
     /**
@@ -86,5 +78,5 @@ public class DatabaseFacadeTest {
     @Test
     public void testLoadAddress() {
     }
-    
+
 }
