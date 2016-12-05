@@ -34,8 +34,32 @@ public class UploadServlet extends HttpServlet {
             throws ServletException, IOException, PolygonException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            response.setContentType("text/html;charset=UTF-8");
+            int buildingID = Integer.parseInt(request.getParameter("buildingID"));
+            InputStream inputStream = null; // input stream of the upload file
+
+            // obtains the upload file part in this multipart request
+            Part filePart = request.getPart("file");
+            if (filePart != null) {
+                // prints out some information for debugging
+                System.out.println(filePart.getName());
+                System.out.println(filePart.getSize());
+                System.out.println(filePart.getContentType());
+
+                // obtains input stream of the upload file
+                inputStream = filePart.getInputStream();
+            }
+
+            String note = request.getParameter("note");
+
+            Document d = new Document(inputStream, note, buildingID);
+
+            try {
+                DomainFacade.createDocument(d);
+            } catch (PolygonException ex) {
+                Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
-//            HttpSession session = request.getSession();
         }
     }
 
@@ -69,33 +93,11 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        int buildingID = Integer.parseInt(request.getParameter("buildingID"));
-        InputStream inputStream = null; // input stream of the upload file
-
-        // obtains the upload file part in this multipart request
-        Part filePart = request.getPart("file");
-        if (filePart != null) {
-            // prints out some information for debugging
-            System.out.println(filePart.getName());
-            System.out.println(filePart.getSize());
-            System.out.println(filePart.getContentType());
-
-            // obtains input stream of the upload file
-            inputStream = filePart.getInputStream();
-        }
-
-        String note = request.getParameter("note");
-
-        Document d = new Document(inputStream, note, buildingID);
-
         try {
-            DomainFacade.createDocument(d);
+            processRequest(request, response);
         } catch (PolygonException ex) {
             Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
     }
 
     /**

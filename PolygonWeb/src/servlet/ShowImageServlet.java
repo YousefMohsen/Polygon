@@ -6,7 +6,6 @@ import exceptions.PolygonException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -30,26 +29,26 @@ public class ShowImageServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws exceptions.PolygonException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, PolygonException {
-            
+
         //int builidingId = Integer.parseInt(request.getParameter("buildingID"));
         Document d = DomainFacade.getDocument(2);
-            InputStream is = d.getFile();
-            System.out.println("!!!!!!! " + d != null);
-            //byte[] content = d.getFile();
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            int next = is.read();
-            while (next > -1) {
-                bos.write(next);
-                next = is.read();
-            }
-            bos.flush();
-            byte[] result = bos.toByteArray();
-        
-          response.setContentLength(result.length);
-          response.getOutputStream().write(result); 
+        InputStream is = d.getFile();
+        System.out.println("!!!!!!! " + d != null);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        int next = is.read();
+        while (next > -1) {
+            bos.write(next);
+            next = is.read();
+        }
+        bos.flush();
+        byte[] result = bos.toByteArray();
+
+        response.setContentLength(result.length);
+        response.getOutputStream().write(result);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
