@@ -159,5 +159,8 @@ public class DatabaseFacade {
     
     public static void recoverBuilding(int buildingID) throws PolygonException  {
         BuildingMapper.recoverBuilding(buildingID);
-    }   
+    }
+    
+    public static ArrayList<String>getMails() throws PolygonException{
+   return UserMapper.getMails();}
 }

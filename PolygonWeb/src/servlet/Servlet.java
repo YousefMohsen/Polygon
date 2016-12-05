@@ -3,6 +3,8 @@ package servlet;
 import Domain.DomainFacade;
 import exceptions.PolygonException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +30,7 @@ public class Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        // System.out.println("servlet");
-        try { 
+        try(PrintWriter out = response.getWriter()) { 
         System.out.println("servlet1");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
@@ -94,6 +96,14 @@ public class Servlet extends HttpServlet {
                     DomainFacade.healthCheckRequest(buildingID);                     
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
+                    
+                case "newsletter":
+                    String subject = request.getParameter("subject");
+                    String messege = request.getParameter("mailMessege");
+                    request.getRequestDispatcher("WEB-INF/Newsletter.jsp").forward(request, response);
+                  //  out.println(messege+"  "+subject);
+                    break;
+                    
                 case "Submit":
                     int id = Integer.parseInt(request.getParameter("id"));
 

@@ -1,6 +1,8 @@
 
 import data.BuildingMapper;
+import data.EmailSender;
 import data.RequestMapper;
+import data.UserMapper;
 import entity.Building;
 import entity.Request;
 import exceptions.PolygonException;
@@ -20,7 +22,12 @@ public class toDelete {
       public static void main(String [] args) throws SQLException, ClassNotFoundException, PolygonException{
    
           
-          BuildingMapper.recoverBuilding(1);
+         
+          for (String arg : UserMapper.getMails()) {
+              System.out.println(arg);
+          }
+
+// EmailSender.sendNewsletter("subject testtestteste ", "messege tetsfjhvbfkj vbdfjhdfljhvfjhvbzxcjvhb xcjhvb xzcjhvbxczjkhvbxcjkhvbkj");
           
           
 }
