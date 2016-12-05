@@ -33,6 +33,7 @@ public class DocumentMapperTest {
 
     /**
      * Test of getDocument method, of class DocumentMapper.
+     * Metoden tester om vi får det rigtige document tilbage
      */
     @Test
     public void testGetDocument() throws PolygonException, IOException{

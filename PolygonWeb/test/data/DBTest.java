@@ -17,10 +17,11 @@ public class DBTest {
 
     /**
      * Test of getConnection method, of class DB.
+     * Metoden tjekker om vi får en connection
      */
     @Test
     public void testGetConnection() throws PolygonException {
-        //Testing if the connection is null
+        //Vi tester om connection er null
         assertNotNull(DB.getConnection());
     }
 

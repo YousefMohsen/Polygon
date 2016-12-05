@@ -22,7 +22,7 @@ public class BuildingMapperTest {
     @Before
     public void setUp() {
         try {
-            String url = String.format("jdbc:mysql://vetterlain.dk/Polygon");
+            String url = String.format("jdbc:mysql://vetterlain.dk/buildingsTest");
             Class.forName("com.mysql.jdbc.Driver");
 
             testDatabase = DriverManager.getConnection(url, USER, USERPW);
@@ -47,25 +47,22 @@ public class BuildingMapperTest {
 
     /**
      * Test of getBuildings method, of class BuildingMapper.
+     * Metoden tjekker om id er 1 som det første id på testbuildings listen er lig med
      */
     @Test
     public void testGetBuildings() throws PolygonException{
-        System.out.println("bygningid: "+BuildingMapper.getBuildings().get(0).getId());
+        assertEquals(1,BuildingMapper.getBuildings().get(0).getId());
+        
         
     }
 
     /**
-     * Test of getBuildingsForUser method, of class BuildingMapper.
-     */
-    @Test
-    public void testGetBuildingsForUser() {
-    }
-
-    /**
      * Test of getBuilding method, of class BuildingMapper.
+     * Metoden tjekker om den buildings id vi får tilbage er det samme som det på plads 0
      */
     @Test
-    public void testGetBuilding() {
+    public void testGetBuilding() throws PolygonException{
+        assertEquals(1,BuildingMapper.getBuilding(0).getId());
     }
 
     /**

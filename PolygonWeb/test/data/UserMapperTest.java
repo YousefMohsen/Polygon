@@ -36,6 +36,7 @@ public class UserMapperTest {
 
     /**
      * Test of getLogin method, of class UserMapper.
+     * Metoden tester om vi kan logge ind
      */
     @Test
     public void testGetLogin() throws PolygonException{
@@ -47,6 +48,7 @@ public class UserMapperTest {
 
     /**
      * Test of getUser method, of class UserMapper.
+     * Metoden tester om vi får den rigtige bruger tilbage
      */
     @Test
     public void testGetUser() throws PolygonException {
@@ -57,18 +59,8 @@ public class UserMapperTest {
     }
 
     /**
-     * Test of updateUser method, of class UserMapper.
-     */
-    @Test
-    public void testUpdateUser() throws PolygonException{
-        User u = new User("testname", null, null, null, new Address("1", new ZipCode(1, "1")));
-        int buildingID = 5;
-        UserMapper.updateUser(u, buildingID);
-        assertEquals(UserMapper.getUser(buildingID).getFirstname(), "testname");
-    }
-
-    /**
      * Test of findCity method, of class UserMapper.
+     * Metoden tester om man får den rigtige by tilbage
      */
     @Test
     public void testFindCity() throws PolygonException {

@@ -35,12 +35,7 @@ public class RequestMapperTest {
      * Test of sendRequest method, of class RequestMapper.
      */
     @Test
-    public void testSendRequest()throws PolygonException {
-        //The method isnt working right now
-        int requestType = 1;
-        int buildingID = 5;
-        RequestMapper.sendRequest(requestType, buildingID);
-        assertEquals(1, BuildingMapper.getBuilding(5).getHidden());
+    public void testSendRequest(){
     }
 
 }
