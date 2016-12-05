@@ -101,7 +101,7 @@ public class Servlet extends HttpServlet {
                     String subject = request.getParameter("subject");
                     String messege = request.getParameter("mailMessege");
                      DomainFacade.sendNewsletter(subject,messege);
-                    request.getRequestDispatcher("WEB-INF/Newsletter.jsp").forward(request, response);
+                    request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
                 
                     break;
                     
