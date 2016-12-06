@@ -16,7 +16,7 @@
     </head>
     <body>
         <form action="FrontController?ID=Servlet&switch=updateNote" method="post">
-            <img src="ShowImageServlet?buildingID=<%=buildingID%>" style="width:128px;height:128px;">
+            <img src="FrontController?ID=ShowImageServlet?buildingID=<%=buildingID%>" style="width:128px;height:128px;">
             <div class="col-md-6">
                 <h4>Info om plantegning:</h4>
                 <table class="table">
