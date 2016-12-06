@@ -4,6 +4,7 @@ import Domain.DomainFacade;
 import entity.Document;
 import exceptions.PolygonException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,18 +29,13 @@ public class Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        // System.out.println("servlet");
-        try { 
+        try(PrintWriter out = response.getWriter()) { 
         System.out.println("servlet1");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String origin = request.getParameter("switch");
         switch (origin) {
-  
-//
-//        try (PrintWriter out = response.getWriter()) {
-//            HttpSession session = request.getSession();
-//            String origin = request.getParameter("switch");
-//            switch (origin) {
+
                 case "logout":
                     request.getSession().invalidate();
                     request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -94,6 +90,15 @@ public class Servlet extends HttpServlet {
                     DomainFacade.healthCheckRequest(buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
+                    
+                case "newsletter":
+                    String subject = request.getParameter("subject");
+                    String messege = request.getParameter("mailMessege");
+                     DomainFacade.sendNewsletter(subject,messege);
+                    request.getRequestDispatcher("WEB-INF/Newsletter.jsp").forward(request, response);
+                
+                    break;
+                    
                 case "Submit":
                     int id = Integer.parseInt(request.getParameter("id"));
 //                    String buildingStreetId = request.getParameter("buildingStreet");                    

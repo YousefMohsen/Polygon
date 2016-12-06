@@ -146,4 +146,10 @@ public class DomainFacade {
     public static void recoverBuilding(int buildingID) throws PolygonException {
         DatabaseFacade.recoverBuilding(buildingID);
     }
+
+
+
+    public static void sendNewsletter(String subject,String messege) throws PolygonException{
+    DatabaseFacade.sendNewsletter(subject, messege);}
 }
+

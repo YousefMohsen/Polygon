@@ -4,6 +4,7 @@ import Domain.DomainFacade;
 import entity.Building;
 import entity.User;
 import exceptions.PolygonException;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -70,5 +71,62 @@ public class EmailSender {
                 + "";
 
         return s;
+    }
+    
+    public static void sendNewsletter(String subject,String messege) throws PolygonException{
+   
+    ArrayList<String> mailList = DatabaseFacade.getMails();
+   
+        for (String toEmail : mailList) {
+           sendANewsletter(subject,messege,toEmail); 
+        }
+
+    
+    }
+    
+    
+    private static void sendANewsletter(String subject,String messege,String receiver) throws PolygonException{
+  
+        String fromEmail = "polygonrequests@gmail.com"; //requires valid gmail id
+        String password = "Polygon16sundbygning!"; // correct password for gmail id
+        String emailSubject = subject;
+        String emailMessage =  messege;      
+        String toEmail = receiver; //receiver      
+
+        try {
+            
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+            props.put("mail.smtp.port", "587"); //TLS Port
+            props.put("mail.smtp.auth", "true"); //enable authentication
+            props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+
+            //create Authenticator object to pass in Session.getInstance argument
+            Authenticator auth = new Authenticator() {
+                //override the getPasswordAuthentication method
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            };
+            Session session = Session.getInstance(props, auth);
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));          
+
+            message.setSubject(emailSubject);
+            message.setText(emailMessage);           
+            Transport.send(message);            
+        } catch (Exception ex) {
+            System.out.println("Mail fail");
+            System.out.println(ex);
+            throw new PolygonException("Problem in sendEmail method: " + ex.getMessage());
+        }
+    
+    
+    
+    
+    
     }
 }

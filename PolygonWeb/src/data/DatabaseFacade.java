@@ -160,4 +160,13 @@ public class DatabaseFacade {
     public static void recoverBuilding(int buildingID) throws PolygonException {
         BuildingMapper.recoverBuilding(buildingID);
     }
+
+    
+    public static ArrayList<String>getMails() throws PolygonException{
+   return UserMapper.getMails();}
+    
+     public static void sendNewsletter(String subject,String messege) throws PolygonException{
+    EmailSender.sendNewsletter(subject, messege);}
+    
 }
+

@@ -413,4 +413,31 @@ public class UserMapper {
         return adressID;
     }
 
+    
+    public static ArrayList<String> getMails() throws PolygonException{
+      String SQL = "SELECT email FROM User;";
+        ResultSet res = null;
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            conn = DB.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            ArrayList<String> mailList = new ArrayList<>();
+            res = stmt.executeQuery();
+            while (res.next()) {                
+               
+               String email = res.getString("email");
+                
+                mailList.add(email);           
+            }           
+            return mailList;
+        } catch (SQLException ex) {
+            throw new PolygonException("Problem in getUsers method: " + ex.getMessage());
+        } 
+    
+    
+    
+    
+    }
+
 }
