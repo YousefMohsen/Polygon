@@ -5,3 +5,5 @@ Ready to be worked on:
 Graphs: 
 
 [![Throughput Graph](https://graphs.waffle.io/you7inho/Polygon/throughput.svg)](https://waffle.io/you7inho/Polygon/metrics/throughput) 
+
+Joacim - Arbejder på Klasse diagrammer p.t
