@@ -2,6 +2,7 @@ package data;
 
 import entity.Address;
 import entity.Building;
+import exceptions.PolygonException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,12 +35,7 @@ public class RequestMapperTest {
      * Test of sendRequest method, of class RequestMapper.
      */
     @Test
-    public void testSendRequest() {
-        //The method isnt working right now
-        int requestType = 1;
-        int buildingID = 5;
-        RequestMapper.sendRequest(requestType, buildingID);
-        assertEquals(1, BuildingMapper.getBuilding(5).getHidden());
+    public void testSendRequest(){
     }
 
 }

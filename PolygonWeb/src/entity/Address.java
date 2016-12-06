@@ -55,6 +55,6 @@ public class Address {
 
     @Override
     public String toString() {//delete
-        return "Address{" + "addressID=" + addressID + ", addressline=" + addressline + ", zipCode=" + zipCode + '}';
+        return addressline + " " + zipCode.getZip() + " " + zipCode.getCity();
     }
 }

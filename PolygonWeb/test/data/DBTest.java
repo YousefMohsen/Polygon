@@ -1,5 +1,6 @@
 package data;
 
+import exceptions.PolygonException;
 import java.sql.Connection;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +17,11 @@ public class DBTest {
 
     /**
      * Test of getConnection method, of class DB.
+     * Metoden tjekker om vi får en connection
      */
     @Test
-    public void testGetConnection() {
-        //Testing if the connection is null
+    public void testGetConnection() throws PolygonException {
+        //Vi tester om connection er null
         assertNotNull(DB.getConnection());
     }
 

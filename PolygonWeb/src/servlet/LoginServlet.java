@@ -4,12 +4,12 @@ import Domain.DomainFacade;
 import entity.Login;
 import exceptions.PolygonException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -22,24 +22,29 @@ public class LoginServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws exceptions.PolygonException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, PolygonException {
-        response.setContentType("text/html;charset=UTF-8");
-        Login login = DomainFacade.getLogin(request.getParameter("username"));
-        String username = login.getUsername();
-        int userID = login.getId();
-        int uId = login.getuId();
-        int rank = login.getRank();
-        if (login.getPassword().equals(request.getParameter("password"))) {
-            request.getSession().setAttribute("name", username);
-            request.getSession().setAttribute("userID", userID);
-            request.getSession().setAttribute("uId", uId);
-            request.getSession().setAttribute("rank", rank);
-            request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("index.jsp");
+            throws ServletException, IOException {
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            Login login = DomainFacade.getLogin(request.getParameter("username"));
+            String username = login.getUsername();
+            int userID = login.getId();
+            int uId = login.getuId();
+            int rank = login.getRank();
+            if (login.getPassword().equals(request.getParameter("password"))) {
+                request.getSession().setAttribute("name", username);
+                request.getSession().setAttribute("userID", userID);
+                request.getSession().setAttribute("uId", uId);
+                request.getSession().setAttribute("rank", rank);
+                request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("index.jsp");
+            }
+        } catch (ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
     }
 
@@ -55,11 +60,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (PolygonException ex) {
-            System.out.println(ex.getMessage());
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -73,11 +74,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (PolygonException ex) {
-            System.out.println(ex.getMessage());
-        }
+        processRequest(request, response);
     }
 
     /**

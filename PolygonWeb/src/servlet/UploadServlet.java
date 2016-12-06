@@ -34,9 +34,9 @@ public class UploadServlet extends HttpServlet {
             throws ServletException, IOException, PolygonException {
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
-            
+
             int buildingID = Integer.parseInt(request.getParameter("buildingID"));
-            
+
             InputStream inputStream = null; // input stream of the upload file
 
             // obtains the upload file part in this multipart request
@@ -55,11 +55,8 @@ public class UploadServlet extends HttpServlet {
 
             Document d = new Document(inputStream, note, buildingID);
 
-            try {
-                DomainFacade.createDocument(d);
-            } catch (PolygonException ex) {
-                Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            DomainFacade.createDocument(d);
+
             request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
         }
     }

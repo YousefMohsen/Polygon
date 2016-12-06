@@ -6,6 +6,7 @@
 <%
     int buildingID = Integer.parseInt(request.getParameter("buildingID"));
     Document d = DomainFacade.getDocument(buildingID);
+    String name = d.fileToString();
 %>
 
 <html>
@@ -20,7 +21,7 @@
             <div class="col-md-6">
                 <h4>Info om plantegning:</h4>
                 <table class="table">
-                    <tr><td>Filer</td><td><a href="" name="file" ><input  type="hidden" value="<%=d.getFile()%>" name="file" ><%=d.getFile()%></a></td></tr>
+                    <tr><td>Fil</td><td><a href="" name="file" ><input  type="hidden" value="<%=d.getFile()%>" name="file" ><%= name + "name"%></a></td></tr>
                     <tr><td>Note</td><td><input  type="text" name="note" value="<%= d.getNote()%>"></td></tr>
                 </table>
                 <input class="btn btn-default" type="submit" value="Gem"/>

@@ -1,5 +1,6 @@
 package data;
 
+import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,14 +15,14 @@ public class BuildingMapperTest {
     }
 
     private Connection testDatabase;
-    private static String USER = "javatester";
-    private static String USERPW = "testogeksperimenter=21coolstuf";
+    private static String USER = "polygon";
+    private static String USERPW = "Polygon16sundbygning!";
     private static String DBNAME = "buildingsTest";
 
     @Before
     public void setUp() {
         try {
-            String url = String.format("jdbc:mysql://vetterlain.dk/Polygon");
+            String url = String.format("jdbc:mysql://vetterlain.dk/buildingsTest");
             Class.forName("com.mysql.jdbc.Driver");
 
             testDatabase = DriverManager.getConnection(url, USER, USERPW);
@@ -31,7 +32,6 @@ public class BuildingMapperTest {
                 stmt.execute("insert into building select * from testbuilding");
             }
             DB.setConnection(testDatabase);
-
         } catch (ClassNotFoundException | SQLException ex) {
             testDatabase = null;
             System.out.println("Could not open connection to database: " + ex.getMessage());;
@@ -47,23 +47,22 @@ public class BuildingMapperTest {
 
     /**
      * Test of getBuildings method, of class BuildingMapper.
+     * Metoden tjekker om id er 1 som det første id på testbuildings listen er lig med
      */
     @Test
-    public void testGetBuildings() {
-    }
-
-    /**
-     * Test of getBuildingsForUser method, of class BuildingMapper.
-     */
-    @Test
-    public void testGetBuildingsForUser() {
+    public void testGetBuildings() throws PolygonException{
+        assertEquals(1,BuildingMapper.getBuildings().get(0).getId());
+        
+        
     }
 
     /**
      * Test of getBuilding method, of class BuildingMapper.
+     * Metoden tjekker om den buildings id vi får tilbage er det samme som det på plads 0
      */
     @Test
-    public void testGetBuilding() {
+    public void testGetBuilding() throws PolygonException{
+        assertEquals(1,BuildingMapper.getBuilding(0).getId());
     }
 
     /**

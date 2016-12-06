@@ -6,7 +6,9 @@
 <%
     int userId = (int) session.getAttribute("userID");
     List<Building> buildings = DomainFacade.getBuildingsForUser(userId, (int) session.getAttribute("rank"));
-
+    if (buildings.size() <= 0) {%> <div class="alert alert-info">
+    <strong>Info!</strong> Ingen bygninger fundet!
+</div><%}
 %>
 <form action="" method="POST">
     <div class="row top-buffer"> </div>
@@ -21,7 +23,7 @@
         </thead>
         <tbody>
             <%                for (Building b : buildings) {
-                
+
                     out.println("<tr class = \"menu_links\" onclick=\"document.location = 'FrontController?ID=Servlet&switch=editBuilding&buildingID=" + b.getId() + "';\">");
                     out.println("<td>" + b.getAddress().getZipCode().getZip() + "</td>");
                     out.println("<td>" + b.getAddress().getZipCode().getCity() + "</td>");

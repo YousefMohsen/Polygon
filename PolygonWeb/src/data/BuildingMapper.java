@@ -27,17 +27,15 @@ public class BuildingMapper {
      * @throws exceptions.PolygonException
      */
     public static void createBuilding(int zip, String address, int userID, String name) throws PolygonException {
-        String sql = "insert into Building "
-                + "(Address_addressId,rapportURL,User_userId,hidden,buildingName) "
-                + "values(?,?,?,?,?);";
+        String sql = "insert into Building (Address_addressId,rapportURL,User_userId,hidden,buildingName) values(?,?,?,?,?);";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, insertAddress(zip, address, con));
+            stmt.setInt(1, insertAddress(zip, address));
             stmt.setString(2, "Ingen rapport tilføjet");// fix rapport url!
             System.out.println(userID);
             stmt.setInt(3, userID); //fix user ID 
             stmt.setInt(4, 0); //0 = shown, 1=hidden
-            stmt.setString(5, name);            
+            stmt.setString(5, name);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -56,30 +54,53 @@ public class BuildingMapper {
      * @return ArrayList() of type Building
      * @throws exceptions.PolygonException
      */
-    public static List<Building> getBuildings() throws PolygonException {
-        Connection con = DB.getConnection();
-        String sql = "SELECT buildingId,Address_addressId,User_userId "
-                + "FROM Building; ";
-        List<Building> buildings = new ArrayList<>();
-        try (
-                Statement stmt = con.createStatement()) {
-            ResultSet res = stmt.executeQuery(sql);
+    public static ArrayList<Building> getBuildings() throws PolygonException {
+        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building WHERE hidden=0;";
+        ArrayList<Building> buildings = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        try {
+            conn = DB.getConnection();
+            stmt = conn.prepareStatement(sql);
+            res = stmt.executeQuery();
             while (res.next()) {
                 Building newBuilding = new Building();
                 int id = res.getInt("buildingId");
                 int addressId = res.getInt("Address_addressId");
                 int userId = res.getInt("User_userId");
+                String buildingName = res.getString("buildingName");
 
                 newBuilding.setId(id);
-                newBuilding.setAddress(loadAddress(addressId, con));
+                newBuilding.setAddress(loadAddress(addressId, conn));
                 newBuilding.setUser(userId);
+                newBuilding.setBuildingName(buildingName);
                 buildings.add(newBuilding);
             }
+            return buildings;
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
             throw new PolygonException("Problem in getBuildings method: " + ex.getMessage());
+        } finally {
+            try {
+                if (res != null) {
+                    res.close();
+                }
+            } catch (Exception e) {
+            };
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (Exception e) {
+            };
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+            };
         }
-        return buildings;
     }
 
     /**
@@ -94,10 +115,10 @@ public class BuildingMapper {
      */
     public static List<Building> getBuildingsForUser(int userID, int userType) throws PolygonException {//Returns a list for a given user
         List<Building> buildings = new ArrayList<>();
-        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building ";
-        if (userType != 1) {
-            sql += "where User_userId=? And hidden=0";
-        } //if user is not an admin, then hide deleted buildings   
+        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building where hidden=0";
+        if (userType != 1) {//if user is not an admin,then get only buildings belonging to the given user
+            sql += " AND User_userId=?";
+        }
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);) {
             if (userType != 1) {
@@ -123,6 +144,33 @@ public class BuildingMapper {
         return buildings;
     }
 
+    public static List<Building> getDeletedBuildings() throws PolygonException {//Returns a list for a given user
+        List<Building> buildings = new ArrayList<>();
+        String sql = "SELECT buildingId,Address_addressId,User_userId,buildingName FROM Building where hidden=1";
+
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);) {
+
+            ResultSet res = stmt.executeQuery();
+            while (res.next()) {
+                Building newBuilding = new Building();
+                int id = res.getInt("buildingId");
+                int addressId = res.getInt("Address_addressId");
+                int userId = res.getInt("User_userId");
+                String name = res.getString("buildingName");
+                newBuilding.setId(id);
+                newBuilding.setAddress(loadAddress(addressId, con));
+                newBuilding.setUser(userId);
+                newBuilding.setBuildingName(name);
+                buildings.add(newBuilding);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not gotten: " + ex.getMessage());
+            throw new PolygonException("Problem in getDeletedBuildings method: " + ex.getMessage());
+        }
+        return buildings;
+    }
+
     /**
      * This method returns a building from the database belonging to a specific
      * user
@@ -139,7 +187,7 @@ public class BuildingMapper {
                 + "ON Building.Address_addressId=Address.addressId "
                 + "JOIN Zipcode "
                 + "ON Address.zipcode_addressId=Zipcode.zipId "
-                + "WHERE buildingId=?";        
+                + "WHERE buildingId=?";
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, buildingID);
@@ -158,6 +206,24 @@ public class BuildingMapper {
             throw new PolygonException("Problem in getBuilding method: " + ex.getMessage());
         }
         return null;
+    }
+
+    public static void recoverBuilding(int buildingID) throws PolygonException {
+
+        String sql = "UPDATE Building SET  hidden =? WHERE buildingId = ?";
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, 0);
+            stmt.setInt(2, buildingID);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element inserted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not inserted: " + ex.getMessage());
+            throw new PolygonException("Problem in recoverBuilding method: " + ex.getMessage());
+        }
     }
 
     /**
@@ -205,6 +271,7 @@ public class BuildingMapper {
      */
     public static void updateBuilding(Building b) throws PolygonException {
         //Opdaterer info om en bygning i DB
+        System.out.println("jge er hers");
         String sql = "UPDATE Building SET  rapportURL = ?, buildingName= ? WHERE buildingId = ?";
         try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, b.getReport());
@@ -314,14 +381,13 @@ public class BuildingMapper {
      * This method returns a zip ID with a specific zip code from the database
      *
      * @param zip int the zip code that matches the zip ID
-     * @param con Connection a new connection
      * @return zipID int a int with the ID
      * @throws exceptions.PolygonException
      */
-    public static int findZipID(int zip, Connection con) throws PolygonException {
+    public static int findZipID(int zip) throws PolygonException {
         String sql = "select zipId from Zipcode where zip = ?;";
         int zipID = 0;
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, zip);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
@@ -340,19 +406,16 @@ public class BuildingMapper {
      *
      * @param zip int the zip code of the new address
      * @param address the addressline of the new address
-     * @param con Connection a new connection
      * @return addressID int a int with the ID
      * @throws exceptions.PolygonException
      */
-    public static int insertAddress(int zip, String address, Connection con) throws PolygonException {
-        String sql = " insert into Address "
-                + "(addressline,zipcode_addressId) "
-                + "values (?,?);";
+    public static int insertAddress(int zip, String address) throws PolygonException {
+        String sql = " insert into Address (addressline,zipcode_addressId) values (?,?);";
         String sqlGetAdrID = "SELECT MAX(addressId) FROM Address;";
         int adressID = 0;
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, address);
-            stmt.setInt(2, findZipID(zip, con));
+            stmt.setInt(2, findZipID(zip));
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Element inserted");
@@ -364,7 +427,7 @@ public class BuildingMapper {
             throw new PolygonException("Problem in insertAddress method, sql: " + ex.getMessage());
         }
         //get adressId of recent inserted address 
-        try (PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
+        try (Connection con = DB.getConnection(); PreparedStatement stmt = con.prepareStatement(sqlGetAdrID)) {
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 adressID = res.getInt("MAX(addressId)");

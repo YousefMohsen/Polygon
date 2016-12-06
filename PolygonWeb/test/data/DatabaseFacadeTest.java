@@ -4,6 +4,7 @@ import Domain.DomainFacade;
 import static data.DatabaseFacade.getBuildings;
 import entity.Address;
 import entity.Building;
+import exceptions.PolygonException;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,9 +24,11 @@ public class DatabaseFacadeTest {
 
     /**
      * Test of getBuildings method, of class DatabaseFacade.
+     * Her tjekker vi metoderne på den rigtige database
      */
     @Test
-    public void testGetBuildings() {
+    public void testGetBuildings() throws PolygonException{
+        //Tjekker mod den rigtige size på listen og hvis vi får den samme størrelse
         int expResultSize = 14;
         List<Building> result = getBuildings();
         assertEquals(expResultSize, result.size());
@@ -35,10 +38,10 @@ public class DatabaseFacadeTest {
      * Test of getBuilding method, of class DatabaseFacade.
      */
     @Test
-    public void testGetBuilding() {
-        //Creating test result
+    public void testGetBuilding()throws PolygonException {
+        //Her laver vi et resultat vi gerne vil have
         Address testAddress = new Address("Klampenborgvej 1", null);
-        //testing if the building recieved has the same adressline as the test adress
+        //Så tester vi om vi får det resultat når vi beder om bygningen
         List<Building> result = getBuildings();
         assertEquals(result.get(2).getAddress().getAddressline(), testAddress.getAddressline());
     }

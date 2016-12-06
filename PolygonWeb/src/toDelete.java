@@ -1,5 +1,7 @@
 
+import data.BuildingMapper;
 import data.RequestMapper;
+import entity.Building;
 import entity.Request;
 import exceptions.PolygonException;
 import java.sql.SQLException;
@@ -16,10 +18,10 @@ import java.sql.SQLException;
  */
 public class toDelete {
       public static void main(String [] args) throws SQLException, ClassNotFoundException, PolygonException{
-    
-          for (Request r : RequestMapper.getRequest(2)) {
-              System.out.println(r.getId());
-          }
-    
+   
+          
+          BuildingMapper.recoverBuilding(1);
+          
+          
 }
 }

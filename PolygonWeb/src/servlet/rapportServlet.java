@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "rapportServlet", urlPatterns = {"/rapportServlet"})
 public class rapportServlet extends HttpServlet {
@@ -50,22 +51,22 @@ public class rapportServlet extends HttpServlet {
                 return;
             }
             if (request.getParameter("goBack") != null) {
-                if(buildingID == 0) {
+                if (buildingID == 0) {
                     response.sendRedirect("FrontController?ID=LinkServlet&page=buildingTable.jsp");
                 } else {
-                   response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID=" + buildingID);
+                    response.sendRedirect("FrontController?ID=Servlet&switch=editBuilding&buildingID=" + buildingID);
                 }
                 return;
             }
-            
+
             String buildingName = request.getParameter("nameOnBuilding").replaceAll("\\s+", "");
             String address = request.getParameter("address");
             String zip = request.getParameter("zipCity");
-            
+
             String buildYear = request.getParameter("buildYear");
             String buildingArea = request.getParameter("buildingArea");
             String buildingUse = request.getParameter("buildingUse");
-            
+
             int commentRoof = 1;
             if (request.getParameter("comments1") != null) {
                 commentRoof = Integer.parseInt(request.getParameter("comments1"));
@@ -75,7 +76,7 @@ public class rapportServlet extends HttpServlet {
                 pictureRoof = Integer.parseInt(request.getParameter("picture1"));
             }
             String descriptionRoof = request.getParameter("roofDescription");
-            
+
             int commentOuterwall = 1;
             if (request.getParameter("comments2") != null) {
                 commentOuterwall = Integer.parseInt(request.getParameter("comments2"));
@@ -85,13 +86,13 @@ public class rapportServlet extends HttpServlet {
                 pictureOuterwall = Integer.parseInt(request.getParameter("picture2"));
             }
             String descriptionOuterwall = request.getParameter("outerwallDescription");
-            
+
             String room = request.getParameter("room");
             int commentRoom = 1;
             if (request.getParameter("comments3") != null) {
                 commentRoom = Integer.parseInt(request.getParameter("comments3"));
             }
-            
+
             int yesNoRoomDamage = 1;
             if (request.getParameter("yesNo1") != null) {
                 yesNoRoomDamage = Integer.parseInt(request.getParameter("yesNo1"));
@@ -105,7 +106,7 @@ public class rapportServlet extends HttpServlet {
                 damageType = Integer.parseInt(request.getParameter("damageRadio"));
             }
             String otherDamageType = request.getParameter("otherText");
-            
+
             int commentWall = 1;
             if (request.getParameter("comments4") != null) {
                 commentWall = Integer.parseInt(request.getParameter("comments4"));
@@ -115,7 +116,7 @@ public class rapportServlet extends HttpServlet {
                 pictureWall = Integer.parseInt(request.getParameter("pictureWall"));
             }
             String descriptionWall = request.getParameter("wallDescription");
-            
+
             int commentCeiling = 1;
             if (request.getParameter("comments5") != null) {
                 commentCeiling = Integer.parseInt(request.getParameter("comments5"));
@@ -125,7 +126,7 @@ public class rapportServlet extends HttpServlet {
                 pictureCeiling = Integer.parseInt(request.getParameter("pictureCeiling"));
             }
             String descriptionCeiling = request.getParameter("ceilingDescription");
-            
+
             int commentFloor = 1;
             if (request.getParameter("comments6") != null) {
                 commentFloor = Integer.parseInt(request.getParameter("comments6"));
@@ -135,7 +136,7 @@ public class rapportServlet extends HttpServlet {
                 pictureFloor = Integer.parseInt(request.getParameter("pictureFloor"));
             }
             String descriptionFloor = request.getParameter("floorDescription");
-            
+
             int commentWindows = 1;
             if (request.getParameter("comments7") != null) {
                 commentWindows = Integer.parseInt(request.getParameter("comments7"));
@@ -145,7 +146,7 @@ public class rapportServlet extends HttpServlet {
                 pictureWindows = Integer.parseInt(request.getParameter("pictureWindows"));
             }
             String descriptionWindows = request.getParameter("windowsDescription");
-            
+
             String otherReview = request.getParameter("other");
             int commentOther = 1;
             if (request.getParameter("comments8") != null) {
@@ -156,7 +157,7 @@ public class rapportServlet extends HttpServlet {
                 pictureOther = Integer.parseInt(request.getParameter("pictureOther"));
             }
             String descriptionOther = request.getParameter("otherDescription");
-            
+
             String otherReview2 = request.getParameter("other2");
             int commentOther2 = 1;
             if (request.getParameter("comments9") != null) {
@@ -167,7 +168,7 @@ public class rapportServlet extends HttpServlet {
                 pictureOther2 = Integer.parseInt(request.getParameter("pictureOther2"));
             }
             String descriptionOther2 = request.getParameter("other2Description");
-            
+
             int humidityYesNo = 1;
             if (request.getParameter("yesNo2") != null) {
                 humidityYesNo = Integer.parseInt(request.getParameter("yesNo2"));
@@ -175,7 +176,7 @@ public class rapportServlet extends HttpServlet {
             String descriptionScanning = request.getParameter("humidityScan");
             String descriptionMeasuring = request.getParameter("measuring");
             String descriptionHumidity = request.getParameter("humidityDescription");
-            
+
             String conclusionRoom1 = request.getParameter("room1");
             String conclusionConclusion1 = request.getParameter("conclusion1");
             String conclusionRoom2 = request.getParameter("room2");
@@ -192,28 +193,30 @@ public class rapportServlet extends HttpServlet {
             String conclusionConclusion7 = request.getParameter("conclusion7");
             String conclusionRoom8 = request.getParameter("room8");
             String conclusionConclusion8 = request.getParameter("conclusion8");
-            
+
             String writer = request.getParameter("writer");
             String collaborator = request.getParameter("collaborator");
-            
+
             int categorize = 0;
             if (request.getParameter("grade") != null) {
                 categorize = Integer.parseInt(request.getParameter("grade"));
             }
-            
+
             String rapportNr = request.getParameter("rapportnr1");
-            
+
             Rapport rapport = new Rapport(buildingName, address, zip, buildYear, buildingArea, buildingUse, descriptionRoof, descriptionOuterwall, room, when, where, whatHappend, whatRepaired, otherDamageType, descriptionWall, descriptionCeiling, descriptionFloor, descriptionWindows, otherReview, descriptionOther, otherReview2, descriptionOther2, descriptionScanning, descriptionMeasuring, descriptionHumidity, conclusionRoom1, conclusionConclusion1, conclusionRoom2, conclusionConclusion2, conclusionRoom3, conclusionConclusion3, conclusionRoom4, conclusionConclusion4, conclusionRoom5, conclusionConclusion5, conclusionRoom6, conclusionConclusion6, conclusionRoom7, conclusionConclusion7, conclusionRoom8, conclusionConclusion8, writer, collaborator, commentRoof, pictureRoof, commentOuterwall, pictureOuterwall, commentRoom, yesNoRoomDamage, damageType, commentWall, pictureWall, commentCeiling, pictureCeiling, commentFloor, pictureFloor, commentWindows, pictureWindows, commentOther, pictureOther, commentOther2, pictureOther2, humidityYesNo, categorize, rapportNr);
-            
+
             DomainFacade.clearRapportData(buildingID);
             DomainFacade.createRapport(buildingID, rapport);
-            
+
             List<Rapport> ListRap = new ArrayList();
             ListRap.add(DomainFacade.getRapport(buildingID));
             request.setAttribute("rapportData", ListRap);
             request.getRequestDispatcher("FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport").forward(request, response);
-        } catch (PolygonException ex) {
-            System.out.println(ex.getMessage());
+        } catch (ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
     }
 

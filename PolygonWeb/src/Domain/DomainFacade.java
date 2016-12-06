@@ -27,16 +27,16 @@ public class DomainFacade {
         return DatabaseFacade.getAddress(addressId);
     }
 
+    public static ArrayList<Address> getAllAddress() throws PolygonException {
+        return DatabaseFacade.getAllAddress();
+    }
+
     public static int getZip(int zip) throws PolygonException {
         return DatabaseFacade.getZip(zip);
     }
 
     public static void updateAddress(int buildingAddressId, int AddressId) throws PolygonException {
         DatabaseFacade.updateAddress(buildingAddressId, AddressId);
-    }
-
-    public static ArrayList<Building> getBuildings() throws PolygonException {
-        return (ArrayList<Building>) DatabaseFacade.getBuildings();
     }
 
     public static Building getBuilding(int id) throws PolygonException {
@@ -75,12 +75,20 @@ public class DomainFacade {
         DatabaseFacade.createBuilding(zip, address, userID, name);
     }
 
+    public static int createUser(String firstname, String lastname, String phone, String email, String uaddress, int uzip) throws PolygonException {
+        return DatabaseFacade.createUser(firstname, lastname, phone, email, uaddress, uzip);
+    }
+
     public static Login getLogin(int userId) throws PolygonException {
         return DatabaseFacade.getLogin(userId);
     }
 
     public static Login getLogin(String username) throws PolygonException {
         return DatabaseFacade.getLogin(username);
+    }
+
+    public static ArrayList<Login> getAllLogin() throws PolygonException {
+        return DatabaseFacade.getAllLogin();
     }
 
     public static void createRapport(int buildingID, Rapport rapport) throws PolygonException {
@@ -119,7 +127,23 @@ public class DomainFacade {
         return DatabaseFacade.getBuildingsForUser(userID, userRank);
     }
 
+    public static ArrayList<Building> getBuildings() throws PolygonException {
+        return DatabaseFacade.getBuildings();
+    }
+
     public static void sendMail(int buildingID) throws PolygonException {
 
+    }
+
+    public static void createLogin(String login, String password, int rank, int userId) throws PolygonException {
+        DatabaseFacade.createLogin(login, password, rank, userId);
+    }
+
+    public static List<Building> getDeletedBuildings() throws PolygonException {
+        return DatabaseFacade.getDeletedBuildings();
+    }
+
+    public static void recoverBuilding(int buildingID) throws PolygonException {
+        DatabaseFacade.recoverBuilding(buildingID);
     }
 }
