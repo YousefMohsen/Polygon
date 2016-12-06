@@ -27,12 +27,11 @@ public final class DB {
      */
     public static Connection getConnection() throws PolygonException {
         try {
-            if (conn == null) //STEP 1: Register JDBC driver
-            {
-                Class.forName("com.mysql.jdbc.Driver");
+            if (conn == null){ //STEP 1: Register JDBC driver            
+                Class.forName("com.mysql.jdbc.Driver");            
             }
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
             //STEP 2: Open a connection            
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
             throw new PolygonException("Problem in getConnection method: " + e.getMessage());
