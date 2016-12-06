@@ -15,20 +15,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <img src="ShowImageServlet?buildingID=<%=buildingID%>" style="width:128px;height:128px;">
-        <div class="col-md-6">
-                <h4>Info om bygning:</h4>
+        <form action="FrontController?ID=Servlet&switch=updateNote" method="post">
+            <img src="ShowImageServlet?buildingID=<%=buildingID%>" style="width:128px;height:128px;">
+            <div class="col-md-6">
+                <h4>Info om plantegning:</h4>
                 <table class="table">
                     <tr><td>Filer</td><td><a href="" name="file" ><input  type="hidden" value="<%=d.getFile()%>" name="file" ><%=d.getFile()%></a></td></tr>
-                    <tr><td>Note (Om fil)</td><td><input  type="text" name="note" value="<%= d.getNote()%>"></td></tr>
+                    <tr><td>Note</td><td><input  type="text" name="note" value="<%= d.getNote()%>"></td></tr>
                 </table>
+                <input class="btn btn-default" type="submit" value="Gem"/>
+                <input type="hidden" name="buildingID" value="<%=buildingID%>" />
             </div>
-        <h3>Upload Plantegning</h3>
-        Vælg det billede du ønsker at uploade: <br/>
+        </form>
+        <br/>
+        <br/>
+        <br/>
         <form action="UploadServlet" method="post" enctype="multipart/form-data">
+            <h4>Upload Plantegning:</h4>
+            <h5>Vælg det billede du ønsker at uploade:</h5>
             <input type="file" name="file" size="50"/>
             <br/>
-            <input type="submit" value="Upload Billede"/>
+            <input class="btn btn-default" type="submit" value="Upload Billede"/>
             <input type="hidden" name="buildingID" value="<%=buildingID%>" />
         </form>
     </body>

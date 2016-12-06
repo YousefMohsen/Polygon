@@ -1,6 +1,7 @@
 package servlet;
 
 import Domain.DomainFacade;
+import entity.Document;
 import exceptions.PolygonException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -60,10 +61,10 @@ public class Servlet extends HttpServlet {
                     DomainFacade.cancelDeletionRequest(buildingID); //remove building from deletion list
                     request.getRequestDispatcher("WEB-INF/Request.jsp").forward(request, response);
                     break;
-                case "healthCheck":                      
+                case "healthCheck":
                     buildingID = Integer.parseInt(request.getParameter("buildingID"));
                     request.setAttribute("buildingID", buildingID);
-                    DomainFacade.healthCheckRequest(buildingID);                     
+                    DomainFacade.healthCheckRequest(buildingID);
                     request.getRequestDispatcher("WEB-INF/editBuilding.jsp").forward(request, response);
                     break;
                 case "Submit":
@@ -83,6 +84,16 @@ public class Servlet extends HttpServlet {
 //                    DomainFacade.updateAddress(buildingAddressId,addressId);
 //                    
                     request.getRequestDispatcher("WEB-INF/buildingTable.jsp").forward(request, response);
+                    break;
+                case "updateNote":
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                    String note = request.getParameter("note");
+
+                    Document d = new Document(note, buildingID);
+
+                    DomainFacade.updateDocumentNote(d);
+
+                    request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
                     break;
             }
         }

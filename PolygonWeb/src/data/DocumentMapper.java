@@ -51,8 +51,8 @@ public class DocumentMapper {
     }
 
     /**
-     * This method updates the note about a specific document based on
-     * the building ID in the database
+     * This method updates the note about a specific document based on the
+     * building ID in the database
      *
      * @param d Document the document that is going to be updated
      * @throws exceptions.PolygonException
