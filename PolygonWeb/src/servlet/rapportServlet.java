@@ -210,7 +210,8 @@ public class rapportServlet extends HttpServlet {
             DomainFacade.createRapport(buildingID, rapport);
 
             List<Rapport> ListRap = new ArrayList();
-            ListRap.add(DomainFacade.getRapport(buildingID));
+            //ListRap.add(DomainFacade.getRapport(buildingID));
+            ListRap.add(rapport);
             request.setAttribute("rapportData", ListRap);
             request.getRequestDispatcher("FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport").forward(request, response);
         } catch (ServletException | IOException | NumberFormatException | PolygonException e) {

@@ -48,6 +48,7 @@ public class BuildingMapperTest {
     /**
      * Test of getBuildings method, of class BuildingMapper.
      * Metoden tjekker om id er 1 som det første id på testbuildings listen er lig med
+     * @throws exceptions.PolygonException
      */
     @Test
     public void testGetBuildings() throws PolygonException{
@@ -59,6 +60,7 @@ public class BuildingMapperTest {
     /**
      * Test of getBuilding method, of class BuildingMapper.
      * Metoden tjekker om den buildings id vi får tilbage er det samme som det på plads 0
+     * @throws exceptions.PolygonException
      */
     @Test
     public void testGetBuilding() throws PolygonException{
