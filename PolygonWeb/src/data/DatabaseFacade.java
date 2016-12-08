@@ -68,7 +68,7 @@ public class DatabaseFacade {
         UserMapper.updateUser(u, buildingID);
     }
 
-    public static void createDocument(Document d) throws PolygonException {
+    public static void createDocument(Document d) throws PolygonException, IOException {
         DocumentMapper.createDocument(d);
     }
 

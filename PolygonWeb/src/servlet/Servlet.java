@@ -127,6 +127,10 @@ public class Servlet extends HttpServlet {
 
                     request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
                     break;
+                case "showImage":
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                    request.getRequestDispatcher("WEB-INF/showFloorPlan.jsp").forward(request, response);
+                    break;
             }
         } catch(ServletException | IOException | NumberFormatException | PolygonException e) {
             HttpSession session = request.getSession();
