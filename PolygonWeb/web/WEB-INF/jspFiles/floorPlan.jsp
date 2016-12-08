@@ -6,7 +6,6 @@
 <%
     int buildingID = Integer.parseInt(request.getParameter("buildingID"));
     Document d = DomainFacade.getDocument(buildingID);
-    String name = d.fileToString();
 %>
 
 <html>
@@ -17,17 +16,19 @@
     </head>
     <body>
         <form action="FrontController?ID=Servlet&switch=updateNote" method="post">
-            <img src="FrontController?ID=ShowImageServlet?buildingID=<%=buildingID%>" style="width:128px;height:128px;">
             <div class="col-md-6">
                 <h4>Info om plantegning:</h4>
                 <table class="table">
-                    <tr><td>Fil</td><td><a href="" name="file" ><input  type="hidden" value="<%=d.getFile()%>" name="file" ><%= name + "name"%></a></td></tr>
                     <tr><td>Note</td><td><input  type="text" name="note" value="<%= d.getNote()%>"></td></tr>
                 </table>
-                <input class="btn btn-default" type="submit" value="Gem"/>
+                <input class="btn btn-default pull-right" type="submit" value="Gem note"/>
                 <input type="hidden" name="buildingID" value="<%=buildingID%>" />
             </div>
         </form>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <br/>
         <br/>
         <br/>
@@ -36,8 +37,15 @@
             <h5>Vælg det billede du ønsker at uploade:</h5>
             <input type="file" name="file" size="50"/>
             <br/>
-            <input class="btn btn-default" type="submit" value="Upload Billede"/>
+            <input class="btn btn-default" type="submit" value="Upload Plantegning"/>
             <input type="hidden" name="buildingID" value="<%=buildingID%>" />
         </form>
+        <br/>
+        <% if (d.getFile() != null) {%>
+        <form action="FrontController?ID=Servlet&switch=showImage" method="post">
+            <input class="btn btn-default" type="submit" value="Vis Plantegning"/>
+            <input type="hidden" name="buildingID" value="<%=buildingID%>" />
+        </form>
+        <%}%>
     </body>
 </html>

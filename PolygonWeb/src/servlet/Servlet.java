@@ -29,7 +29,7 @@ public class Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        // System.out.println("servlet");
-        try(PrintWriter out = response.getWriter()) { 
+        try { 
         System.out.println("servlet1");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
@@ -126,6 +126,10 @@ public class Servlet extends HttpServlet {
                     DomainFacade.updateDocumentNote(d);
 
                     request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
+                    break;
+                case "showImage":
+                    buildingID = Integer.parseInt(request.getParameter("buildingID"));
+                    request.getRequestDispatcher("WEB-INF/showFloorPlan.jsp").forward(request, response);
                     break;
             }
         } catch(ServletException | IOException | NumberFormatException | PolygonException e) {

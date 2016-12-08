@@ -54,7 +54,7 @@ public class CreateRapport {
         byte[] outPdfBuffer = null;
 
         // convert URL to PDF
-        String urlToConvert = "http://localhost:8084/PolygonWeb/FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport&pdf";
+        String urlToConvert = "http://vetterlain.dk/PolygonWeb/FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport&pdf";
 
         outPdfBuffer = htmlToPdfConverter.convertUrl(urlToConvert);
 
@@ -89,6 +89,7 @@ public class CreateRapport {
             // convert the URL to a PDF document in a buffer
             byte[] outPdfBuffer = convertHtmlToPdf(buildingID);
             String outFilePath = "C:\\Users\\Asger\\Desktop\\Datamatiker\\Polygon\\PolygonWeb\\web\\files\\pdf\\buildingRapport_" + buildingName + buildingID + ".pdf";
+            //String outFilePath = "C:\\temp\\buildingRapport_" + buildingName + buildingID + ".pdf";
             // write the buffer to a file
             writeBytesToFile(outPdfBuffer, outFilePath);
             Desktop.getDesktop().open(new File(outFilePath));

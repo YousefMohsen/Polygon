@@ -13,7 +13,7 @@ public final class DB {
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://vetterlain.dk/Polygon?allowMultiQueries=true";
+    static final String DB_URL = "jdbc:mysql://2.108.207.104/Polygon?allowMultiQueries=true";
     //  Database credentials    
     static final String USER = "polygon";
     static final String PASS = "Polygon16sundbygning!";

@@ -11,3 +11,5 @@ Joacim - Arbejder på Klasse diagrammer p.t
 Janus - Arbejder på Scrum processen, JUnit tests.
 
 Asger - Arbejder med rapport documentation og SQL.
+
+Zaeem - Sporbarhedsmodel
