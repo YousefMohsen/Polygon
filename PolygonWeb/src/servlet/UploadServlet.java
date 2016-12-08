@@ -51,9 +51,7 @@ public class UploadServlet extends HttpServlet {
                 inputStream = filePart.getInputStream();
             }
 
-            String note = request.getParameter("note");
-
-            Document d = new Document(inputStream, note, buildingID);
+            Document d = new Document(inputStream, "Skriv en note her", buildingID);
 
             DomainFacade.createDocument(d);
 

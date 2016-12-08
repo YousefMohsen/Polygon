@@ -33,7 +33,7 @@ public class ShowImageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, PolygonException {
-
+        
         int builidingId = Integer.parseInt(request.getParameter("buildingID"));
         Document d = DomainFacade.getDocument(builidingId);
         

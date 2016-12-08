@@ -43,10 +43,6 @@ public class Document {
         return file;
     }
 
-    public String fileToString() {
-        return file.toString();
-    }
-
     public void setFile(InputStream file) {
         this.file = file;
     }

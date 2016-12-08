@@ -42,7 +42,7 @@ public class DocumentMapper {
                 return new Document(file, note, buildingID);
             } else {     //if building has no file or note
                 System.out.println("INTET DOKUMENT!!!");
-                return new Document("Skriv en note her", buildingID);
+                return new Document(null, "Skriv en note her", buildingID);
             }
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
