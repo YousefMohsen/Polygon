@@ -41,7 +41,6 @@ public class DocumentMapper {
                 String note = res.getString("note");
                 return new Document(file, note, buildingID);
             } else {     //if building has no file or note
-                System.out.println("INTET DOKUMENT!!!");
                 return new Document(null, "Skriv en note her", buildingID);
             }
         } catch (SQLException ex) {
@@ -74,15 +73,18 @@ public class DocumentMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
-            throw new PolygonException("Problem in updateDocuemntNote method: " + ex.getMessage());
+            throw new PolygonException("Problem in updateDocumentNote method: " + ex.getMessage());
         }
     }
 
-    public static void createDocument(Document d) throws PolygonException {
+    public static void createDocument(Document d) throws PolygonException, IOException {
         //Indsætter filen, noten og ID'et i DB   
         String sql = "INSERT INTO Document "
                 + "(file, note, Building_buildingId) "
                 + "VALUES (?, ?, ?);";
+        if (getDocument(d.getBuildingId()).getFile() != null) { //Hvis der allerede findes et billede
+            deleteDocument(d.getBuildingId()); //så skal det slettes
+        }
         try (Connection con = DB.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setBlob(1, d.getFile());
@@ -96,8 +98,24 @@ public class DocumentMapper {
             }
         } catch (SQLException ex) {
             System.out.println("Element not inserted: " + ex.getMessage());
-            throw new PolygonException("Problem in createDocuemnt method: " + ex.getMessage());
+            throw new PolygonException("Problem in createDocument method: " + ex.getMessage());
         }
+    }
 
+    public static void deleteDocument(int buildingID) throws PolygonException {
+        String sql = "DELETE FROM Document WHERE Building_buildingId = ?;";
+        try (Connection con = DB.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, buildingID);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Element deleted");
+            } else {
+                System.out.println("No change");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Element not deleted: " + ex.getMessage());
+            throw new PolygonException("Problem in deleteDocument method: " + ex.getMessage());
+        }
     }
 }

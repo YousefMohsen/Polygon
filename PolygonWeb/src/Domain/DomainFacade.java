@@ -51,7 +51,7 @@ public class DomainFacade {
         return DatabaseFacade.getUserViaId(id);
     }
 
-    public static void createDocument(Document d) throws PolygonException {
+    public static void createDocument(Document d) throws PolygonException, IOException {
         DatabaseFacade.createDocument(d);
     }
 
