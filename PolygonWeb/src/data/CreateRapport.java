@@ -11,7 +11,7 @@ import java.io.OutputStream;
 public class CreateRapport {
 
     private byte[] convertHtmlToPdf(int buildingID) throws Exception {
-        String serverIP = "127.0.0.1";
+        String serverIP = "2.108.207.104";
         int port = 40001;
 
         // create the HTML to PDF converter
@@ -54,7 +54,7 @@ public class CreateRapport {
         byte[] outPdfBuffer = null;
 
         // convert URL to PDF
-        String urlToConvert = "http://localhost:8084/PolygonWeb/FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport&pdf";
+        String urlToConvert = "http://vetterlain.dk/PolygonWeb/FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport&pdf";
 
         outPdfBuffer = htmlToPdfConverter.convertUrl(urlToConvert);
 
@@ -88,7 +88,8 @@ public class CreateRapport {
         try {
             // convert the URL to a PDF document in a buffer
             byte[] outPdfBuffer = convertHtmlToPdf(buildingID);
-            String outFilePath = "C:\\Users\\Asger\\Desktop\\Datamatiker\\Polygon\\PolygonWeb\\web\\files\\pdf\\buildingRapport_" + buildingName + buildingID + ".pdf";
+           // String outFilePath = "C:\\Users\\Asger\\Desktop\\Datamatiker\\Polygon\\PolygonWeb\\web\\files\\pdf\\buildingRapport_" + buildingName + buildingID + ".pdf";
+            String outFilePath = "C:\\temp\\buildingRapport_" + buildingName + buildingID + ".pdf";
             // write the buffer to a file
             writeBytesToFile(outPdfBuffer, outFilePath);
             Desktop.getDesktop().open(new File(outFilePath));
