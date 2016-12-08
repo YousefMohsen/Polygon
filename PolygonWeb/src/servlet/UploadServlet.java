@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet(name = "UploadServlet", urlPatterns = {"/UploadServlet"})
@@ -32,7 +33,7 @@ public class UploadServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, PolygonException {
-        try (PrintWriter out = response.getWriter()) {
+        try  {
             response.setContentType("text/html;charset=UTF-8");
 
             int buildingID = Integer.parseInt(request.getParameter("buildingID"));
@@ -56,6 +57,10 @@ public class UploadServlet extends HttpServlet {
             DomainFacade.createDocument(d);
 
             request.getRequestDispatcher("WEB-INF/seeFloorPlan.jsp").forward(request, response);
+        } catch(ServletException | IOException | NumberFormatException | PolygonException e) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMessage", e.getMessage());
+            response.sendRedirect("error.jsp");
         }
     }
 

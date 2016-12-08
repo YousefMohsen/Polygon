@@ -29,7 +29,7 @@ public class Servlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        // System.out.println("servlet");
-        try(PrintWriter out = response.getWriter()) { 
+        try { 
         System.out.println("servlet1");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
