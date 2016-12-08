@@ -56,7 +56,7 @@ public class EmailSender {
         } catch (Exception ex) {
             System.out.println("Mail fail");
             System.out.println(ex);
-            throw new PolygonException("Problem in sendEmail method: " + ex.getMessage());
+            throw new PolygonException("Problem in sendEmail method, mail failed: " + ex.getMessage());
         }
     }
 
