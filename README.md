@@ -12,4 +12,4 @@ Janus - Arbejder på Scrum processen, JUnit tests.
 
 Asger - Arbejder med rapport documentation og SQL.
 
-Zaeem - Sporbarhedsmodel, Business Case (Vision and Goal for the IT-system, Traceability model, Activity diagram and Domain Model)
+Zaeem - Business Case (Vision and Goal for the IT-system, Traceability model, Activity diagram and Domain Model)
