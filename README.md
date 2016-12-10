@@ -13,3 +13,5 @@ Janus - Arbejder på Scrum processen, JUnit tests.
 Asger - Arbejder med rapport documentation og SQL.
 
 Zaeem - Business Case (Vision and Goal for the IT-system, Traceability model, Activity diagram and Domain Model)
+
+Yousef - sprint 1 og 2, forord og indledning, kode eksempel anmodning om at slette en bygning
