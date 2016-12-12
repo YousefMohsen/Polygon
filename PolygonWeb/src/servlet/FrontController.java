@@ -37,7 +37,6 @@ public class FrontController extends HttpServlet {
             session.setAttribute("errorMessage", e.getMessage());
             response.sendRedirect("error.jsp");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

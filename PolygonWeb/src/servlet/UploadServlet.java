@@ -33,13 +33,9 @@ public class UploadServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, PolygonException {
-        try  {
-            response.setContentType("text/html;charset=UTF-8");
-
+        try  {     
             int buildingID = Integer.parseInt(request.getParameter("buildingID"));
-
             InputStream inputStream = null; // input stream of the upload file
-
             // obtains the upload file part in this multipart request
             Part filePart = request.getPart("file");
             if (filePart != null) {

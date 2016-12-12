@@ -4,7 +4,6 @@ import Domain.DomainFacade;
 import entity.Document;
 import exceptions.PolygonException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,11 +26,8 @@ public class Servlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       // System.out.println("servlet");
-        try { 
-        System.out.println("servlet1");
-        response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException {     
+        try {           
         HttpSession session = request.getSession();
         String origin = request.getParameter("switch");
         switch (origin) {

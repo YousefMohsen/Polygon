@@ -22,8 +22,7 @@ public class LinkServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
+        try {          
             String whereTOGO = request.getParameter("page");
             request.getRequestDispatcher("WEB-INF/" + whereTOGO).forward(request, response);
 
