@@ -81,7 +81,7 @@ public class BuildingMapper {
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
             throw new PolygonException("Problem in getBuildings method: " + ex.getMessage());
-        } finally {
+        }/* finally {
             try {
                 if (res != null) {
                     res.close();
@@ -100,7 +100,7 @@ public class BuildingMapper {
                 }
             } catch (Exception e) {
             };
-        }
+        }*/
     }
 
     /**

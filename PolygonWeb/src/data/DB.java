@@ -29,8 +29,8 @@ public final class DB {
         try {
             if (conn == null){ //STEP 1: Register JDBC driver            
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection(DB_URL, USER, PASS);
             }    
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
             //STEP 2: Open a connection            
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);

@@ -151,7 +151,7 @@ public class UserMapper {
         } catch (SQLException ex) {
             System.out.println("Element not gotten: " + ex.getMessage());
             throw new PolygonException("Problem in getAllLogin method: " + ex.getMessage());
-        } finally {
+        }/* finally {
             try {
                 if (res != null) {
                     res.close();
@@ -170,7 +170,7 @@ public class UserMapper {
                 }
             } catch (Exception e) {
             };
-        }
+        }*/
     }
 
     /**
