@@ -40,10 +40,10 @@ public class UserMapperTest {
      */
     @Test
     public void testGetLogin() throws PolygonException{
-        String username = "";
-        Login expResult = null;
+        String username = "Admin";
+        Login expResult = new Login(null, null, 1, 0);
         Login result = UserMapper.getLogin(username);
-        assertEquals(expResult, result);
+        assertEquals(expResult.getRank(), result.getRank());
     }
 
     /**
@@ -53,7 +53,7 @@ public class UserMapperTest {
     @Test
     public void testGetUser() throws PolygonException {
         int buildingID = 5;
-        String expResult = "Joacim";
+        String expResult = "Yousef";
         String result = UserMapper.getUser(buildingID).getFirstname();
         assertEquals(expResult, result);
     }

@@ -37,16 +37,8 @@ public class DocumentMapperTest {
      */
     @Test
     public void testGetDocument() throws PolygonException, IOException{
-        //Work in Progress
         Document result = DocumentMapper.getDocument(0);
         assertFalse(null == result);
-    }
-
-    /**
-     * Test of updateDocument method, of class DocumentMapper.
-     */
-    @Test
-    public void testUpdateDocument() throws PolygonException{
     }
 
 }

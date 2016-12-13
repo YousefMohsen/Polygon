@@ -52,7 +52,7 @@ public class BuildingMapperTest {
      */
     @Test
     public void testGetBuildings() throws PolygonException{
-        assertEquals(1,BuildingMapper.getBuildings().get(0).getId());
+        assertEquals(1,BuildingMapper.getBuildings().size());
         
         
     }

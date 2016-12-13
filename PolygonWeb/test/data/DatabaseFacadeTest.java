@@ -1,9 +1,12 @@
 package data;
 
 import Domain.DomainFacade;
+import static data.DatabaseFacade.*;
 import static data.DatabaseFacade.getBuildings;
+import static data.DatabaseFacade.getUsers;
 import entity.Address;
 import entity.Building;
+import entity.User;
 import exceptions.PolygonException;
 import java.util.List;
 import org.junit.Before;
@@ -29,7 +32,7 @@ public class DatabaseFacadeTest {
     @Test
     public void testGetBuildings() throws PolygonException{
         //Tjekker mod den rigtige size på listen og hvis vi får den samme størrelse
-        int expResultSize = 14;
+        int expResultSize = 4;
         List<Building> result = getBuildings();
         assertEquals(expResultSize, result.size());
     }
@@ -40,24 +43,32 @@ public class DatabaseFacadeTest {
     @Test
     public void testGetBuilding()throws PolygonException {
         //Her laver vi et resultat vi gerne vil have
-        Address testAddress = new Address("Klampenborgvej 1", null);
+        Address testAddress = new Address("Buildingvej2", null);
         //Så tester vi om vi får det resultat når vi beder om bygningen
-        List<Building> result = getBuildings();
-        assertEquals(result.get(2).getAddress().getAddressline(), testAddress.getAddressline());
+        Building result = getBuilding(2);
+        assertEquals(result.getAddress().getAddressline(), testAddress.getAddressline());
     }
-
     /**
-     * Test of updateBuilding method, of class DatabaseFacade.
+     * Test of GetUsers method, of class DatabaseFacade.
      */
     @Test
-    public void testUpdateBuilding() {
+    public void testGetUsers()throws PolygonException {
+    //Tjekker mod den rigtige size på listen og hvis vi får den samme størrelse
+    int expResultSize = 3;
+    List<User> result = getUsers();
+    assertEquals(expResultSize, result.size());
     }
-
+    
+    
     /**
      * Test of getUser method, of class DatabaseFacade.
      */
     @Test
-    public void testGetUser() {
+    public void testGetUser()throws PolygonException {
+        //Vi starter med at lave et test resultat
+        User testUser = new User("Joacim", null, null, null,null);
+        User result = getUser(1);
+        assertEquals(testUser.getFirstname(),result.getFirstname());
     }
 
     /**
