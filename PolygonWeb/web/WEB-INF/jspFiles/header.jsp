@@ -43,9 +43,7 @@
                         
                         <li><a href="FrontController?ID=LinkServlet&page=Request.jsp">Deletion requests</a></li>
 
-                        <li><a href="FrontController?ID=LinkServlet&page=Newsletter.jsp">Send newsletter</a></li>                         
-         
-                        <li><a href="FrontController?ID=LinkServlet&page=Request.jsp" >Deletion requests</a></li>
+                        <li><a href="FrontController?ID=LinkServlet&page=Newsletter.jsp">Send newsletter</a></li>           
 
                         <li><a href="FrontController?ID=LinkServlet&page=hiddenBuildings.jsp">Deleted buildings</a></li>
 
