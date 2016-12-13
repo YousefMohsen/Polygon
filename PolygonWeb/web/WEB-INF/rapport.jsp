@@ -95,8 +95,6 @@
                     </div>
                     <div id="upload-picture">
                         <p>(Indsæt billede af bygningen udefra)</p>
-                        <input type="file" name="pictureOfBuilding" id="pictureOfBuilding">
-                        <input type="submit" name="submitPicture" value="Upload Image">
                     </div>
                     <div id="general-building-info">
                         <h2>General information om bygningen</h2>
