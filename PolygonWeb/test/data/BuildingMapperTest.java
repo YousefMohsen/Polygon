@@ -1,5 +1,8 @@
 package data;
 
+import static data.BuildingMapper.createBuilding;
+import static data.BuildingMapper.getBuilding;
+import entity.Building.*;
 import exceptions.PolygonException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -42,7 +45,9 @@ public class BuildingMapperTest {
      * Test of createBuilding method, of class BuildingMapper.
      */
     @Test
-    public void testCreateBuilding() {
+    public void testCreateBuilding()throws PolygonException {
+        createBuilding(2800,"adressevej1",1,"bygningen");
+        assertEquals("adressevej1",BuildingMapper.getBuildings().get(BuildingMapper.getBuildings().size()).getAddress());
     }
 
     /**
@@ -56,7 +61,6 @@ public class BuildingMapperTest {
         
         
     }
-
     /**
      * Test of getBuilding method, of class BuildingMapper.
      * Metoden tjekker om den buildings id vi får tilbage er det samme som det på plads 0
@@ -67,60 +71,5 @@ public class BuildingMapperTest {
         assertEquals(1,BuildingMapper.getBuilding(0).getId());
     }
 
-    /**
-     * Test of updateBuilding method, of class BuildingMapper.
-     */
-    @Test
-    public void testUpdateBuilding() {
-    }
-
-    /**
-     * Test of loadZip method, of class BuildingMapper.
-     */
-    @Test
-    public void testLoadZip() {
-    }
-
-    /**
-     * Test of loadAddress method, of class BuildingMapper.
-     */
-    @Test
-    public void testLoadAddress() {
-    }
-
-    /**
-     * Test of findCity method, of class BuildingMapper.
-     */
-    @Test
-    public void testFindCity() {
-    }
-
-    /**
-     * Test of findZipID method, of class BuildingMapper.
-     */
-    @Test
-    public void testFindZipID() {
-    }
-
-    /**
-     * Test of insertAddress method, of class BuildingMapper.
-     */
-    @Test
-    public void testInsertAddress() {
-    }
-
-    /**
-     * Test of getDeletionBuildings method, of class BuildingMapper.
-     */
-    @Test
-    public void testGetDeletionBuildings() {
-    }
-
-    /**
-     * Test of hideBuilding method, of class BuildingMapper.
-     */
-    @Test
-    public void testHideBuilding() {
-    }
 
 }
