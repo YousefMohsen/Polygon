@@ -54,7 +54,7 @@ public class CreateRapport {
         byte[] outPdfBuffer = null;
 
         // convert URL to PDF
-        String urlToConvert = "http://vetterlain.dk/PolygonWeb/FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport&pdf";
+        String urlToConvert = "http://vetterlain.dk/FrontController?ID=LinkServlet&page=rapport.jsp&buildingID=" + buildingID + "&newRapport&pdf";
 
         outPdfBuffer = htmlToPdfConverter.convertUrl(urlToConvert);
 
